@@ -1,0 +1,102 @@
+body {
+    margin: 0;
+    font-family: 'PT Sans', sans-serif;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+}
+
+nav {
+    background-color: black;
+    text-align: center;
+    font-size: 100px;
+    font-weight: bold;
+    border-bottom-color: red;
+    border-bottom-width: 5px;
+    color: white;
+}
+
+.center-container {
+    background-color: gray;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.name-container>input {
+    text-align: center;
+    border-width: 3px;
+    border-style: solid;
+    border-color: black;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+.name-container>input:hover {
+    background-color: rgb(0, 221, 255);
+}
+
+.status {
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    width: 400px;
+    height: 400px;
+    border-color: black;
+    border-width: 5px;
+    border-style: solid;
+    gap: 5px;
+    background-color: black;
+}
+
+.board>div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 80px;
+}
+
+.square0, .square1, .square2, .square3, .square4, .square5, .square6, .square7, .square8 {
+    background-color: white;
+}
+
+.hover:hover {
+    background-color: rgb(0, 221, 255);
+    cursor: pointer;
+}
+
+button {
+    padding-left: 15px;
+    padding-right: 15px;
+    border-width: 3px;
+    border-style: solid;
+    border-color: black;
+}
+
+button:hover {
+    background-color: rgb(0, 221, 255);
+    cursor: pointer;
+}
+
+.blue-background {
+    background-color:rgb(0, 221, 255);
+}
+
+.footer {
+    text-align: center;
+    background-color: black;
+    color: white;
+}
