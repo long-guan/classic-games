@@ -21,7 +21,6 @@ class header extends HTMLElement {
                 <hr class="separator">
             </div>
         `;
-        console.log('Header component loaded');
     }
 }
 
