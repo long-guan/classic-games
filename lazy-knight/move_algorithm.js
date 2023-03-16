@@ -1,11 +1,7 @@
-import {buildTree} from '/classic-games/knight-travails/buildTree.js';
+import {buildTree} from '/classic-games/lazy-knight/buildTree.js';
 
-let tree = {
-    root: {
-    }
-};
+
 
 export function knightMoves(start, end) {
-    tree.root.value = [start];
-    buildTree(start, end, tree.root);
+    buildTree(start, end);
 };

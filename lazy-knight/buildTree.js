@@ -1,7 +1,14 @@
+let tree = {
+    root: {
+    }
+};
 
+export function buildTree(start, end) {
+    tree.root.value = [start];
+    recurBuild(start, end, tree.root);
+}
 
-export function buildTree(start, end, tree) {
-
+function recurBuild(start, end, tree) {
     nextMoves(tree, start);
 
     if (check(tree, end) === true) {
@@ -68,9 +75,12 @@ function nextMoves(tree, start) {
 // base case: if the current move coordinates equal the end move coordinates
 function check(tree, end) {
     for (let i = 1; i <= 8; i++) {
-        if (tree[i][0] == end[0] && tree[i][1] == end[1]) {
-            console.log('arrived');
-            return true;
+        console.log(tree);
+        if (tree[i] != undefined) {
+            if (tree[i][0] == end[0] && tree[i][1] == end[1]) {
+                console.log('arrived');
+                return true;
+            }
         }
     }
 }

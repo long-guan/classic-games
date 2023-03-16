@@ -1,6 +1,6 @@
-import { knightMoves } from '/classic-games/knight-travails/move_algorithm.js';
+import { knightMoves } from '/classic-games/lazy-knight/move_algorithm.js';
 
-knightMoves([0,0], [4,2]);
+knightMoves([0,0], [1,2]);
 
 document.querySelector('.start').addEventListener('click', ()=> {
     console.log('working');
