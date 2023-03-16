@@ -1,0 +1,64 @@
+.game-cont {
+    margin-top: 50px;
+    background-color: rgb(241, 241, 241);
+    height: 100%;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    gap: 25px;
+    display: flex;
+    align-items: center;
+}
+
+.game-title {
+    font-size: 30px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.control {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.btn {
+    border-style: solid;
+    width: 150px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center; /* centers text vertically */
+    background-color: white;
+    margin-bottom: 10px;
+}
+
+
+
+.board-cont {
+    border-style: solid;
+    height: 700px;
+    width: 700px;
+    display: grid;
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    grid-template-rows: repeat(8, minmax(0, 1fr));
+}
+
+.btn:hover {
+    background-color: rgb(130, 124, 124);
+    cursor: pointer;
+    color: white;
+    transform: scale(1.05);
+}
+
+.board-cont>div:hover {
+    background-color: rgb(130, 124, 124);
+    cursor: pointer;
+}
+
+.black {
+    background-color: rgb(46, 42, 42);
+}
+
+.white {
+    background-color: rgb(255, 255, 255);
+}
