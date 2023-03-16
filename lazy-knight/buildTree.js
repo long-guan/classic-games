@@ -4,7 +4,7 @@ let tree = {
 };
 
 export function buildTree(start, end) {
-    tree.root.value = [start];
+    tree.root = new Node(start);
     recurBuild(start, end, tree.root);
 }
 
@@ -12,16 +12,30 @@ function recurBuild(start, end, tree) {
     nextMoves(tree, start);
 
     if (check(tree, end) === true) {
+        console.log('true');
         return;
     } else {
+        console.log('else');
         for (let i = 1; i <= 8; i++) {
-            if (tree[i] != undefined) {
-                console.log('ran');
-                buildTree(tree[i], end, tree);
+            let nextNode = tree['next'+ i];
+            if (nextNode != null) {
+                nextMoves(nextNode, nextNode.value);
             }
         };
     }
     console.log(tree);
+}
+
+function Node(value, next1=null, next2=null, next3=null, next4=null, next5=null, next6=null, next7=null, next8=null) {
+    this.value = value;
+    this.next1 = next1;
+    this.next2 = next2;
+    this.next3 = next3;
+    this.next4 = next4;
+    this.next5 = next5;
+    this.next6 = next6;
+    this.next7 = next7;
+    this.next8 = next8;
 }
 
 // knight has 8 possible moves => calculate 8 possible moves
@@ -31,53 +45,54 @@ function nextMoves(tree, start) {
         if (i === 1) {
             let next = [start[0] - 1, start[1] - 2];
             if (outOfBounds(next) != true) {
-                tree[i] = next;
+                tree['next' + i] = new Node(next);
             }
         } else if (i === 2) {
             let next = [start[0] - 2, start[1] - 1];
             if (outOfBounds(next) != true) {
-                tree[i] = next;
+                tree['next' + i] = new Node(next);
             }
         } else if (i === 3) {
             let next = [start[0] + 1, start[1] - 2];
             if (outOfBounds(next) != true) {
-                tree[i] = next;
+                tree['next' + i] = new Node(next);
             }
         } else if (i === 4) {
             let next = [start[0] + 2, start[1] - 1];
             if (outOfBounds(next) != true) {
-                tree[i] = next;
+                tree['next' + i] = new Node(next);
             }
         } else if (i === 5) {
             let next = [start[0] - 1, start[1] + 2];
             if (outOfBounds(next) != true) {
-                tree[i] = next;
+                tree['next' + i] = new Node(next);
             }
         } else if (i === 6) {
             let next = [start[0] - 2, start[1] + 1];
             if (outOfBounds(next) != true) {
-                tree[i] = next;
+                tree['next' + i] = new Node(next);
             }
         } else if (i === 7) {
             let next = [start[0] + 1, start[1] + 2];
             if (outOfBounds(next) != true) {
-                tree[i] = next;
+                tree['next' + i] = new Node(next);
             }
         } else if (i === 8) {
             let next = [start[0] + 2, start[1] + 1];
             if (outOfBounds(next) != true) {
-                tree[i] = next;
+                tree['next' + i] = new Node(next);
             }
         }
     }
 }
 
-// base case: if the current move coordinates equal the end move coordinates
+// return true if the next set of possible move coordinates equal the end move coordinates
 function check(tree, end) {
     for (let i = 1; i <= 8; i++) {
-        console.log(tree);
-        if (tree[i] != undefined) {
-            if (tree[i][0] == end[0] && tree[i][1] == end[1]) {
+        if (tree['next'+ i] != null) {
+            let pointer = tree['next'+ i];
+            console.log(pointer.value);
+            if (pointer.value[0] == end[0] && pointer.value[1] == end[1]) {
                 console.log('arrived');
                 return true;
             }
@@ -85,6 +100,7 @@ function check(tree, end) {
     }
 }
 
+// return true if given coordinate is out of bounds
 function outOfBounds(coordinate) {
     if (coordinate[0] < 0 || coordinate[1] < 0 || coordinate[0] > 8 || coordinate[1] > 8) {
         return true;
