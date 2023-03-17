@@ -1,54 +1,54 @@
-export function counter() {
-    let _moveCount = 0;
+let _moveCount = 0;
 
-    function addCount() {
-        _moveCount++;
-        console.log(_moveCount);
-    }
+export function addCount() {
+    _moveCount++;
+    console.log(_moveCount);
+}
 
-    // alternate X and O
-    function xOrO() {
-        if (_moveCount % 2 == 0) {
-            return "X";
-        } else {
-            return "O";
-        }
+// alternate X and O
+export function xOrO() {
+    if (_moveCount % 2 == 0) {
+        return "X";
+    } else {
+        return "O";
     }
+}
 
-    // returns which player won
-    function winner() {
-        if (_moveCount % 2 == 0) {
-            return "player2Won";
-        } else {
-            return "player1Won";
-        }
+export function tie() {
+    if (_moveCount == 9) {
+        return true;
+    } else {
+        return false;
     }
+}
 
-    function turn() {
-        if (_moveCount % 2 == 0) {
-            return "player1Turn";
-        } else {
-            return "player2Turn";
-        }
+// returns which player won
+function winner() {
+    if (_moveCount % 2 == 0) {
+        return "player2Won";
+    } else {
+        return "player1Won";
     }
+}
 
-    function reset() {
-        _moveCount = 0;
+export function turn() {
+    if (_moveCount % 2 == 0) {
+        return "player1Turn";
+    } else {
+        return "player2Turn";
     }
+}
 
-    function tie() {
-        if (_moveCount == 9) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+function reset() {
+    _moveCount = 0;
+}
 
-    function zero() {
-        if (_moveCount == 0) {
-            return true;
-        } else {
-            return false;
-        }
+
+
+function zero() {
+    if (_moveCount == 0) {
+        return true;
+    } else {
+        return false;
     }
-};
+}

@@ -1,5 +1,8 @@
+import {tie} from '/classic-games/tic-tac-toe/counter.js';
+import {updateStatusTie, updateStatusTurn} from '/classic-games/tic-tac-toe/displayController.js';
+
  // checks for 3 in a row
- function _checkWin() {
+export function checkWin(board) {
     let topLeft = board.topLeft;
     let topMid = board.topMid;
     let topRight = board.topRight;
@@ -52,9 +55,9 @@
         square4.classList.add("blue-background");
         square6.classList.add("blue-background");
         removeGameOver();
-    } else if (counter.tie() == true) {
-        displayController.updateStatusTie();
+    } else if (tie() == true) {
+        updateStatusTie();
     } else {
-        displayController.updateStatusTurn();
+        updateStatusTurn();
     }
 }
