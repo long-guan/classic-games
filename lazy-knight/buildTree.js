@@ -4,22 +4,50 @@ let tree = {
 };
 
 export function buildTree(start, end) {
-    tree.root = new Node(start);
-    recurBuild(start, end, tree.root);
-}
+        tree.root = new Node(start); // level 1
+        recurBuild(start, end, tree.root);
+        console.log(tree);
+    }
 
-function recurBuild(start, end, tree) {
-    nextMoves(tree, start);
-
+// brute force method to find possible moves assuming that it takes a max of 6 moves to get from one position to another
+function recurBuild(curNode, end, tree) {
+    nextMoves(tree, curNode); // level 2
     if (check(tree, end) === true) {
-        console.log('true');
-        return;
+        return true;
     } else {
-        console.log('else');
+        // level 3, for each node in level 2, find the 8 possiblem oves
         for (let i = 1; i <= 8; i++) {
-            let nextNode = tree['next'+ i];
-            if (nextNode != null) {
-                nextMoves(nextNode, nextNode.value);
+            let level3Node = tree['next'+ i];
+            if (level3Node != null) {
+                nextMoves(level3Node, level3Node.value); // level 3
+                if (check(level3Node, end) === true) {
+                    return;
+                }
+                for (let j = 1; j <= 8; j++) {
+                    let level4Node = level3Node['next' + j];
+                    if (level4Node != null) {
+                        nextMoves(level4Node, level4Node.value); //level 4
+                        if (check(level4Node, end) === true) {
+                            return;
+                        }
+                        for (let k = 1; k <= 8; k++) {
+                            let level5Node = level4Node['next' + k];
+                            if (level5Node != null) {
+                                nextMoves(level5Node, level5Node.value); // level 5
+                                if (check(level5Node, end) === true) {
+                                    return;
+                                }
+                                for (let l = 1; l <= 8; l++) {
+                                    let level6Node = level5Node['next' + l];
+                                    if (level6Node != null) {
+                                        nextMoves(level6Node, level6Node.value); // level 6
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
             }
         };
     }
@@ -87,13 +115,14 @@ function nextMoves(tree, start) {
 }
 
 // return true if the next set of possible move coordinates equal the end move coordinates
-function check(tree, end) {
+function check(curNode, end) {
     for (let i = 1; i <= 8; i++) {
-        if (tree['next'+ i] != null) {
-            let pointer = tree['next'+ i];
-            console.log(pointer.value);
+        if (curNode['next'+ i] != null) {
+            let pointer = curNode['next'+ i];
             if (pointer.value[0] == end[0] && pointer.value[1] == end[1]) {
-                console.log('arrived');
+                console.log(curNode);
+                console.log(pointer);
+                console.log('Distination Reached');
                 return true;
             }
         }
