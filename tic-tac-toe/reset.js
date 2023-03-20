@@ -1,10 +1,15 @@
+import {getEventArray, addClickEvents, getBoard} from '/classic-games/tic-tac-toe/gameBoard.js';
+import {placeMarker, resetDisplay} from '/classic-games/tic-tac-toe/displayController.js';
+import {resetMoveCount} from '/classic-games/tic-tac-toe/counter.js';
+
 const resetBtn = document.querySelector(".reset");
 
 resetBtn.addEventListener("click", reset);
 
-   // sets key to correspond to index
-   function resetBoard() {
+// sets key to correspond to index
+function resetBoard() {
     let index = 0;
+    let board = getBoard();
     for (let [key, value] of Object.entries(board)) {
         board[key] = index;
         index++;
@@ -14,45 +19,39 @@ resetBtn.addEventListener("click", reset);
 // reset everything and readd eventListeners
 function reset() {
     resetBoard();
-    displayController.resetDisplay();
+    resetDisplay();
     removeListener();
     addListeners();
     addHover();
-    counter.reset();
+    resetMoveCount();
     resetBackground();
 }
 
 function resetBackground() {
-    for (let square of eventArray) {
+    for (let square of getEventArray()) {
         square.classList.remove("blue-background");
     }
 }
 
-// updates board after a move
-function _updateData(className) {
-    board[_returnKey(className)] = counter.xOrO();
-}
-
-
 // remove all eventListeners
-function removeListener() {
-    for (let square of eventArray) {
+export function removeListener() {
+    for (let square of getEventArray()) {
         square.removeEventListener("click", addClickEvents);
-        square.removeEventListener("click", displayController.turn);
+        square.removeEventListener("click", placeMarker);
     }
 }
 
 // add eventListeners
 function addListeners() {
-    for (let event of eventArray) {
-        event.addEventListener('click', displayController.turn, {once: true});
+    for (let event of getEventArray()) {
+        event.addEventListener('click', placeMarker, {once: true});
         event.addEventListener('click', addClickEvents, {once:true});
     };
 }
 
 // add hover if square doesn't have hover class
 function addHover() {
-    for (let event of eventArray) {
+    for (let event of getEventArray()) {
         if (event.classList.contains("hover")) {
             continue;
         } else {

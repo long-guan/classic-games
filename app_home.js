@@ -1,5 +1,5 @@
 document.querySelector('.knight').addEventListener('click', ()=> {
-    window.location = "/classic-games/knight-travails/index_kt.html";
+    window.location = "/classic-games/lazy-knight/index_kt.html";
 });
 
 document.querySelector('.ttt').addEventListener('click', ()=> {

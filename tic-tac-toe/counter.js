@@ -2,7 +2,7 @@ let _moveCount = 0;
 
 export function addCount() {
     _moveCount++;
-    console.log(_moveCount);
+    // console.log(_moveCount);
 }
 
 // alternate X and O
@@ -23,7 +23,7 @@ export function tie() {
 }
 
 // returns which player won
-function winner() {
+export function winner() {
     if (_moveCount % 2 == 0) {
         return "player2Won";
     } else {
@@ -39,7 +39,7 @@ export function turn() {
     }
 }
 
-function reset() {
+export function resetMoveCount() {
     _moveCount = 0;
 }
 

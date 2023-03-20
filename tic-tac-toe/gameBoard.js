@@ -1,4 +1,4 @@
-import {turn} from '/classic-games/tic-tac-toe/displayController.js';
+import {placeMarker} from '/classic-games/tic-tac-toe/displayController.js';
 import {xOrO, addCount} from '/classic-games/tic-tac-toe/counter.js';
 import {checkWin} from '/classic-games/tic-tac-toe/checkWin.js';
 
@@ -15,6 +15,14 @@ const square8 = document.querySelector('.square8');
 const eventArray = [
     square0, square1, square2, square3, square4, square5, square6, square7, square8
 ];
+
+export function getEventArray() {
+    return eventArray;
+}
+
+export function getBoard() {
+    return board;
+}
 
 const board = {
     topLeft: "0", topMid: "1", topRight: "2",
@@ -38,31 +46,13 @@ function returnKey(className) {
 
 export function initializeBoard() {
     for (let event of eventArray) {
-    event.addEventListener('click', turn, {once: true});
-    event.addEventListener('click', addClickEvents, {once:true});
-    };
-}
-
-// when game is won, remove all game inputs
-function removeGameOver() {
-    removeHover();
-    removeListener();
-    displayController.updateStatusWon();
-}
-
-// remove hover for all squares
-function removeHover() {
-    for (let event of eventArray) {
-        if (event.classList.contains("hover")) {
-            event.classList.remove("hover");
-        } else {
-            continue;
-        }
+        event.addEventListener('click', placeMarker, {once: true});
+        event.addEventListener('click', addClickEvents, {once:true});
     };
 }
 
 // once clicked, remove hover, update board, and check for win
-function addClickEvents() {
+export function addClickEvents() {
     this.classList.remove('hover');
     updateData(this.className[6]);
     addCount();

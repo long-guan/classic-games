@@ -1,5 +1,6 @@
-import {xOrO, tie} from '/classic-games/tic-tac-toe/counter.js';
-
+import {xOrO, tie, turn, winner} from '/classic-games/tic-tac-toe/counter.js';
+import {getEventArray} from '/classic-games/tic-tac-toe/gameBoard.js';
+import {removeListener} from '/classic-games/tic-tac-toe/reset.js';
 
 const status = document.querySelector(".status");
 const player1Input = document.querySelector(".player1");
@@ -8,12 +9,13 @@ const player2Input = document.querySelector(".player2");
 player1Input.addEventListener("input", updateStatusTurn);
 player2Input.addEventListener("input", updateStatusTurn);
 
-export function turn() {
+export function placeMarker() {
+    console.log(this);
     this.innerHTML = xOrO();
 }
 
-function resetDisplay() {
-    for (let square of gameBoard.eventArray) {
+export function resetDisplay() {
+    for (let square of getEventArray()) {
         square.innerHTML = "";
     }
     if (player1Input.value == "") {
@@ -24,7 +26,7 @@ function resetDisplay() {
 }
 
 function updateStatusWon() {
-    if (counter.winner() == "player1Won") {
+    if (winner() == "player1Won") {
         if (player1Input.value == "") {
             status.innerHTML = "Player 1 Won!";
         } else {
@@ -59,4 +61,22 @@ export function updateStatusTurn() {
 
 export function updateStatusTie() {
     status.innerHTML = "It's a Tie!";
+}
+
+// when game is won, remove all game inputs
+export function removeGameOver() {
+    removeHover();
+    removeListener();
+    updateStatusWon();
+}
+
+// remove hover for all squares
+function removeHover() {
+    for (let event of getEventArray()) {
+        if (event.classList.contains("hover")) {
+            event.classList.remove("hover");
+        } else {
+            continue;
+        }
+    };
 }
