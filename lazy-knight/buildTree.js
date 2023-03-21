@@ -7,7 +7,7 @@ export function buildTree(start, end) {
         tree.root = new Node(start); // level 1
         recurBuild(start, end, tree.root);
         console.log(tree);
-    }
+}
 
 // brute force method to find possible moves assuming that it takes a max of 6 moves to get from one position to another
 function recurBuild(curNode, end, tree) {
@@ -15,7 +15,7 @@ function recurBuild(curNode, end, tree) {
     if (check(tree, end) === true) {
         return true;
     } else {
-        // level 3, for each node in level 2, find the 8 possiblem oves
+        // level 3, for each node in level 2, find the 8 possible moves
         for (let i = 1; i <= 8; i++) {
             let level3Node = tree['next'+ i];
             if (level3Node != null) {
@@ -41,6 +41,18 @@ function recurBuild(curNode, end, tree) {
                                     let level6Node = level5Node['next' + l];
                                     if (level6Node != null) {
                                         nextMoves(level6Node, level6Node.value); // level 6
+                                        if (check(level6Node, end) === true) {
+                                            return;
+                                        }
+                                        for (let n = 1; n <= 8; n++) {
+                                            let level7Node = level6Node['next' + n];
+                                            if (level7Node != null) {
+                                                nextMoves(level7Node, level7Node.value); // level 7
+                                                if (check(level7Node, end) === true) {
+                                                    return;
+                                                }
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -49,7 +61,7 @@ function recurBuild(curNode, end, tree) {
                 }
 
             }
-        };
+        }
     }
     console.log(tree);
 }
@@ -67,7 +79,7 @@ function Node(value, next1=null, next2=null, next3=null, next4=null, next5=null,
 }
 
 // knight has 8 possible moves => calculate 8 possible moves
-// remove the moves that go off the board
+// does not calculate the moves that go off the board
 function nextMoves(tree, start) {
     for (let i = 1; i <= 8; i++) {
         if (i === 1) {

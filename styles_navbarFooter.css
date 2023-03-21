@@ -19,6 +19,10 @@ body {
     height: 90px;
 }
 
+.logo-title:hover {
+    cursor: pointer;
+}
+
 .nav-cont {
     background-color: rgb(255,255,255);
     color: rgb(51, 51, 51);

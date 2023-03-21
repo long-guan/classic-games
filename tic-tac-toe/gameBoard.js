@@ -16,6 +16,13 @@ const eventArray = [
     square0, square1, square2, square3, square4, square5, square6, square7, square8
 ];
 
+export function initializeBoard() {
+    for (let event of eventArray) {
+        event.addEventListener('click', placeMarker, {once: true});
+        event.addEventListener('click', addClickEvents, {once:true});
+    };
+}
+
 export function getEventArray() {
     return eventArray;
 }
@@ -42,13 +49,6 @@ function returnKey(className) {
             return key;
         }
     }
-}
-
-export function initializeBoard() {
-    for (let event of eventArray) {
-        event.addEventListener('click', placeMarker, {once: true});
-        event.addEventListener('click', addClickEvents, {once:true});
-    };
 }
 
 // once clicked, remove hover, update board, and check for win
