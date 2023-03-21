@@ -3,10 +3,26 @@ let tree = {
     }
 };
 
+let spotsFilled = [
+    [,,,,,,,],
+    [,,,,,,,],
+    [,,,,,,,],
+    [,,,,,,,],
+    [,,,,,,,],
+    [,,,,,,,],
+    [,,,,,,,],
+    [,,,,,,,]
+];
+
 export function buildTree(start, end) {
         tree.root = new Node(start); // level 1
         recurBuild(start, end, tree.root);
+        console.log("The built tree is")
         console.log(tree);
+}
+
+export function getTree() {
+    return tree;
 }
 
 // brute force method to find possible moves assuming that it takes a max of 6 moves to get from one position to another
@@ -132,8 +148,8 @@ function check(curNode, end) {
         if (curNode['next'+ i] != null) {
             let pointer = curNode['next'+ i];
             if (pointer.value[0] == end[0] && pointer.value[1] == end[1]) {
-                console.log(curNode);
-                console.log(pointer);
+                // console.log(curNode);
+                // console.log(pointer);
                 console.log('Distination Reached');
                 return true;
             }
