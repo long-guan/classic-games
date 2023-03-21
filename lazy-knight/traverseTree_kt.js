@@ -12,7 +12,7 @@ export function getMoves(start, end) {
 // if node is not null, add to queue
 // pop out the first node from the queue
 // check if the node value is the value being searched
-//
+// if not, insert new node and repeat
 function traverse(tree, end, queue = []) {
     // console.log(tree);
     for (let i = 1; i <= 8; i++) {

@@ -3,6 +3,7 @@ let tree = {
     }
 };
 
+// 8x8 2D array used to track which spots have been traveled
 let spotsFilled = [
     [,,,,,,,],
     [,,,,,,,],
@@ -14,11 +15,14 @@ let spotsFilled = [
     [,,,,,,,]
 ];
 
+// set the start as the root
+// build tree
 export function buildTree(start, end) {
         tree.root = new Node(start); // level 1
         recurBuild(start, end, tree.root);
         console.log("The built tree is")
         console.log(tree);
+        console.log(spotsFilled);
 }
 
 export function getTree() {
@@ -94,51 +98,80 @@ function Node(value, next1=null, next2=null, next3=null, next4=null, next5=null,
     this.next8 = next8;
 }
 
+
+
 // knight has 8 possible moves => calculate 8 possible moves
 // does not calculate the moves that go off the board
+// does not move to spots that have already been traveled
 function nextMoves(tree, start) {
     for (let i = 1; i <= 8; i++) {
         if (i === 1) {
             let next = [start[0] - 1, start[1] - 2];
             if (outOfBounds(next) != true) {
-                tree['next' + i] = new Node(next);
+                if (checkEmpty(next) === true) {
+                    tree['next' + i] = new Node(next);
+                }
             }
         } else if (i === 2) {
             let next = [start[0] - 2, start[1] - 1];
             if (outOfBounds(next) != true) {
-                tree['next' + i] = new Node(next);
+                if (checkEmpty(next) === true) {
+                    tree['next' + i] = new Node(next);
+                }
             }
         } else if (i === 3) {
             let next = [start[0] + 1, start[1] - 2];
             if (outOfBounds(next) != true) {
-                tree['next' + i] = new Node(next);
+                if (checkEmpty(next) === true) {
+                    tree['next' + i] = new Node(next);
+                }
             }
         } else if (i === 4) {
             let next = [start[0] + 2, start[1] - 1];
             if (outOfBounds(next) != true) {
-                tree['next' + i] = new Node(next);
+                if (checkEmpty(next) === true) {
+                    tree['next' + i] = new Node(next);
+                }
             }
         } else if (i === 5) {
             let next = [start[0] - 1, start[1] + 2];
             if (outOfBounds(next) != true) {
-                tree['next' + i] = new Node(next);
+                if (checkEmpty(next) === true) {
+                    tree['next' + i] = new Node(next);
+                }
             }
         } else if (i === 6) {
             let next = [start[0] - 2, start[1] + 1];
             if (outOfBounds(next) != true) {
-                tree['next' + i] = new Node(next);
+                if (checkEmpty(next) === true) {
+                    tree['next' + i] = new Node(next);
+                }
             }
         } else if (i === 7) {
             let next = [start[0] + 1, start[1] + 2];
             if (outOfBounds(next) != true) {
-                tree['next' + i] = new Node(next);
+                if (checkEmpty(next) === true) {
+                    tree['next' + i] = new Node(next);
+                }
             }
         } else if (i === 8) {
             let next = [start[0] + 2, start[1] + 1];
             if (outOfBounds(next) != true) {
-                tree['next' + i] = new Node(next);
+                if (checkEmpty(next) === true) {
+                    tree['next' + i] = new Node(next);
+                }
             }
         }
+    }
+}
+
+// use 2D array to keep track of positions that are already been traveled
+// returns true if position is empty
+function checkEmpty(next) {
+    console.log(next);
+    if (spotsFilled[next[0]][next[1]] == null) {
+        spotsFilled[next[0]][next[1]] = 'filled';
+        return true;
     }
 }
 
@@ -159,7 +192,7 @@ function check(curNode, end) {
 
 // return true if given coordinate is out of bounds
 function outOfBounds(coordinate) {
-    if (coordinate[0] < 0 || coordinate[1] < 0 || coordinate[0] > 8 || coordinate[1] > 8) {
+    if (coordinate[0] < 0 || coordinate[1] < 0 || coordinate[0] > 7 || coordinate[1] > 7) {
         return true;
     } else {
         return false;
