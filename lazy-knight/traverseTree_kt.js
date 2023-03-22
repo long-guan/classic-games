@@ -1,45 +1,87 @@
 import {getTree} from '/classic-games/lazy-knight/buildTree.js';
 
+
 export function getMoves(start, end) {
-    let moves = []; // array to save the moves required to get to end
-    let tree = getTree();
-    moves.push(start); // index 0 of moves array is the starting location
-    console.log(traverse(tree.root, end));
-    console.log(`The required moves are ${moves}`);
+    let moves = [[start]]; // array to initate the traverse, used to track previously traveled nodes. start coordinate is always the first traveled coordinate
+    let tree = getTree(); // obtains built tree
+    let nodes = traverse(tree.root, end, [], moves); // BFS search the tree
+    let requiredMoves = getCoord(nodes); // converts nodes to coordinates
+    printMoves(requiredMoves, start, end);
 }
 
+
+// takes in the requiredMoves and console.logs it for better readability
+function printMoves(moves, start, end) {
+    let first = `knightMoves([${start}],[${end}]) == `;
+    let second = '[';
+    let count = 0;
+    for (let item of moves) {
+        if (count === 0) {
+            second = second + '[' + item + ']';
+            count++;
+        } else {
+            second = second + ',[' + item + ']';
+        }
+    };
+    let third = ']';
+    console.log(first + second + third);
+}
+
+
+// Breadth first search
 // loop through the 8 next possible nodes for the current node
-// if node is not null, add to queue
-// pop out the first node from the queue
-// check if the node value is the value being searched
-// if not, insert new node and repeat
-function traverse(tree, end, queue = []) {
-    // console.log(tree);
+// if node is not null, add node to end previouseRoute
+// add nextRoute to queue
+// pop out the first route from the queue
+// check if the last node value is the value being searched
+// if not, insert last node to check for next 8 nodes
+// repeat
+// returns an array of moves for the knight to reach distination
+function traverse(tree, end, queue, previousRoute) {
     for (let i = 1; i <= 8; i++) {
-        let nextNode = tree['next' + i];
+        let nextRoute = previousRoute;
+        let nextNode = tree['next' + i]; //
         if (nextNode !== null) {
-            queue.push(nextNode);
-            // console.log(`i = ${i}`);
+            console.log('nextNode is');
+            console.log(nextNode);
+            console.log('nextRoute is');
+            console.log(nextRoute);
+            queue.push(nextRoute.concat(nextNode));
+            console.log('queue is');
+            console.log(queue);
         }
     }
-    // console.log(queue);
+    console.log(queue);
     while (queue.length !== 0) {
-        let nextNode = queue.shift();
-        // console.log(nextNode.value);
-        if (checkCurValue(nextNode, end) === true) {
-            // console.log('match');
-            return 1;
-        } else {
-            // console.log('else');
-            return 1 + traverse(nextNode, end, queue);
+        let dequeue = queue.shift(); // array of moves
+        let lastNode = dequeue[dequeue.length - 1];
+        console.log(lastNode);
+        if (checkCurValue(lastNode, end) === true) { // if the last node is the distination, return array of moves
+            return dequeue;
+        } else { // insert the last checked node to check if it has children nodes to add to queue
+            return traverse(lastNode, end, queue, dequeue);
         }
     }
 }
 
 // return true if the current move coordinates equal the end move coordinates
-function checkCurValue(curNode, end) {
-    // console.log(curNode.value);
-    if (curNode.value[0] == end[0] && curNode.value[1] == end[1]) {
+function checkCurValue(currentNode, end) {
+    // console.log(currentNode);
+    if (currentNode.value[0] == end[0] && currentNode.value[1] == end[1]) {
         return true;
     }
+}
+
+// return the value of the nodes (return the moves in coordinates instead of nodes)
+function getCoord(node) {
+    let coordinates = []
+    for (let item of node) {
+        if (item.value == undefined) {
+            coordinates.push(item);
+        } else {
+
+            coordinates.push(item.value);
+        }
+    }
+    return coordinates;
 }

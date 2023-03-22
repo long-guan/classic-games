@@ -4,7 +4,7 @@ let tree = {
 };
 
 // 8x8 2D array used to track which spots have been traveled
-let spotsFilled = [
+let spotsVisited = [
     [,,,,,,,],
     [,,,,,,,],
     [,,,,,,,],
@@ -19,10 +19,11 @@ let spotsFilled = [
 // build tree
 export function buildTree(start, end) {
         tree.root = new Node(start); // level 1
+        spotsVisited[start[0]][start[1]] = 'filled';
         recurBuild(start, end, tree.root);
         console.log("The built tree is")
         console.log(tree);
-        console.log(spotsFilled);
+        // console.log(spotsVisited);
 }
 
 export function getTree() {
@@ -168,9 +169,9 @@ function nextMoves(tree, start) {
 // use 2D array to keep track of positions that are already been traveled
 // returns true if position is empty
 function checkEmpty(next) {
-    console.log(next);
-    if (spotsFilled[next[0]][next[1]] == null) {
-        spotsFilled[next[0]][next[1]] = 'filled';
+    // console.log(next);
+    if (spotsVisited[next[0]][next[1]] == null) {
+        spotsVisited[next[0]][next[1]] = 'filled';
         return true;
     }
 }
