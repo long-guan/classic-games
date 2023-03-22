@@ -40,22 +40,22 @@ function printMoves(moves, start, end) {
 function traverse(tree, end, queue, previousRoute) {
     for (let i = 1; i <= 8; i++) {
         let nextRoute = previousRoute;
-        let nextNode = tree['next' + i]; //
+        let nextNode = tree['next' + i];
         if (nextNode !== null) {
-            console.log('nextNode is');
-            console.log(nextNode);
-            console.log('nextRoute is');
-            console.log(nextRoute);
-            queue.push(nextRoute.concat(nextNode));
-            console.log('queue is');
-            console.log(queue);
+            // console.log('nextNode is');
+            // console.log(nextNode);
+            // console.log('nextRoute is');
+            // console.log(nextRoute);
+            queue.push(nextRoute.concat(nextNode)); // nextRoute + nextNode to put into queue
+            // console.log('queue is');
+            // console.log(queue);
         }
     }
-    console.log(queue);
+    // console.log(queue);
     while (queue.length !== 0) {
-        let dequeue = queue.shift(); // array of moves
-        let lastNode = dequeue[dequeue.length - 1];
-        console.log(lastNode);
+        let dequeue = queue.shift(); // each dequeue is a set of ordered moves to reach a certain spot
+        let lastNode = dequeue[dequeue.length - 1]; // get last index of dequeue to get the last node
+        // console.log(dequeue);
         if (checkCurValue(lastNode, end) === true) { // if the last node is the distination, return array of moves
             return dequeue;
         } else { // insert the last checked node to check if it has children nodes to add to queue
@@ -74,7 +74,8 @@ function checkCurValue(currentNode, end) {
 
 // return the value of the nodes (return the moves in coordinates instead of nodes)
 function getCoord(node) {
-    let coordinates = []
+    let coordinates = [];
+    console.log(node);
     for (let item of node) {
         if (item.value == undefined) {
             coordinates.push(item);
