@@ -39,8 +39,6 @@ function recurBuild(curNode, end, tree) {
         // level 3, for each node in level 2, find the 8 possible moves
         for (let i = 1; i <= 8; i++) {
             let level2Node = tree['next'+ i]; // pointer for level 2 nodes
-            console.log('level2');
-            console.log(level2Node);
             if (level2Node != null) {
                 nextMoves(level2Node, level2Node.value); // creates level 3 nodes
                 // if (check(level3Node, end) === true) {
@@ -48,8 +46,6 @@ function recurBuild(curNode, end, tree) {
                 // }
                 for (let j = 1; j <= 8; j++) {
                     let level3Node = level2Node['next' + j]; // pointer for level 3 nodes
-                    console.log('level3');
-                    console.log(level3Node);
                     if (level3Node != null) {
                         nextMoves(level3Node, level3Node.value); // creates level 4 nodes
                         // if (check(level4Node, end) === true) {

@@ -32,6 +32,11 @@
     margin-bottom: 10px;
 }
 
+.selected {
+    background-color: rgb(130, 124, 124);
+    font-weight: bold;
+    font-size: large;
+}
 
 
 .board-cont {
@@ -61,4 +66,9 @@
 
 .white {
     background-color: rgb(255, 255, 255);
+}
+
+.knight {
+    filter: invert(58%) sepia(66%) saturate(4569%) hue-rotate(161deg) brightness(95%) contrast(101%); /* filter is used to change color of SVGs */
+
 }
