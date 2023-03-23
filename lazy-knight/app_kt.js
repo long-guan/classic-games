@@ -1,6 +1,5 @@
-import {buildTree} from '/classic-games/lazy-knight/buildTree.js';
-import {getMoves} from '/classic-games/lazy-knight/traverseTree_kt.js';
-import {selectStart, selectEnd} from '/classic-games/lazy-knight/select.js';
+import {selectStart, selectEnd} from '/classic-games/lazy-knight/selectBtn.js';
+import {begin} from '/classic-games/lazy-knight/beginBtn.js';
 
 
 // add functionality for Select Start btn
@@ -9,10 +8,6 @@ document.querySelector('.start').addEventListener('click', selectStart);
 // add functionality of Select End btn
 document.querySelector('.end').addEventListener('click', selectEnd);
 
-knightMoves([0,0], [7,7]);
+document.querySelector('.begin').addEventListener('click', begin);
 
-// builds the tree of possible moves and returns the possible moves
-function knightMoves(start, end) {
-    buildTree(start, end);
-    getMoves(start, end);
-};
+// knightMoves([0,0], [7,7]);

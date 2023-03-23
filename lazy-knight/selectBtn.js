@@ -15,6 +15,7 @@ export function selectStart() {
     btnStatus(this);
 }
 
+// updates status of endBtnStatus and updates interface for Select End btn
 export function selectEnd() {
     btnStatus(this)
 }
@@ -76,4 +77,11 @@ function createImg(src, classList) {
     img.src = src;
     img.classList.add(classList);
     return img;
+}
+
+export function removeSelectStyling() {
+    startBtnStatus = false;
+    selectStartBtn.classList.remove('selected');
+    endBtnStatus = false;
+    selectEndBtn.classList.remove('selected');
 }

@@ -1,0 +1,38 @@
+import {removeSelectStyling} from '/classic-games/lazy-knight/selectBtn.js';
+import {buildTree} from '/classic-games/lazy-knight/buildTree.js';
+import {getMoves} from '/classic-games/lazy-knight/traverseTree_kt.js';
+
+let squares = document.querySelectorAll('.board-cont>div');
+
+// remove Select Start and Select End btn styling
+// obtain coordinates via the id of the square
+// input start and end coordinates to build the tree of possible moves
+// traverse tree to find fastest route
+export function begin() {
+    removeSelectStyling();
+    let startEndCoord = returnCoordinates();
+    let startCoord = [parseInt(startEndCoord[0][0]), parseInt(startEndCoord[0][1])];
+    let endCoord = [parseInt(startEndCoord[1][0]), parseInt(startEndCoord[1][1])];
+    knightMoves(startCoord, endCoord);
+}
+
+// find coordinates of start marker and end marker via the square element id
+function returnCoordinates() {
+    let coordinates = [];
+    for (let square of squares) {
+        if (square.hasChildNodes()) {
+            if (square.firstChild.classList.contains('knight')) {
+                coordinates[0] = square.id;
+            } else if (square.firstChild.classList.contains('end-marker')) {
+                coordinates[1] = square.id;
+            }
+        }
+    }
+    return coordinates;
+}
+
+// builds the tree of possible moves and returns the possible moves
+function knightMoves(start, end) {
+    buildTree(start, end);
+    getMoves(start, end);
+};
