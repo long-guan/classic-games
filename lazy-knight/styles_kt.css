@@ -6,6 +6,7 @@
     padding-bottom: 25px;
     gap: 25px;
     display: flex;
+    justify-content: center;
     align-items: center;
 }
 
