@@ -40,8 +40,8 @@
 
 .board-cont {
     border-style: solid;
-    height: 700px;
-    width: 700px;
+    height: 400px;
+    width: 400px;
     display: grid;
     grid-template-columns: repeat(8, minmax(0, 1fr));
     grid-template-rows: repeat(8, minmax(0, 1fr));
