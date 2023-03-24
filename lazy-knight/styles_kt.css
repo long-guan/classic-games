@@ -40,8 +40,8 @@
 
 .board-cont {
     border-style: solid;
-    height: 400px;
-    width: 400px;
+    height: 600px;
+    width: 600px;
     display: grid;
     grid-template-columns: repeat(8, minmax(0, 1fr));
     grid-template-rows: repeat(8, minmax(0, 1fr));
@@ -73,6 +73,6 @@
     background-color: rgb(255, 255, 255);
 }
 
-.knight, .end-marker {
+.knight, .end-marker, .step-marker {
     filter: invert(58%) sepia(66%) saturate(4569%) hue-rotate(161deg) brightness(95%) contrast(101%); /* filter is used to change color of SVGs */
 }

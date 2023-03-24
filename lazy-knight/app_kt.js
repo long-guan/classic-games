@@ -14,5 +14,3 @@ document.querySelector('.begin').addEventListener('click', begin);
 
 // add functionality for Clear btn
 document.querySelector('.clear').addEventListener('click', clear);
-
-// knightMoves([0,0], [7,7]);

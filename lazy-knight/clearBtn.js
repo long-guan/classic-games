@@ -1,16 +1,13 @@
-
+import {removeSelectStyling} from '/classic-games/lazy-knight/selectBtn.js';
 
 let squares = document.querySelectorAll('.board-cont>div');
 
-
-// clears out every square on board
-
 export function clear() {
-    clearBoard();
+    clearBoard(); // clears every square on board
+    removeSelectStyling(); // removes styling for select btns and turns the status to false
 }
 
-
-// clears out every square on board
+// clears every square on board
 function clearBoard() {
     for (let square of squares) {
         if (square.hasChildNodes()) {

@@ -1,12 +1,15 @@
 import {getTree} from '/classic-games/lazy-knight/buildTree.js';
 
-
+// builds tree
+// traverses tree BFS to find
+// return coordinates of moves
 export function getMoves(start, end) {
-    let moves = [[start]]; // array to initate the traverse, used to track previously traveled nodes. start coordinate is always the first traveled coordinate
+    let moves = [start]; // array to initate the traverse, used to track previously traveled nodes. start coordinate is always the first traveled coordinate
     let tree = getTree(); // obtains built tree
     let nodes = traverse(tree.root, end, [], moves); // BFS search the tree
     let requiredMoves = getCoord(nodes); // converts nodes to coordinates
     printMoves(requiredMoves, start, end);
+    return requiredMoves;
 }
 
 
@@ -42,20 +45,12 @@ function traverse(tree, end, queue, previousRoute) {
         let nextRoute = previousRoute;
         let nextNode = tree['next' + i];
         if (nextNode !== null) {
-            // console.log('nextNode is');
-            // console.log(nextNode);
-            // console.log('nextRoute is');
-            // console.log(nextRoute);
-            queue.push(nextRoute.concat(nextNode)); // nextRoute + nextNode to put into queue
-            // console.log('queue is');
-            // console.log(queue);
+            queue.push(nextRoute.concat(nextNode));
         }
     }
-    // console.log(queue);
     while (queue.length !== 0) {
         let dequeue = queue.shift(); // each dequeue is a set of ordered moves to reach a certain spot
         let lastNode = dequeue[dequeue.length - 1]; // get last index of dequeue to get the last node
-        // console.log(dequeue);
         if (checkCurValue(lastNode, end) === true) { // if the last node is the distination, return array of moves
             return dequeue;
         } else { // insert the last checked node to check if it has children nodes to add to queue
@@ -66,7 +61,6 @@ function traverse(tree, end, queue, previousRoute) {
 
 // return true if the current move coordinates equal the end move coordinates
 function checkCurValue(currentNode, end) {
-    // console.log(currentNode);
     if (currentNode.value[0] == end[0] && currentNode.value[1] == end[1]) {
         return true;
     }
@@ -76,11 +70,10 @@ function checkCurValue(currentNode, end) {
 function getCoord(node) {
     let coordinates = [];
     console.log(node);
-    for (let item of node) {
+    for (let item of node) { // grabs value (coordinate) of each node
         if (item.value == undefined) {
             coordinates.push(item);
         } else {
-
             coordinates.push(item.value);
         }
     }
