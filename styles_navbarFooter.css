@@ -92,3 +92,16 @@ footer {
 .social {
     height: 30px
 }
+
+/* when screen reaches less than 1100px, make the follow disappear */
+@media screen and (max-width: 1100px) {
+    .nav-title {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .nav-link {
+        display: none;
+    }
+}
