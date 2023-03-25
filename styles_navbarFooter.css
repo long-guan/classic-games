@@ -7,7 +7,8 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 1000px;
+    height: auto;
+    /* min-height: 1000px; */
 }
 
 .logo-title {
@@ -100,8 +101,14 @@ footer {
     }
 }
 
+/* when screen reaches less than 1100px, do the following */
 @media screen and (max-width: 600px) {
+    /* display only the logo image */
     .nav-link {
         display: none;
+    }
+    /* center the logo image */
+    .nav-items {
+        justify-content: center;
     }
 }

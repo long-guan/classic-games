@@ -76,6 +76,17 @@
     gap: 25px;
 }
 
+/* when the screen size reaches 675 px, do the following */
+@media screen and (max-width: 675px) {
+    .game-cont {
+        justify-content: center;
+    }
+    /* remove the invisible element used for structure */
+    .game-cont::after {
+        display: none;
+    }
+}
+
 .game-cont::after {
     content: "";
     flex: auto;
