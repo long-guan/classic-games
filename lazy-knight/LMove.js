@@ -61,42 +61,43 @@ export function moveLUpRight() {
 // 4) remove knight at starting location and add knight at the new location
 // argument vertical moves knight 2 squares up or down
 // argument horizontal moves knight 1 square left or right
-// argument duration takes in duration of the move
-export function move2V1H(vertical, horizontal, duration) {
+// argument totalDuration is total duration from start to finish
+export function move2V1H(vertical, horizontal, totalDuration) {
+    let duration = totalDuration / 3;
     let knight = document.querySelector('.knight');
-    knight.animate(calculateTwoSpaces(vertical), duration); // move 2 spaces up or donw
+    knight.animate(calculateTwoSpaces(vertical), duration * 2); // move 2 spaces up or donw
     setTimeout(() => { // up and down movement
         let currentId = knight.parentNode.id;
         knight.parentNode.innerHTML = ''; // removes current knight
         let newId = '';
         if (vertical == 'up') {
-            newId = String(parseInt(currentId) + 20); // gets Id of 2 squares above current square
+            newId = String(parseInt(currentId) + 2); // gets Id of 2 squares above current square
+            if (newId < 10) { // squares with ID under 10 are 01, 02, 03... need to add 0
+                newId = '0' + newId;
+            }
         } else { // vertical = 'down'
-            newId = String(parseInt(currentId) - 20); // gets Id of 2 squares above current square
+            newId = String(parseInt(currentId) - 2); // gets Id of 2 squares above current square
             if (newId < 10) { // squares with ID under 10 are 01, 02, 03... need to add 0
                 newId = '0' + newId;
             }
         }
         document.getElementById(newId).appendChild(createImg('/classic-games/image/chess-knight.svg', 'knight'));
         knight = document.querySelector('.knight');
-        knight.animate(calculateOneSpace(horizontal), duration / 2);
+        knight.animate(calculateOneSpace(horizontal), duration);
         setTimeout(() => { // left or right movement
             currentId = knight.parentNode.id;
             knight.parentNode.innerHTML = ''; // removes current knight
             if (horizontal == 'left') {
-                newId = String(parseInt(currentId) - 1);
+                newId = String(parseInt(currentId) - 10);
                 if (newId < 10) { // squares with ID under 10 are 01, 02, 03... need to add 0
                     newId = '0' + newId;
                 }
             } else { // horizontal = 'right'
-                newId = String(parseInt(currentId) + 1)
-                if (newId < 10) { // squares with ID under 10 are 01, 02, 03... need to add 0
-                    newId = '0' + newId;
-                }
+                newId = String(parseInt(currentId) + 10)
             }
             document.getElementById(newId).appendChild(createImg('/classic-games/image/chess-knight.svg', 'knight'));
-        }, duration / 2)
-    }, duration);
+        }, duration)
+    }, duration * 2);
 }
 
 // algorithm for showing animation of a knight moving 2 spaces left or right and 1 space up or down
@@ -106,40 +107,45 @@ export function move2V1H(vertical, horizontal, duration) {
 // 4) remove knight at starting location and add knight at the new location
 // argument vertical moves knight 1 square up or down
 // argument horizontal moves knight 2 squares left or right
-// argument duration takes in duration of the move
-export function move2H1V(horizontal, vertical, duration) {
+// argument totalDuration is total duration from start to finish
+export function move2H1V(horizontal, vertical, totalDuration) {
     let knight = document.querySelector('.knight');
-    knight.animate(calculateTwoSpaces(horizontal), duration); // move 2 spaces up or donw
+    let duration = totalDuration / 3;
+    knight.animate(calculateTwoSpaces(horizontal), duration * 2); // move 2 spaces up or donw
     setTimeout(() => { // up and down movement
         let currentId = knight.parentNode.id;
+        console.log(currentId);
         knight.parentNode.innerHTML = ''; // removes current knight
         let newId = '';
         if (horizontal == 'left') {
-            newId = String(parseInt(currentId) - 2); // gets Id of 2 squares left of current square
+            newId = String(parseInt(currentId) - 20); // gets Id of 2 squares left of current square
             if (newId < 10) { // squares with ID under 10 are 01, 02, 03... need to add 0
                 newId = '0' + newId;
             }
         } else { // horizontal = 'right'
-            newId = String(parseInt(currentId) + 2); // gets Id of 2 squares right of current square
+            newId = String(parseInt(currentId) + 20); // gets Id of 2 squares right of current square
             if (newId < 10) { // squares with ID under 10 are 01, 02, 03... need to add 0
                 newId = '0' + newId;
             }
         }
         document.getElementById(newId).appendChild(createImg('/classic-games/image/chess-knight.svg', 'knight'));
         knight = document.querySelector('.knight');
-        knight.animate(calculateOneSpace(vertical), duration / 2);
+        knight.animate(calculateOneSpace(vertical), duration);
         setTimeout(() => { // up or down movement
             currentId = knight.parentNode.id;
             knight.parentNode.innerHTML = ''; // removes current knight
             if (vertical == 'up') {
-                newId = String(parseInt(currentId) + 10);
+                newId = String(parseInt(currentId) + 1);
+                if (newId < 10) { // squares with ID under 10 are 01, 02, 03... need to add 0
+                    newId = '0' + newId;
+                }
             } else { // vertical = 'down'
-                newId = String(parseInt(currentId) - 10)
+                newId = String(parseInt(currentId) - 1)
                 if (newId < 10) { // squares with ID under 10 are 01, 02, 03... need to add 0
                     newId = '0' + newId;
                 }
             }
             document.getElementById(newId).appendChild(createImg('/classic-games/image/chess-knight.svg', 'knight'));
-        }, duration / 2)
-    }, duration);
+        }, duration)
+    }, duration * 2);
 }
