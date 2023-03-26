@@ -72,7 +72,7 @@ function removeExMarkers() {
 }
 
 // creates image with given source and class
-function createImg(src, classList) {
+export function createImg(src, classList) {
     let img = document.createElement("img");
     img.src = src;
     img.classList.add(classList);

@@ -1,4 +1,4 @@
-let squares = document.querySelectorAll('.board-cont>div');
+import { move2V1H, move2H1V } from "/classic-games/lazy-knight/LMove.js";
 
 export function displaySteps(moves) {
     console.log(moves);
@@ -32,27 +32,9 @@ function createStepMarker(markerText) {
 // finds height of the game-cont container (board)
 // moves knight move by move to each coordinate
 function showMovement(move, stepCount) {
-
     // setTimeout(() => {
-        document.querySelector('.knight').style.position = 'relative';
-        document.querySelector('.knight').animate(moveKnight('right'), 500);
+        // document.querySelector('.knight').animate(moveTwoSpaces('up'), 500);
     // }, stepCount * 600);
-}
-
-// calculates pixels of each individual move
-// moves Knight in the given direction
-function moveKnight(direction) {
-    let height = (document.querySelector('.board-cont').offsetHeight) - 3;
-    let width = (document.querySelector('.board-cont').offsetWidth) - 3;
-    let verticalDist = height / 8; // calculates distance to go vertically to get to center of square
-    let horizontalDist = width / 8; // calculates distance to go horizontally to get to center of square
-    if (direction == "up") {
-        return [{transform: `translate(0,-${verticalDist}px)`}];
-    } else if (direction == 'bottom') {
-        return [{transform: `translate(0,${verticalDist}px)`}];
-    } else if (direction == 'left') {
-        return [{transform: `translate(-${horizontalDist}px)`}];
-    } else { // right
-        return [{transform: `translate(${horizontalDist}px)`}];
-    }
+    move2V1H('down', 'right', 500);
+    move2H1V('right', 'down', 500);
 }
