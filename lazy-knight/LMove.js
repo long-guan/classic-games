@@ -68,6 +68,7 @@ export function move2V1H(vertical, horizontal, totalDuration) {
     knight.animate(calculateTwoSpaces(vertical), duration * 2); // move 2 spaces up or donw
     setTimeout(() => { // up and down movement
         let currentId = knight.parentNode.id;
+        console.log(currentId);
         knight.parentNode.innerHTML = ''; // removes current knight
         let newId = '';
         if (vertical == 'up') {
@@ -111,7 +112,7 @@ export function move2V1H(vertical, horizontal, totalDuration) {
 export function move2H1V(horizontal, vertical, totalDuration) {
     let knight = document.querySelector('.knight');
     let duration = totalDuration / 3;
-    knight.animate(calculateTwoSpaces(horizontal), duration * 2); // move 2 spaces up or donw
+    knight.animate(calculateTwoSpaces(horizontal), duration * 2); // move 2 spaces up or down
     setTimeout(() => { // up and down movement
         let currentId = knight.parentNode.id;
         console.log(currentId);
