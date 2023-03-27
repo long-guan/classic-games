@@ -12,7 +12,6 @@ export function getMoves(start, end) {
     return requiredMoves;
 }
 
-
 // takes in the requiredMoves and console.logs it for better readability
 function printMoves(moves, start, end) {
     let first = `knightMoves([${start}],[${end}]) == `;
@@ -29,7 +28,6 @@ function printMoves(moves, start, end) {
     let third = ']';
     console.log(first + second + third);
 }
-
 
 // Breadth first search
 // loop through the 8 next possible nodes for the current node

@@ -65,8 +65,9 @@ export function moveLUpRight() {
 export function move2V1H(vertical, horizontal, totalDuration) {
     let duration = totalDuration / 3;
     let knight = document.querySelector('.knight');
-    knight.animate(calculateTwoSpaces(vertical), duration * 2); // move 2 spaces up or donw
+    knight.animate(calculateTwoSpaces(vertical), duration * 2); // move 2 spaces up or down
     setTimeout(() => { // up and down movement
+        console.log(knight.parentNode);
         let currentId = knight.parentNode.id;
         console.log(currentId);
         knight.parentNode.innerHTML = ''; // removes current knight

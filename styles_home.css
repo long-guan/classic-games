@@ -2,7 +2,6 @@
     margin-top: 50px; /* margin  needed to account for sticky navbar */
     display: flex;
     justify-content: space-between;
-    /* align-items: center; */
     flex-wrap: wrap;
     background-color: rgb(241, 241, 241);
     min-height: 850px;
@@ -12,20 +11,19 @@
     align-content: flex-start;
 }
 
+
 /* when the screen size reaches 675 px, do the following */
 @media screen and (max-width: 675px) {
     .game-cont {
         justify-content: center;
     }
-    /* remove the invisible element used for structure */
-    .game-cont::after {
-        display: none;
-    }
+
 }
 
 /* used to place an invisible container to structure/line up the last row */
 .game-cont::after {
     content: "";
+    /* flex: auto; */
     width: 225px; /* width of game */
 }
 

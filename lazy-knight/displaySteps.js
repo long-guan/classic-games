@@ -6,7 +6,7 @@ export function displaySteps(moves) {
 
     for (let move of moves) {
         showMovement(move, stepCount);
-        // addMarker(move, stepCount);
+        addMarker(move, stepCount);
         stepCount++;
     }
 }
@@ -33,9 +33,56 @@ function createStepMarker(markerText) {
 // finds height of the game-cont container (board)
 // moves knight move by move to each coordinate
 function showMovement(move, stepCount) {
-    let currentCoord = document.querySelector('.knight').parentNode.id;
-    console.log(currentCoord);
-    setTimeout(() => {
-        move2V1H('down', 'right', 1000);
-    }, stepCount * 1000);
+    if (stepCount == 0) { // first move is the starting location
+         // do nothing
+    } else {
+        setTimeout(() => {
+            console.log(move);
+            moveAlgorithm(move);
+        }, stepCount * 1050); // need extra time for the ID/knight to update compared to the totalDuration set for moving in an L
+    }
+}
+
+// algorithm for determining which direction the knight will move to get to the next move
+// takes in current location and location of next move to determine the next movement
+function moveAlgorithm(move) {
+    let currentId = document.querySelector('.knight').parentNode.id;
+    console.log(currentId);
+    console.log(parseInt(currentId) + 12);
+    let duration = 1000;
+    let currentIdX = parseInt(currentId[0]); // convert to int
+    let currentIdY = parseInt(currentId[1]); // convert to int
+    // up 2, right 1
+    if ((currentIdX + 1) == move[0] && (currentIdY + 2) == move[1]) {
+        move2V1H('up', 'right', duration);
+    }
+    // up 2, left 1
+    else if ((currentIdX - 1) == move[0] && (currentIdY + 2) == move[1]) {
+        move2V1H('up', 'left', duration);
+    }
+    // down 2, right 1
+    else if ((currentIdX + 1) == move[0] && (currentIdY - 2) == move[1]) {
+        console.log('down2right1');
+        move2V1H('down', 'right', duration);
+    }
+    // down 2, left 1
+    else if ((currentIdX - 1) == move[0] && (currentIdY - 2) == move[1]) {
+        move2V1H('down', 'left', duration);
+    }
+    // left 2, up 1
+    else if ((currentIdX - 2) == move[0] && (currentIdY + 1) == move[1]) {
+        move2H1V('left', 'up', duration);
+    }
+    // left 2, down 1
+    else if ((currentIdX - 2) == move[0] && (currentIdY - 1) == move[1]) {
+        move2H1V('left', 'down', duration);
+    }
+    // right 2, up 1
+    else if ((currentIdX + 2) == move[0] && (currentIdY + 1) == move[1]) {
+        move2H1V('right', 'up', duration);
+    }
+    // right 2, down 1
+    else if ((currentIdX + 2) == move[0] && (currentIdY - 1) == move[1]) {
+        move2H1V('right', 'down', duration);
+    }
 }
