@@ -28,6 +28,7 @@ function btnStatus(btn) {
         startBtnStatus = false;
         endBtnStatus = false;
     } else { // add styling
+        clearBoard();
         btn.classList.add('selected');
         if (btn.classList.contains('start')) {
             startBtnStatus = true;
@@ -38,6 +39,19 @@ function btnStatus(btn) {
             selectStartBtn.classList.remove('selected');
             startBtnStatus = false;
         }
+    }
+}
+
+// clears the board of everything except for the knight marker and end marker
+function clearBoard() {
+    for (let square of squares) {
+        if (square.hasChildNodes()) {
+            if (square.classList.contains('marker-background')) {
+                square.classList.remove('marker-background');
+                square.innerHTML = '';
+            };
+        }
+        square.classList.remove('marker-background'); // removes background color change
     }
 }
 
