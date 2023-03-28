@@ -13,5 +13,6 @@ function clearBoard() {
         if (square.hasChildNodes()) {
             square.innerHTML = '';
         }
+        square.classList.remove('marker-background'); // removes background color change
     }
 }

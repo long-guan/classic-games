@@ -78,6 +78,16 @@
     width: 50px;
 }
 
+.step-marker {
+    font-weight: bold;
+    font-size: 17px;
+    position: absolute;
+}
+
+.marker-background {
+    background-color: rgb(208, 217, 177);
+}
+
 .knight, .end-marker, .step-marker {
     filter: invert(58%) sepia(66%) saturate(4569%) hue-rotate(161deg) brightness(95%) contrast(101%); /* filter is used to change color of SVGs */
 }

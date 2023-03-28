@@ -30,28 +30,8 @@ function calculateOneSpace(direction) {
     } else if (direction == 'left') {
         return [{transform: `translate(-${horizontalDist}px)`}];
     } else { // right
-        return [{transform: `translate(${horizontalDist}px)`},];
+        return [{transform: `translate(${horizontalDist}px)`}];
     }
-}
-
-// move up 2 spaces and right 1 space
-export function moveLUpRight() {
-    let knight = document.querySelector('.knight');
-    knight.animate(calculateTwoSpaces('up'), 500);
-    setTimeout(() => {
-        let currentId = knight.parentNode.id;
-        knight.parentNode.innerHTML = ''; // removes current knight
-        let newId = String(parseInt(currentId) + 20); // gets Id of 2 squares above current square
-        document.getElementById(newId).appendChild(createImg('/classic-games/image/chess-knight.svg', 'knight'));
-        knight = document.querySelector('.knight');
-        knight.animate(calculateOneSpace('right'), 250);
-        setTimeout(() => {
-            currentId = knight.parentNode.id;
-            knight.parentNode.innerHTML = '';
-            newId = String(parseInt(currentId) + 1);
-            document.getElementById(newId).appendChild(createImg('/classic-games/image/chess-knight.svg', 'knight'));
-        }, 250)
-    }, 500);
 }
 
 // algorithm for showing animation of a knight moving 2 spaces up or down and 1 space left or right
@@ -66,11 +46,9 @@ export function move2V1H(vertical, horizontal, totalDuration) {
     let duration = totalDuration / 3;
     let knight = document.querySelector('.knight');
     knight.animate(calculateTwoSpaces(vertical), duration * 2); // move 2 spaces up or down
+    let currentId = knight.parentNode.id;
     setTimeout(() => { // up and down movement
-        console.log(knight.parentNode);
-        let currentId = knight.parentNode.id;
-        console.log(currentId);
-        knight.parentNode.innerHTML = ''; // removes current knight
+        knight.parentNode.removeChild(knight); // removes current knight
         let newId = '';
         if (vertical == 'up') {
             newId = String(parseInt(currentId) + 2); // gets Id of 2 squares above current square
@@ -88,7 +66,7 @@ export function move2V1H(vertical, horizontal, totalDuration) {
         knight.animate(calculateOneSpace(horizontal), duration);
         setTimeout(() => { // left or right movement
             currentId = knight.parentNode.id;
-            knight.parentNode.innerHTML = ''; // removes current knight
+            knight.parentNode.removeChild(knight); // removes current knight
             if (horizontal == 'left') {
                 newId = String(parseInt(currentId) - 10);
                 if (newId < 10) { // squares with ID under 10 are 01, 02, 03... need to add 0
@@ -114,10 +92,9 @@ export function move2H1V(horizontal, vertical, totalDuration) {
     let knight = document.querySelector('.knight');
     let duration = totalDuration / 3;
     knight.animate(calculateTwoSpaces(horizontal), duration * 2); // move 2 spaces up or down
+    let currentId = knight.parentNode.id;
     setTimeout(() => { // up and down movement
-        let currentId = knight.parentNode.id;
-        console.log(currentId);
-        knight.parentNode.innerHTML = ''; // removes current knight
+        knight.parentNode.removeChild(knight); // removes current knight
         let newId = '';
         if (horizontal == 'left') {
             newId = String(parseInt(currentId) - 20); // gets Id of 2 squares left of current square
@@ -130,12 +107,12 @@ export function move2H1V(horizontal, vertical, totalDuration) {
                 newId = '0' + newId;
             }
         }
-        document.getElementById(newId).appendChild(createImg('/classic-games/image/chess-knight.svg', 'knight'));
+        document.getElementById(newId).appendChild(createImg('/classic-games/image/chess-knight.svg', 'knight')); // add knight to new location
         knight = document.querySelector('.knight');
         knight.animate(calculateOneSpace(vertical), duration);
         setTimeout(() => { // up or down movement
             currentId = knight.parentNode.id;
-            knight.parentNode.innerHTML = ''; // removes current knight
+            knight.parentNode.removeChild(knight); // removes current knight
             if (vertical == 'up') {
                 newId = String(parseInt(currentId) + 1);
                 if (newId < 10) { // squares with ID under 10 are 01, 02, 03... need to add 0
