@@ -9,16 +9,20 @@ let squares = document.querySelectorAll('.board-cont>div');
 // obtain coordinates via the id of the square
 // input start and end coordinates to build the tree of possible moves
 // traverse tree to find fastest route
+// will only run if both start and end marker are marked and returnCoordinates is not false
 export function begin() {
     removeSelectStyling();
     let startEndCoord = returnCoordinates(); // finds start and end coordinates
-    let startCoord = [parseInt(startEndCoord[0][0]), parseInt(startEndCoord[0][1])];
-    let endCoord = [parseInt(startEndCoord[1][0]), parseInt(startEndCoord[1][1])];
-    buildTree(startCoord, endCoord); // builds tree
-    displaySteps(getMoves(startCoord, endCoord)); // getMoves returns the moves required, displaySteps displays the steps on board
+    if (startEndCoord !== false) {
+        let startCoord = [parseInt(startEndCoord[0][0]), parseInt(startEndCoord[0][1])];
+        let endCoord = [parseInt(startEndCoord[1][0]), parseInt(startEndCoord[1][1])];
+        buildTree(startCoord, endCoord); // builds tree
+        displaySteps(getMoves(startCoord, endCoord)); // getMoves returns the moves required, displaySteps displays the steps on board
+    }
 }
 
 // find coordinates of start marker and end marker via the square element id
+// returns false if there isn't a start marker or end marker
 function returnCoordinates() {
     let coordinates = [];
     for (let square of squares) {
@@ -30,5 +34,9 @@ function returnCoordinates() {
             }
         }
     }
-    return coordinates;
+    if (coordinates.length !== 2) {
+        return false;
+    } else {
+        return coordinates;
+    }
 }
