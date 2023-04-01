@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About</title>
     <script src="/classic-games/navbar-component.js"></script>
+    <script src="/classic-games/footer-component.js"></script>
+    <link rel="stylesheet" href="/classic-games/styles_navbarFooter.css">
+    <link rel="stylesheet" href="/classic-games/about-page/styles_about.css">
 </head>
 <body>
     <div class="main-cont">
@@ -13,11 +16,50 @@
         </header-component>
 
         <div class="game-cont">
-
+            <div class="lazy-knight">
+                <h1>Lazy Knight</h1>
+                <div>
+                    <h3>Description</h3>
+                    <div>App that calculates and animates the least number of moves needed for a knight to move from the chosen start location to the end location on a chess board.</div>
+                </div>
+                <div>
+                    <h3>Features</h3>
+                    <ul>
+                        <li>Tree where each node has 8 child nodes to represent the 8 possible moves that a knight can take on a board</li>
+                        <li>Breadth First Search Traversal of a tree to find the least number of moves needed to move from start location to end location</li>
+                        <li>Animation of the knight moving on the board by using vanilla JS (combination of setTimeout, transform, and updating the location of the knight on the board with each transform)</li>
+                        <li>Separation of logic and user interface</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Built With</h3>
+                    <ul>
+                        <li>HTML5</li>
+                        <li>CSS3</li>
+                        <li>Vanilla JS</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Difficulties Encountered</h3>
+                    <ul>
+                        <li>Problem: When traversing the tree to find the end location, I needed a way to save the the previous node values that were already traversed to reach the end location. Traversing the tree to find the end location was the easy part but I was struggling to find a way to save the nodes traversed to get to the end location.</li>
+                        <li>Solution: Implement a queue system that saves all the previously traversed nodes</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Future Improvements</h3>
+                    <ul>
+                        <li>Add feature to change the size of the board</li>
+                        <li>Use recursion instead of for loops to refactor the algorithm for constructing the tree</li>
+                        <li>Add a sister game that asks the player to input the least number of moves needed to move from start to end with the given start and end location</li>
+                    </ul>
+                </div>
+            </div>
         </div>
 
         <footer-component>
         </footer-component>
     </div>
+    <script src="/classic-games/navbar.js"></script>
 </body>
 </html>
