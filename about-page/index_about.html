@@ -42,8 +42,8 @@
                 <div>
                     <h3>Difficulties Encountered</h3>
                     <ul>
-                        <li>Problem: When traversing the tree to find the end location, I needed a way to save the the previous node values that were already traversed to reach the end location. Traversing the tree to find the end location was the easy part but I was struggling to find a way to save the nodes traversed to get to the end location.</li>
-                        <li>Solution: Implement a queue system that saves all the previously traversed nodes</li>
+                        <li>Problem: When traversing the tree to find the end location, I needed a way to save all the nodes that were traversed to reach the end location.</li>
+                        <li>Solution: Instead of adding only the next node into the queue for BFS, add all the previously traversed nodes with the next node as the last index in an array before adding it in the queue. Then return the entire array of nodes when the last index of the array of nodes matches the end location.</li>
                     </ul>
                 </div>
                 <div>
@@ -51,6 +51,7 @@
                     <ul>
                         <li>Add feature to change the size of the board</li>
                         <li>Use recursion instead of for loops to refactor the algorithm for constructing the tree</li>
+                        <li>Revise traverse algorithm to be more efficient by only traversing the nodes that will result in being closer to the end location. It is currently traversing all the possible moves.</li>
                         <li>Add a sister game that asks the player to input the least number of moves needed to move from start to end with the given start and end location</li>
                     </ul>
                 </div>
