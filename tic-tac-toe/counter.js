@@ -43,8 +43,6 @@ export function resetMoveCount() {
     _moveCount = 0;
 }
 
-
-
 function zero() {
     if (_moveCount == 0) {
         return true;

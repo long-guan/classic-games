@@ -24,6 +24,10 @@ body {
     cursor: pointer;
 }
 
+.game-cont {
+    margin-top: 50px; /* accounts for sticky navbar */
+}
+
 .nav-cont {
     background-color: rgb(255,255,255);
     color: rgb(51, 51, 51);

@@ -12,11 +12,8 @@ class header extends HTMLElement {
                         <div class="nav-title">Games From Long (Ago)</div>
                     </div>
                     <div class="home-btn nav-link">Home</div>
-                    <div class="nav-link">Search</div>
-                    <div class="nav-link">Games</div>
-                    <div class="nav-link">History</div>
-                    <div class="nav-link">About</div>
-                    <div class="nav-link">Log in</div>
+                    <div class="nav-link about">About</div>
+                    <div class="nav-link">Contact</div>
                 </div>
                 <hr class="separator">
             </div>
