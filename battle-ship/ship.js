@@ -1,7 +1,17 @@
-export function createShip(num1, num2) {
+// factory function to add length, hit counter, hit function to increase hit counter, and check if ship is sunken
+export function createShip(totalLength) {
     return {
-        sum() {
-            return num1 + num2;
+        length: totalLength,
+        hitCount: 0,
+        hit: function() {
+            this.hitCount++;
+        },
+        isSunk: function() {
+            if (this.hitCount === this.length) {
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 }
