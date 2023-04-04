@@ -9,12 +9,6 @@
     align-items: center;
 }
 
-@media screen and (min-height: 800px) {
-    .game-cont {
-        min-height: 800px;
-    }
-}
-
 .game-title {
     font-size: 30px;
     margin-bottom: 20px;

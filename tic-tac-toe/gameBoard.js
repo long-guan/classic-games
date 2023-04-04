@@ -17,7 +17,6 @@ const eventArray = [
 ];
 
 // adds eventListeners to add X or O on board
-// remove hover, checkWin, addCount
 export function initializeBoard() {
     for (let event of eventArray) {
         event.addEventListener('click', placeMarker, {once: true});
@@ -40,7 +39,7 @@ const board = {
     botLeft: "6", botMid: "7", botRight: "8"
 };
 
-// updates board after a move
+// updates board array after a move
 function updateData(className) {
     board[returnKey(className)] = xOrO();
 }
