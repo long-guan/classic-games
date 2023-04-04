@@ -9,15 +9,26 @@ const player2Input = document.querySelector(".player2");
 player1Input.addEventListener("input", updateStatusTurn);
 player2Input.addEventListener("input", updateStatusTurn);
 
+// places X or O at selected square
 export function placeMarker() {
-    console.log(this);
     this.innerHTML = xOrO();
 }
 
+// reset square and status
 export function resetDisplay() {
-    for (let square of getEventArray()) {
-        square.innerHTML = "";
-    }
+    resetSquareDisplay();
+    resetStatusDisplay();
+}
+
+// when game is won, remove all UI for board
+export function removeGameOver() {
+    removeHover();
+    removeListener();
+    updateStatusWon();
+}
+
+// resets the status to player 1 or inputted name
+function resetStatusDisplay() {
     if (player1Input.value == "") {
         status.innerHTML = "Player 1's Turn";
     } else {
@@ -25,6 +36,14 @@ export function resetDisplay() {
     }
 }
 
+// resets all the squares
+function resetSquareDisplay() {
+    for (let square of getEventArray()) {
+        square.innerHTML = "";
+    }
+}
+
+// displays the winning player's status
 function updateStatusWon() {
     if (winner() == "player1Won") {
         if (player1Input.value == "") {
@@ -41,8 +60,9 @@ function updateStatusWon() {
     }
 }
 
+// displays whose turn it is or displays tie status
 export function updateStatusTurn() {
-    if (tie() != true) {
+    if (tie() !== true) {
         if (turn() == "player1Turn") {
             if (player1Input.value == "") {
                 status.innerHTML = "Player 1's Turn";
@@ -56,18 +76,9 @@ export function updateStatusTurn() {
                 status.innerHTML = String(player2Input.value) + "'s Turn";
             }
         }
+    } else {
+        status.innerHTML = "It's a Tie!";
     }
-}
-
-export function updateStatusTie() {
-    status.innerHTML = "It's a Tie!";
-}
-
-// when game is won, remove all game inputs
-export function removeGameOver() {
-    removeHover();
-    removeListener();
-    updateStatusWon();
 }
 
 // remove hover for all squares
@@ -75,8 +86,6 @@ function removeHover() {
     for (let event of getEventArray()) {
         if (event.classList.contains("hover")) {
             event.classList.remove("hover");
-        } else {
-            continue;
         }
     };
 }

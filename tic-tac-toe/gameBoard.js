@@ -16,6 +16,8 @@ const eventArray = [
     square0, square1, square2, square3, square4, square5, square6, square7, square8
 ];
 
+// adds eventListeners to add X or O on board
+// remove hover, checkWin, addCount
 export function initializeBoard() {
     for (let event of eventArray) {
         event.addEventListener('click', placeMarker, {once: true});
@@ -31,6 +33,7 @@ export function getBoard() {
     return board;
 }
 
+// array used to track the 9 possible moves on the board
 const board = {
     topLeft: "0", topMid: "1", topRight: "2",
     midLeft: "3", midMid: "4", midRight: "5",
@@ -54,7 +57,7 @@ function returnKey(className) {
 // once clicked, remove hover, update board, and check for win
 export function addClickEvents() {
     this.classList.remove('hover');
-    updateData(this.className[6]);
+    updateData(this.className[6]); // updates board array
     addCount();
     checkWin(board);
 }

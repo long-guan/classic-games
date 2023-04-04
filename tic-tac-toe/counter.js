@@ -5,7 +5,7 @@ export function addCount() {
     // console.log(_moveCount);
 }
 
-// alternate X and O
+// uses odd or even counter to alternatively return X or O
 export function xOrO() {
     if (_moveCount % 2 == 0) {
         return "X";
@@ -14,6 +14,7 @@ export function xOrO() {
     }
 }
 
+// after checkWin will check all possible winning combinations and the board is full, return true
 export function tie() {
     if (_moveCount == 9) {
         return true;
@@ -22,7 +23,7 @@ export function tie() {
     }
 }
 
-// returns which player won
+// returns which player won using odd or even counter
 export function winner() {
     if (_moveCount % 2 == 0) {
         return "player2Won";
@@ -31,6 +32,7 @@ export function winner() {
     }
 }
 
+// returns which player's turn using odd or even counter
 export function turn() {
     if (_moveCount % 2 == 0) {
         return "player1Turn";
@@ -39,14 +41,7 @@ export function turn() {
     }
 }
 
+// reset odd or even counter to 0
 export function resetMoveCount() {
     _moveCount = 0;
-}
-
-function zero() {
-    if (_moveCount == 0) {
-        return true;
-    } else {
-        return false;
-    }
 }

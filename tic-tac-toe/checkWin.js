@@ -1,6 +1,5 @@
 import {tie} from '/classic-games/tic-tac-toe/counter.js';
-import {updateStatusTie, updateStatusTurn, removeGameOver} from '/classic-games/tic-tac-toe/displayController.js';
-
+import {updateStatusTurn, removeGameOver} from '/classic-games/tic-tac-toe/displayController.js';
 
 const square0 = document.querySelector('.square0');
 const square1 = document.querySelector('.square1');
@@ -12,7 +11,7 @@ const square6 = document.querySelector('.square6');
 const square7 = document.querySelector('.square7');
 const square8 = document.querySelector('.square8');
 
- // checks for 3 in a row
+ // checks for 3 in a row for all possible combinations
 export function checkWin(board) {
     let topLeft = board.topLeft;
     let topMid = board.topMid;
@@ -67,7 +66,7 @@ export function checkWin(board) {
         square6.classList.add("blue-background");
         removeGameOver();
     } else if (tie() == true) {
-        updateStatusTie();
+        updateStatusTurn();
     } else {
         updateStatusTurn();
     }

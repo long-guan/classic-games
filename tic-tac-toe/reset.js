@@ -6,16 +6,6 @@ const resetBtn = document.querySelector(".reset");
 
 resetBtn.addEventListener("click", reset);
 
-// sets key to correspond to index
-function resetBoard() {
-    let index = 0;
-    let board = getBoard();
-    for (let [key, value] of Object.entries(board)) {
-        board[key] = index;
-        index++;
-    }
-}
-
 // reset everything and readd eventListeners
 function reset() {
     resetBoard();
@@ -27,13 +17,24 @@ function reset() {
     resetBackground();
 }
 
+// resets board array to correspond to index (0, 1, 2, ...)
+function resetBoard() {
+    let index = 0;
+    let board = getBoard(); // obtains board array
+    for (let key of Object.keys(board)) {
+        board[key] = index;
+        index++;
+    }
+}
+
+// removes blue background for winning squares
 function resetBackground() {
     for (let square of getEventArray()) {
         square.classList.remove("blue-background");
     }
 }
 
-// remove all eventListeners
+// remove all eventListeners for adding marker and click events
 export function removeListener() {
     for (let square of getEventArray()) {
         square.removeEventListener("click", addClickEvents);
@@ -41,7 +42,7 @@ export function removeListener() {
     }
 }
 
-// add eventListeners
+// add eventListeners for adding marker and click events
 function addListeners() {
     for (let event of getEventArray()) {
         event.addEventListener('click', placeMarker, {once: true});
@@ -52,9 +53,7 @@ function addListeners() {
 // add hover if square doesn't have hover class
 function addHover() {
     for (let event of getEventArray()) {
-        if (event.classList.contains("hover")) {
-            continue;
-        } else {
+        if (event.classList.contains("hover") == false) {
             event.classList.add("hover");
         }
     };

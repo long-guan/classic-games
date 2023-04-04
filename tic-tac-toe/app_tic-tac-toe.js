@@ -1,6 +1,6 @@
 import { initializeBoard } from "/classic-games/tic-tac-toe/gameBoard.js";
 
-//
+// adds eventListeners to squares
 initializeBoard();
 
 
