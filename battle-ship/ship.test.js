@@ -22,3 +22,8 @@ test('adds isSunk() function to check if ship is sunken', () => {
     newShip.hit();
     expect(newShip.isSunk()).toBe(true);
 });
+
+test('adds name to ship object', () => {
+    let newShip = createShip(5, 'carrier');
+    expect(newShip.name).toBe('carrier');
+});

@@ -6,6 +6,7 @@ let computerModeStatus = false;
 
 // changes appearance of the mode buttons and updates the status only when a different mode is clicked
 // clicking the same mode that is already selected will do nothing
+// turns off the other mode when new mode is selected
 export function updateModeStatus() {
     if (this.classList.contains('selected') == false && playerModeStatus == false && this.classList.contains('player')) {
         this.classList.add('selected');

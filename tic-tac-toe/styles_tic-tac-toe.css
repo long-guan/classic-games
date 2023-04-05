@@ -102,7 +102,6 @@ button:hover {
     display: flex;
     flex-direction: column;
     align-items: center;
-    border-style: solid;
     padding-left: 10px;
     padding-right: 10px;
     padding-bottom: 5px;
