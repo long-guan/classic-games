@@ -86,6 +86,12 @@ button {
 button:hover {
     background-color: rgb(0, 221, 255);
     cursor: pointer;
+    scale: 1.07;
+}
+
+.selected {
+    scale: 1.07;
+    background-color: rgb(0, 221, 255);
 }
 
 .blue-background {
@@ -97,6 +103,17 @@ button:hover {
     flex-direction: column;
     align-items: center;
     border-style: solid;
-    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 5px;
+    padding-top: 5px;
     margin-bottom: 10px;
+}
+
+.player {
+    margin-right: 10px;
+}
+
+.player, .computer {
+    width: 160px;
 }

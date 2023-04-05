@@ -1,9 +1,12 @@
 import { initializeBoard } from "/classic-games/tic-tac-toe/gameBoard.js";
+import {updateModeStatus} from '/classic-games/tic-tac-toe/mode.js';
 
 // adds eventListeners to squares
 initializeBoard();
 
-
+// adds eventListener for changing modes
+document.querySelector('.player').addEventListener('click', updateModeStatus);
+document.querySelector('.computer').addEventListener('click', updateModeStatus);
 
 
 
