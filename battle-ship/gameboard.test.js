@@ -92,3 +92,11 @@ test('returns 16 total hits left to sink all the ships after being hit once', ()
     newGameboard.receiveAttack([0,0]);
     expect(newGameboard.shipLeft).toBe(16);
 });
+
+test('coordinatesHit tracks 1 coordinate hit and returns it', () => {
+    let newGameboard = gameboard();
+    newGameboard.createGameboard(10);
+    newGameboard.receiveAttack([1,2]);
+    expect(newGameboard.coordinatesHit[0][0]).toBe(1);
+    expect(newGameboard.coordinatesHit[0][1]).toBe(2);
+});

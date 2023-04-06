@@ -2,6 +2,7 @@ export function gameboard() {
     return {
         position: [],
         shipLeft: 17,
+        coordinatesHit: [], // tracks the hits on board
         createGameboard: function(size) {
             for (let i = 0; i <= size - 1; i++) {
                 this.position[i] = [];
@@ -35,12 +36,13 @@ export function gameboard() {
         // records 'hit' in board array if coordinate is object (not null)
         // subtracts 1 to shipLeft when hit
         receiveAttack: function(coordinate) {
+            this.coordinatesHit.push(coordinate);
             let xCoord = coordinate[1];
             let yCoord = coordinate[0];
             if (this.position[yCoord][xCoord] == null) {
                 this.position[yCoord][xCoord] = 'missed';
             } else {
-                this.position[yCoord][xCoord].hit();
+                this.position[yCoord][xCoord].hit(); // increases hitCount for ship object
                 this.position[yCoord][xCoord] = 'hit';
                 this.shipLeft--;
             }
