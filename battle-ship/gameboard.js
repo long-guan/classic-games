@@ -21,7 +21,6 @@ export function gameboard() {
                         this.position[yCoord][xCoord] = shipObject;
                         yCoord += 1;
                     }
-                    console.log(this.position);
                 } else { // axis == 'horizontal'
                     for (let i = 0; i < shipObject.length; i++) {
                         this.position[yCoord][xCoord] = shipObject;

@@ -1,15 +1,14 @@
-export function computerMove() {
+export function returnRandMove() {
     return [Math.floor(Math.random() * 10), Math.floor(Math.random() * 10)];
 }
 
-export function checkLegal(coordinatesHit) {
-    let randomCoord = computerMove();
+// iterates through coordinatesHit array to check if the coordinates have already been hit
+export function returnLegalMove(coordinatesHit) {
+    let randomCoord = returnRandMove();
     for (let coordinate of coordinatesHit) {
-        console.log(coordinate);
-        console.log(randomCoord);
         if (coordinate[0] == randomCoord[0] && coordinate[1] == randomCoord[1]) {
-            return checkLegal(coordinatesHit);
+            return returnLegalMove(coordinatesHit);
         }
     }
-    return computerMove();
+    return randomCoord;
 }
