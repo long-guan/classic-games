@@ -28,12 +28,6 @@ body {
     margin-top: 50px; /* accounts for sticky navbar */
 }
 
-@media screen and (min-height: 800px) {
-    .game-cont {
-        min-height: 800px;
-    }
-}
-
 .nav-cont {
     background-color: rgb(255,255,255);
     color: rgb(51, 51, 51);
@@ -103,6 +97,15 @@ footer {
 .social {
     height: 30px
 }
+
+/* when screen reaches more than 800px height */
+@media screen and (min-height: 800px) {
+    .game-cont {
+        min-height: 800px;
+    }
+}
+
+
 
 /* when screen reaches less than 1100px, make the follow disappear */
 @media screen and (max-width: 1125px) {

@@ -1,0 +1,38 @@
+.game-cont {
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(241, 241, 241);
+}
+
+.board-cont {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+}
+
+.board-cont>div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.board-style {
+    display: grid;
+    grid-template-columns: repeat(10, minmax(0, 1fr));
+    grid-template-rows: repeat(10, minmax(0, 1fr));
+    height: 450px;
+    width: 450px;
+}
+
+.square {
+    border-style: solid;
+    margin: 1px;
+}
+
+.board-style>div:hover {
+    background-color: rgb(255, 0, 0);
+    cursor: pointer;
+}
