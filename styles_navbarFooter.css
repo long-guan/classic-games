@@ -65,6 +65,13 @@ body {
     font-family: monospace;
 }
 
+.playerName {
+    margin-top: 5px;
+    padding: 15px;
+    text-align: center;
+    font-size: 15px;
+}
+
 .separator {
     margin-top: 0;
     margin-bottom: 0;
@@ -104,8 +111,6 @@ footer {
         min-height: 800px;
     }
 }
-
-
 
 /* when screen reaches less than 1100px, make the follow disappear */
 @media screen and (max-width: 1125px) {

@@ -1,6 +1,8 @@
 export function createBoard(contName, titleName) {
     createSubBoardCont(contName);
-    createTitle(contName, titleName);
+    if (titleName !== undefined) {
+        createTitle(contName, titleName);
+    }
     createSquareCont(contName);
     createSquares(contName)
 }
@@ -11,6 +13,14 @@ function createSubBoardCont(contName) {
     let subBoardCont = document.createElement('div');
     subBoardCont.classList.add(`${contName}`);
     boardCont.appendChild(subBoardCont);
+}
+
+// create title of board and adds it to sub-container
+function createTitle(contName, titleName) {
+    let newTitle = document.createElement('h3');
+    newTitle.innerHTML = `${titleName}`;
+    let subBoardCont = document.querySelector('.' + contName);
+    subBoardCont.appendChild(newTitle);
 }
 
 // creates square board container and adds it to the sub-container
@@ -31,11 +41,4 @@ function createSquares(contName) {
         div.classList.add('square');
         subBordCont.appendChild(div);
     }
-}
-
-function createTitle(contName, titleName) {
-    let newTitle = document.createElement('h3');
-    newTitle.innerHTML = `${titleName}`;
-    let subBoardCont = document.querySelector('.' + contName);
-    subBoardCont.appendChild(newTitle);
 }

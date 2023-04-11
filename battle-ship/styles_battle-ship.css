@@ -1,15 +1,25 @@
 .game-cont {
-    height: 600px;
+    min-height: 600px;
+    background-color: rgb(241, 241, 241);
+    text-align: center;
+    padding-bottom: 21px;
+}
+
+.game-sub-cont {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: rgb(241, 241, 241);
+}
+
+.status {
+    font-weight: bold;
+    font-size: 20px;
 }
 
 .board-cont {
     display: flex;
-    gap: 40px;
+    gap: 10px;
     align-items: center;
 }
 
@@ -34,5 +44,14 @@
 
 .board-style>div:hover {
     background-color: rgb(255, 0, 0);
+    cursor: pointer;
+}
+
+button {
+    padding: 20px;
+    font-size: 15px;
+}
+
+button:hover {
     cursor: pointer;
 }
