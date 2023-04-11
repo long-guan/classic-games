@@ -36,9 +36,13 @@ function createSquareCont(contName) {
 function createSquares(contName) {
     let subBordCont = document.querySelector('.' + contName + '-square');
     for (let i = 0; i < 100; i++) {
+        if (i <= 9) { // to get 2 digits for when y = 0 (00, 01, 02, 03...)
+            i = '0' + i;
+        }
         let div = document.createElement('div');
         div.setAttribute('id', `${i}`);
         div.classList.add('square');
+        div.classList.add('hover');
         subBordCont.appendChild(div);
     }
 }

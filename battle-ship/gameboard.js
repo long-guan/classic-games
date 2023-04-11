@@ -1,3 +1,5 @@
+export const player1Board = gameboard();
+
 export function gameboard() {
     return {
         position: [],
@@ -12,22 +14,26 @@ export function gameboard() {
             }
         },
         // places ship object in board array with given starting coordinate and orientation
-        placeShip: function(startingCoord, shipObject, axis) {
+        placeShip: function(startingCoord, shipObject, yAxis) {
             let xCoord = startingCoord[1];
             let yCoord = startingCoord[0];
-            if (checkValidPlacement(xCoord, yCoord, shipObject, axis)) {
-                if (axis == 'vertical') {
+            console.log(xCoord);
+            console.log(yCoord);
+            console.log(shipObject);
+            if (checkValidPlacement(xCoord, yCoord, shipObject, yAxis)) {
+                if (yAxis == true) { // for placing ships along y-axis
                     for (let i = 0; i < shipObject.length; i++) {
                         this.position[yCoord][xCoord] = shipObject;
-                        yCoord += 1;
+                        yCoord = parseInt(yCoord) + 1;
                     }
-                } else { // axis == 'horizontal'
+                } else { // yAxis == false for placing ships along x-axis
                     for (let i = 0; i < shipObject.length; i++) {
                         this.position[yCoord][xCoord] = shipObject;
                         xCoord += 1;
                     }
                 }
             } else {
+                console.log('ship was not placed');
                 return false;
             }
         },
@@ -50,15 +56,16 @@ export function gameboard() {
 };
 
 // return true if the placement of the ship does not go off the board
-function checkValidPlacement(xCoord, yCoord, shipObject, axis) {
-    if (axis == 'vertical') {
-        if (yCoord + shipObject.length > 9) {
+function checkValidPlacement(xCoord, yCoord, shipObject, yAxis) {
+    console.log(shipObject.length);
+    if (yAxis == true) {
+        if (parseInt(yCoord) + shipObject.length > 9) {
             return false;
         } else {
             return true;
         }
-    } else {
-        if (xCoord + shipObject.length > 9) {
+    } else { // yAxis == false
+        if (parseInt(xCoord) + shipObject.length > 9) {
             return false;
         } else {
             return true;

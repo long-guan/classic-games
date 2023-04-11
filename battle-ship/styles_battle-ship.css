@@ -42,8 +42,8 @@
     margin: 1px;
 }
 
-.board-style>div:hover {
-    background-color: rgb(255, 0, 0);
+.hover:hover {
+    background-color: gray;
     cursor: pointer;
 }
 

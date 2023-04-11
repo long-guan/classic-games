@@ -1,6 +1,8 @@
 import {createBoard} from '/classic-games/battle-ship/createBoard.js';
 import { removeBoardContEle } from '/classic-games/battle-ship/start-menu-select.js';
 import { placeHover } from '/classic-games/battle-ship/place-hover.js';
+import { player1Board } from '/classic-games/battle-ship/gameboard.js';
+import { createShip } from '/classic-games/battle-ship/ship.js';
 
 let status = document.querySelector('.status');
 let boardCont = document.querySelector('.board-cont')
@@ -36,31 +38,45 @@ function addAxisBtnFunc() {
     }
 }
 
-// select all the squares and add listeners to place ship and to add place-hover effect
+// select all the squares to add listeners to place ship and to add place-hover effect
 function addSquareFunc() {
     let coordinates = document.querySelectorAll('.square');
     for (let square of coordinates) {
-        square.addEventListener('click', () => {
-            placeAllShips();
-            console.log(square.id);
+        square.addEventListener('click', () => { // places the ship
+            placeAllShips(square);
         })
         square.addEventListener('mouseover', () => { // add place-hover effect
             placeHover(shipCount, square, yAxisMode);
         });
-        square.addEventListener('mouseleave', () => {
-
-        });
     }
 }
 
-function placeAllShips() {
-    if (shipCount == 5) {
-        count--;
-    } else if (shipCount == 4) {
-        count--;
-    } else if (shipCount == 3) {
-        count--;
-    } else if (shipCount == 2) {
-
+function placeAllShips(square) {
+    if (shipCount == 5) { // place Carrier (5)
+        let carrier = createShip(5, 'Carrier');
+        player1Board.createGameboard(10); // create gameboard size
+        player1Board.placeShip(square.id, carrier, yAxisMode);
+        console.log(player1Board.position);
+        shipCount--;
+    } else if (shipCount == 4) { // place Battleship (4)
+        let battleship = createShip(4, 'Battleship');
+        player1Board.placeShip(square.id, battleship, yAxisMode);
+        console.log(player1Board.position);
+        shipCount--;
+    } else if (shipCount == 3) { // place Cruiser (3)
+        let cruiser = createShip(3, 'Cruiser');
+        player1Board.placeShip(square.id, cruiser, yAxisMode);
+        console.log(player1Board.position);
+        shipCount--;
+    } else if (shipCount == 2) { // place Submarine (3)
+        let submarine = createShip(3, 'Submarine');
+        player1Board.placeShip(square.id, submarine, yAxisMode);
+        console.log(player1Board.position);
+        shipCount--;
+    } else if (shipCount == 1) { // place Destroyer (2)
+        let destroyer = createShip(2, 'Destroyer');
+        player1Board.placeShip(square.id, destroyer, yAxisMode);
+        console.log(player1Board.position);
+        shipCount--;
     }
 }
