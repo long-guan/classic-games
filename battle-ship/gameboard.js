@@ -57,15 +57,14 @@ export function gameboard() {
 
 // return true if the placement of the ship does not go off the board
 function checkValidPlacement(xCoord, yCoord, shipObject, yAxis) {
-    console.log(shipObject.length);
     if (yAxis == true) {
-        if (parseInt(yCoord) + shipObject.length > 9) {
+        if (parseInt(yCoord) + (shipObject.length - 1) > 9) { // shipObject.length - 1 because hover square is length 1
             return false;
         } else {
             return true;
         }
     } else { // yAxis == false
-        if (parseInt(xCoord) + shipObject.length > 9) {
+        if (parseInt(xCoord) + (shipObject.length - 1) > 9) { // shipObject.length - 1 because hover square is length 1
             return false;
         } else {
             return true;

@@ -8,7 +8,7 @@ let status = document.querySelector('.status');
 let boardCont = document.querySelector('.board-cont')
 let player1Name = '';
 let yAxisMode = true;
-let shipCount = 5;
+let shipCount = 5; // used to track which ship to place and how many squares of place-hover effect
 
 export function placeShip() {
     player1Name = document.querySelector('.playerName').value;
@@ -51,6 +51,9 @@ function addSquareFunc() {
     }
 }
 
+// places ship for player1
+// uses ship count to track which ship has been placed
+// updates player1Board for the placed ships
 function placeAllShips(square) {
     if (shipCount == 5) { // place Carrier (5)
         let carrier = createShip(5, 'Carrier');
