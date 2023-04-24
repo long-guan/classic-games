@@ -17,9 +17,6 @@ export function gameboard() {
         placeShip: function(startingCoord, shipObject, yAxis) {
             let xCoord = startingCoord[1];
             let yCoord = startingCoord[0];
-            // console.log(xCoord);
-            // console.log(yCoord);
-            // console.log(shipObject);
             if (checkValidPlacement(xCoord, yCoord, shipObject, yAxis)) {
                 if (yAxis == true) { // for placing ships along y-axis
                     for (let i = 0; i < shipObject.length; i++) {
@@ -29,7 +26,7 @@ export function gameboard() {
                 } else { // yAxis == false for placing ships along x-axis
                     for (let i = 0; i < shipObject.length; i++) {
                         this.position[yCoord][xCoord] = shipObject;
-                        xCoord += 1;
+                        xCoord = parseInt(xCoord) + 1;
                     }
                 }
             } else {

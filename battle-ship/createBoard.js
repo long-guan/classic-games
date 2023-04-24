@@ -1,6 +1,6 @@
 export function createBoard(contName, titleName) {
     createSubBoardCont(contName);
-    if (titleName !== undefined) {
+    if (titleName !== undefined) { // if no titleName, don't include title
         createTitle(contName, titleName);
     }
     createSquareCont(contName);

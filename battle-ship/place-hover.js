@@ -1,8 +1,10 @@
 import {checkValidHover, showInvalidHover} from '/classic-games/battle-ship/invalid-place-hover.js';
+import {yAxisMode, shipCount} from '/classic-games/battle-ship/place-ship.js';
 
-export function placeHover(shipCount, square, yAxis) {
-    let hoverSquareId = square.id;
-    if (yAxis == true) {
+// shows place-hover effect
+export function placeHover() {
+    let hoverSquareId = this.id;
+    if (yAxisMode == true) {
         if (shipCount == 5) {
             yAddHoverEffect(hoverSquareId, shipCount);
         } else if (shipCount == 4) {
@@ -37,7 +39,8 @@ function yAddHoverEffect(hoverSquareId, shipCount) {
         for (let i = 1; i <= shipCount - 1; i++) {
             let newId = parseInt(hoverSquareId) + (i * 10);
             document.getElementById('' + newId).style.backgroundColor = 'gray';
-            yRemoveHover(hoverSquareId, shipCount); // remove hover when leaving square
+            // yRemoveHover(hoverSquareId, shipCount); // remove hover when leaving square
+            document.getElementById('' + hoverSquareId).addEventListener('mouseleave', yRemoveHover); // removes hover when mouse leaves the square
         }
     } else { // updates UI to show invalid placement: makes hover square red with not allowed cursor
         showInvalidHover(hoverSquareId);
@@ -45,13 +48,11 @@ function yAddHoverEffect(hoverSquareId, shipCount) {
 }
 
 // add listener to remove place-hover effect when the mouse moves out of the square
-function yRemoveHover(hoverSquareId, shipCount) {
-    document.getElementById('' + hoverSquareId).addEventListener('mouseleave', () => {
-        for (let i = 1; i <= shipCount - 1; i++) {
-            let newId = parseInt(hoverSquareId) + (i * 10);
-            document.getElementById('' + newId).style.backgroundColor = '';
-        }
-    });
+export function yRemoveHover() {
+    for (let i = 1; i <= shipCount - 1; i++) {
+        let newId = parseInt(this.id) + (i * 10);
+        document.getElementById('' + newId).style.backgroundColor = '';
+    }
 }
 
 // for x-axis
@@ -65,7 +66,7 @@ function xAddHoverEffect(hoverSquareId, shipCount) {
                 newId = '0' + newId;
             }
             document.getElementById('' + newId).style.backgroundColor = 'gray';
-            xRemoveHover(hoverSquareId, shipCount); // remove hover when leaving square
+            document.getElementById('' + hoverSquareId).addEventListener('mouseleave', xRemoveHover);
         }
     } else { // updates UI to show invalid placement: makes hover square red with not allowed cursor
         showInvalidHover(hoverSquareId);
@@ -73,14 +74,12 @@ function xAddHoverEffect(hoverSquareId, shipCount) {
 }
 
 // add listener to remove place-hover effect when the mouse moves out of the square
-function xRemoveHover(hoverSquareId, shipCount) {
-    document.getElementById('' + hoverSquareId).addEventListener('mouseleave', () => {
-        for (let i = 1; i <= shipCount - 1; i++) {
-            let newId = parseInt(hoverSquareId) + (i * 1);
-            if (newId <= 9) { // for when y = 0 (00, 01, 02, 03, 04...)
-                newId = '0' + newId;
-            }
-            document.getElementById('' + newId).style.backgroundColor = '';
+export function xRemoveHover() {
+    for (let i = 1; i <= shipCount - 1; i++) {
+        let newId = parseInt(this.id) + (i * 1);
+        if (newId <= 9) { // for when y = 0 (00, 01, 02, 03, 04...)
+            newId = '0' + newId;
         }
-    });
+        document.getElementById('' + newId).style.backgroundColor = '';
+    }
 }
