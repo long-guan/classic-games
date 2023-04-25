@@ -55,7 +55,6 @@ function addSquareFunc() {
 export function placeAllShips() {
     if (shipCount == 5) { // place Carrier (5)
         let carrier = createShip(5, 'Carrier');
-        player1Board.createGameboard(10); // create gameboard size
         player1Board.placeShip(this.id, carrier, yAxisMode);
         displayShipPlacement(player1Board);
         shipCount--;

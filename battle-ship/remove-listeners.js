@@ -6,7 +6,6 @@ import {placeHover, xRemoveHover, yRemoveHover} from '/classic-games/battle-ship
 // removes hover class from square
 export function removeListeners(i, j) {
     let square = document.getElementById('' + i + '' + j);
-    console.log(square);
     square.removeEventListener('click', placeAllShips);
     square.removeEventListener('mouseover', placeHover);
     square.removeEventListener('mouseleave', xRemoveHover);

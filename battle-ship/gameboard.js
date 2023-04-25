@@ -1,4 +1,5 @@
 export const player1Board = gameboard();
+player1Board.createGameboard(10); // create gameboard size
 
 export function gameboard() {
     return {

@@ -1,4 +1,4 @@
-import {checkValidHover, showInvalidHover} from '/classic-games/battle-ship/invalid-place-hover.js';
+import {checkOutOfBoundHover, showInvalidHover, checkAgainstBoardHover} from '/classic-games/battle-ship/invalid-place-hover.js';
 import {yAxisMode, shipCount} from '/classic-games/battle-ship/place-ship.js';
 
 // shows place-hover effect
@@ -35,12 +35,16 @@ export function placeHover() {
 // adds the place-hover effect for the ships for when mouse hovers over square
 // removes the place-hover effect once the mouse leaves the hoverSquareId
 function yAddHoverEffect(hoverSquareId, shipCount) {
-    if (checkValidHover(hoverSquareId[0], shipCount)) { // checks if length will fit on board
-        for (let i = 1; i <= shipCount - 1; i++) {
-            let newId = parseInt(hoverSquareId) + (i * 10);
-            document.getElementById('' + newId).style.backgroundColor = 'gray';
-            // yRemoveHover(hoverSquareId, shipCount); // remove hover when leaving square
-            document.getElementById('' + hoverSquareId).addEventListener('mouseleave', yRemoveHover); // removes hover when mouse leaves the square
+    if (checkOutOfBoundHover(hoverSquareId[0], shipCount)) { // checks if length will fit on board
+        if (checkAgainstBoardHover(hoverSquareId, shipCount, yAxisMode)) { // check if any of the squares are already taken by placed ships
+            for (let i = 1; i <= shipCount - 1; i++) {
+                let newId = parseInt(hoverSquareId) + (i * 10);
+                document.getElementById('' + newId).style.backgroundColor = 'gray';
+                // yRemoveHover(hoverSquareId, shipCount); // remove hover when leaving square
+                document.getElementById('' + hoverSquareId).addEventListener('mouseleave', yRemoveHover, {once: true}); // removes hover when mouse leaves the square
+            }
+        } else {
+            showInvalidHover(hoverSquareId);
         }
     } else { // updates UI to show invalid placement: makes hover square red with not allowed cursor
         showInvalidHover(hoverSquareId);
@@ -59,14 +63,18 @@ export function yRemoveHover() {
 // adds the place-hover effect for the ships for when mouse hovers over square
 // removes the place-hover effect once the mouse leaves the hoverSquareId
 function xAddHoverEffect(hoverSquareId, shipCount) {
-    if (checkValidHover(hoverSquareId[1], shipCount)) { // check if length will fit
-        for (let i = 1; i <= shipCount - 1; i++) {
-            let newId = parseInt(hoverSquareId) + (i * 1);
-            if (newId <= 9) { // for when y = 0 (00, 01, 02, 03, 04...)
-                newId = '0' + newId;
+    if (checkOutOfBoundHover(hoverSquareId[1], shipCount)) { // check if ship is not out of bounds
+        if (checkAgainstBoardHover(hoverSquareId, shipCount, yAxisMode)) { // check if any of the squares are already taken by placed ships
+            for (let i = 1; i <= shipCount - 1; i++) {
+                let newId = parseInt(hoverSquareId) + (i * 1);
+                if (newId <= 9) { // for when y = 0 (00, 01, 02, 03, 04...)
+                    newId = '0' + newId;
+                }
+                document.getElementById('' + newId).style.backgroundColor = 'gray';
+                document.getElementById('' + hoverSquareId).addEventListener('mouseleave', xRemoveHover, {once: true}); // removes hover when mouse leaves the square
             }
-            document.getElementById('' + newId).style.backgroundColor = 'gray';
-            document.getElementById('' + hoverSquareId).addEventListener('mouseleave', xRemoveHover);
+        } else {
+            showInvalidHover(hoverSquareId);
         }
     } else { // updates UI to show invalid placement: makes hover square red with not allowed cursor
         showInvalidHover(hoverSquareId);
