@@ -9,6 +9,8 @@ export function checkOutOfBoundHover(coord, shipCount) {
     }
 }
 
+// check if any of the squares are already taken by placed ships
+// return true if there are ships in the area already
 export function checkAgainstBoardHover(hoverSquareId, shipCount, yAxisMode) {
     if (yAxisMode === true) {
         for (let i = 0; i <= shipCount - 1; i++) {

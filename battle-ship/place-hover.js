@@ -40,7 +40,6 @@ function yAddHoverEffect(hoverSquareId, shipCount) {
             for (let i = 1; i <= shipCount - 1; i++) {
                 let newId = parseInt(hoverSquareId) + (i * 10);
                 document.getElementById('' + newId).style.backgroundColor = 'gray';
-                // yRemoveHover(hoverSquareId, shipCount); // remove hover when leaving square
                 document.getElementById('' + hoverSquareId).addEventListener('mouseleave', yRemoveHover, {once: true}); // removes hover when mouse leaves the square
             }
         } else {
@@ -53,7 +52,11 @@ function yAddHoverEffect(hoverSquareId, shipCount) {
 
 // add listener to remove place-hover effect when the mouse moves out of the square
 export function yRemoveHover() {
-    for (let i = 1; i <= shipCount - 1; i++) {
+    let revisedShipCount = shipCount;
+    if (shipCount === 2 || shipCount === 1) {
+        revisedShipCount += 1;
+    };
+    for (let i = 1; i <= revisedShipCount - 1; i++) {
         let newId = parseInt(this.id) + (i * 10);
         document.getElementById('' + newId).style.backgroundColor = '';
     }
@@ -83,7 +86,11 @@ function xAddHoverEffect(hoverSquareId, shipCount) {
 
 // add listener to remove place-hover effect when the mouse moves out of the square
 export function xRemoveHover() {
-    for (let i = 1; i <= shipCount - 1; i++) {
+    let revisedShipCount = shipCount;
+    if (shipCount === 2 || shipCount === 1) {
+        revisedShipCount += 1;
+    };
+    for (let i = 1; i <= revisedShipCount - 1; i++) {
         let newId = parseInt(this.id) + (i * 1);
         if (newId <= 9) { // for when y = 0 (00, 01, 02, 03, 04...)
             newId = '0' + newId;
