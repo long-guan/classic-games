@@ -18,7 +18,7 @@ export function gameboard() {
         placeShip: function(startingCoord, shipObject, yAxis) {
             let xCoord = startingCoord[1];
             let yCoord = startingCoord[0];
-            if (checkValidPlacement(xCoord, yCoord, shipObject, yAxis)) {
+            if (checkOutOfBounds(xCoord, yCoord, shipObject, yAxis) && checkExistShipPlacement(startingCoord, shipObject, yAxis, this.position)) {
                 if (yAxis == true) { // for placing ships along y-axis
                     for (let i = 0; i < shipObject.length; i++) {
                         this.position[yCoord][xCoord] = shipObject;
@@ -54,18 +54,38 @@ export function gameboard() {
 };
 
 // return true if the placement of the ship does not go off the board
-function checkValidPlacement(xCoord, yCoord, shipObject, yAxis) {
-    if (yAxis == true) {
+function checkOutOfBounds(xCoord, yCoord, shipObject, yAxis) {
+    if (yAxis === true) {
         if (parseInt(yCoord) + (shipObject.length - 1) > 9) { // shipObject.length - 1 because hover square is length 1
             return false;
         } else {
             return true;
         }
-    } else { // yAxis == false
+    } else { // yAxis === false, place ship horizontally
         if (parseInt(xCoord) + (shipObject.length - 1) > 9) { // shipObject.length - 1 because hover square is length 1
             return false;
         } else {
             return true;
         }
     }
+}
+
+// returns true if the placement of ship does not intersect already placed ships
+function checkExistShipPlacement(startingCoord, shipObject, yAxis, position) {
+    if (yAxis === true) {
+        for (let i = 0; i <= shipObject.length - 1; i++) {
+            let arrayId = String(parseInt(startingCoord) + (i * 10));
+            if (position[arrayId[0]][arrayId[1]] !== null) {
+                return false;
+            }
+        }
+    } else { // yAxis === false, place ship horizontally
+        for (let i = 0; i <= shipObject.length - 1; i++) {
+            let arrayId = String(parseInt(startingCoord) + (i * 1));
+            if (position[arrayId[0]][arrayId[1]] !== null) {
+                return false;
+            }
+        }
+    }
+    return true;
 }

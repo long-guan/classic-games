@@ -11,6 +11,7 @@ let player1Name = '';
 export let yAxisMode = true;
 export let shipCount = 5; // used to track which ship to place and how many squares of place-hover effect
 
+// creates board and add listeners to squares to place ships
 export function placeShip() {
     player1Name = document.querySelector('.playerName').value;
     removeBoardContEle();
