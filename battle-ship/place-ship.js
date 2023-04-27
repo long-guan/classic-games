@@ -13,7 +13,6 @@ export let yAxisMode = true;
 export let shipCount = 5; // used to track which ship to place and how many squares of place-hover effect
 
 // creates board and add listeners to squares to place ships
-// randomly place computer ships
 export function placeShip() {
     placeComputerShips(computerBoard); // randomly place computer ships
     player1Name = document.querySelector('.playerName').value;
@@ -92,9 +91,4 @@ export function placeAllShips() {
         player1Board.placeShip(this.id, destroyer, yAxisMode);
         displayShipPlacement(player1Board);
     }
-}
-
-// used in gameboard.js to subtract shipCount when ship placement is valid
-export function minusShipCount() {
-    shipCount--;
 }

@@ -3,7 +3,6 @@ player1Board.createGameboard(10); // create gameboard size
 export const computerBoard = gameboard();
 computerBoard.createGameboard(10); // create gameboard size
 
-
 export function gameboard() {
     return {
         position: [],
@@ -77,17 +76,26 @@ function checkOutOfBounds(xCoord, yCoord, shipObject, yAxis) {
 
 // returns true if the placement of ship does not intersect already placed ships
 function checkExistShipPlacement(startingCoord, shipObject, yAxis, position) {
+    console.log(startingCoord);
     if (yAxis === true) {
         for (let i = 0; i <= shipObject.length - 1; i++) {
             let arrayId = String(parseInt(startingCoord) + (i * 10));
+            if (arrayId < 10) { // parseInt removes the first 0 when coordinates are less than 10
+                arrayId = '0' + arrayId; // add the first 0 back (00, 01, 02...)
+            }
             if (position[arrayId[0]][arrayId[1]] !== null) {
+                console.log('false');
                 return false;
             }
         }
     } else { // yAxis === false, place ship horizontally
         for (let i = 0; i <= shipObject.length - 1; i++) {
             let arrayId = String(parseInt(startingCoord) + (i * 1));
+            if (arrayId < 10) { // parseInt removes the first 0 when coordinates are less than 10
+                arrayId = '0' + arrayId; // add the first 0 back (00, 01, 02...)
+            }
             if (position[arrayId[0]][arrayId[1]] !== null) {
+                console.log('false');
                 return false;
             }
         }

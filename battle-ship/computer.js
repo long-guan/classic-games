@@ -40,9 +40,8 @@ export function placeComputerShips(computerBoard) {
 
 // randomly generate starting coordinate of ship placement and check if random coordinate will yield valid placement
 function recursivelyPlaceShip(ship, computerBoard) {
-    let randomCoordArray = returnRandMove();
-    let randomCoordString = randomCoordArray[0] + '' + randomCoordArray[1];
-    console.log(returnRandMove());
+    let randomCoordArray = returnRandMove(); // get random array ranging from [0,0] to [9,9]
+    let randomCoordString = randomCoordArray[0] + '' + randomCoordArray[1]; // convert to string
     if (computerBoard.placeShip(randomCoordString, ship, returnTrueOrFalse()) === false) {
         recursivelyPlaceShip(ship, computerBoard);
     }
