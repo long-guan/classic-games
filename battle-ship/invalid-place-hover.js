@@ -41,8 +41,10 @@ export function showInvalidHover(hoverSquareId) {
     let hoverSquare = document.getElementById(`${hoverSquareId}`);
     hoverSquare.style.backgroundColor = 'red';
     hoverSquare.style.cursor = 'not-allowed';
-    hoverSquare.addEventListener('mouseleave', () => { // removes invalid hover when leaving square
-        hoverSquare.style.backgroundColor = '';
-        hoverSquare.style.cursor = '';
-    });
+    hoverSquare.addEventListener('mouseleave', removeInvalidHover);
+}
+
+export function removeInvalidHover() {
+    this.style.backgroundColor = '';
+    this.style.cursor = '';
 }

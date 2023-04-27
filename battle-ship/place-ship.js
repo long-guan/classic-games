@@ -43,12 +43,12 @@ function addAxisBtnFunc() {
     }
 }
 
-// select all the squares to add listeners to place ship and to add place-hover effect
+// select all the squares to add listeners
 function addSquareFunc() {
     let coordinates = document.querySelectorAll('.square');
     for (let square of coordinates) {
-        square.addEventListener('click', placeAllShips);
-        square.addEventListener('mouseover', placeHover);
+        square.addEventListener('click', placeAllShips); // adds place ship
+        square.addEventListener('mouseover', placeHover); // adds place-hover effect
     }
 }
 
