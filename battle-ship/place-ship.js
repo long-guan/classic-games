@@ -56,36 +56,28 @@ function addSquareFunc() {
 export function placeAllShips() {
     if (shipCount == 5) { // place Carrier (5)
         let carrier = createShip(5, 'Carrier');
-        recurPlaceShip(this.id, carrier, yAxisMode);
+        player1Board.placeShip(this.id, carrier, yAxisMode);
+        displayShipPlacement(player1Board);
     } else if (shipCount == 4) { // place Battleship (4)
         let battleship = createShip(4, 'Battleship');
         player1Board.placeShip(this.id, battleship, yAxisMode);
         displayShipPlacement(player1Board);
-        shipCount--;
     } else if (shipCount == 3) { // place Cruiser (3)
         let cruiser = createShip(3, 'Cruiser');
         player1Board.placeShip(this.id, cruiser, yAxisMode);
         displayShipPlacement(player1Board);
-        shipCount--;
     } else if (shipCount == 2) { // place Submarine (3)
         let submarine = createShip(3, 'Submarine');
         player1Board.placeShip(this.id, submarine, yAxisMode);
         displayShipPlacement(player1Board);
-        shipCount--;
     } else if (shipCount == 1) { // place Destroyer (2)
         let destroyer = createShip(2, 'Destroyer');
         player1Board.placeShip(this.id, destroyer, yAxisMode);
         displayShipPlacement(player1Board);
-        shipCount--;
     }
 }
 
-// recursively repeat the same ship placement if placement of ship is invalid
-function recurPlaceShip(id, ship, yAxisMode) {
-    if (player1Board.placeShip(id, ship, yAxisMode) === true) {
-        displayShipPlacement(player1Board);
-        shipCount--;
-    } else { // invalid ship placement
-        placeAllShips();
-    }
+// used in gameboard.js to subtract shipCount when ship placement is valid
+export function minusShipCount() {
+    shipCount--;
 }
