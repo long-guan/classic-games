@@ -4,8 +4,10 @@ import { placeHover } from '/classic-games/battle-ship/place-hover.js';
 import { player1Board } from '/classic-games/battle-ship/gameboard.js';
 import { createShip } from '/classic-games/battle-ship/ship.js';
 import { displayShipPlacement } from '/classic-games/battle-ship/display-new-move.js';
+import {updatePlaceShipStatus} from '/classic-games/battle-ship/place-ship-status.js';
 
-let status = document.querySelector('.status');
+
+
 let boardCont = document.querySelector('.board-cont')
 let player1Name = '';
 export let yAxisMode = true;
@@ -19,6 +21,7 @@ export function placeShip() {
     createBoard('player1Board');
     document.querySelector('#axis').addEventListener('click', addAxisBtnFunc);
     addSquareFunc();
+    updatePlaceShipStatus(shipCount, player1Name);
 }
 
 // creates axis button and adds it to board-cont
@@ -53,23 +56,28 @@ function addSquareFunc() {
 // uses ship count to track which ship has been placed
 // updates player1Board for the placed ships
 // display the placed ship on the board
+// updates status
 export function placeAllShips() {
     if (shipCount == 5) { // place Carrier (5)
         let carrier = createShip(5, 'Carrier');
         player1Board.placeShip(this.id, carrier, yAxisMode);
         displayShipPlacement(player1Board);
+        updatePlaceShipStatus(shipCount, player1Name);
     } else if (shipCount == 4) { // place Battleship (4)
         let battleship = createShip(4, 'Battleship');
         player1Board.placeShip(this.id, battleship, yAxisMode);
         displayShipPlacement(player1Board);
+        updatePlaceShipStatus(shipCount, player1Name);
     } else if (shipCount == 3) { // place Cruiser (3)
         let cruiser = createShip(3, 'Cruiser');
         player1Board.placeShip(this.id, cruiser, yAxisMode);
         displayShipPlacement(player1Board);
+        updatePlaceShipStatus(shipCount, player1Name);
     } else if (shipCount == 2) { // place Submarine (3)
         let submarine = createShip(3, 'Submarine');
         player1Board.placeShip(this.id, submarine, yAxisMode);
         displayShipPlacement(player1Board);
+        updatePlaceShipStatus(shipCount, player1Name);
     } else if (shipCount == 1) { // place Destroyer (2)
         let destroyer = createShip(2, 'Destroyer');
         player1Board.placeShip(this.id, destroyer, yAxisMode);
