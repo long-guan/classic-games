@@ -1,12 +1,11 @@
 import {createBoard} from '/classic-games/battle-ship/createBoard.js';
 import { removeBoardContEle } from '/classic-games/battle-ship/start-menu-select.js';
 import { placeHover } from '/classic-games/battle-ship/place-hover.js';
-import { player1Board } from '/classic-games/battle-ship/gameboard.js';
+import { player1Board, computerBoard } from '/classic-games/battle-ship/gameboard.js';
 import { createShip } from '/classic-games/battle-ship/ship.js';
 import { displayShipPlacement } from '/classic-games/battle-ship/display-new-move.js';
 import {updatePlaceShipStatus} from '/classic-games/battle-ship/place-ship-status.js';
-
-
+import { placeComputerShips } from '/classic-games/battle-ship/computer.js';
 
 let boardCont = document.querySelector('.board-cont')
 let player1Name = '';
@@ -14,6 +13,7 @@ export let yAxisMode = true;
 export let shipCount = 5; // used to track which ship to place and how many squares of place-hover effect
 
 // creates board and add listeners to squares to place ships
+// randomly place computer ships
 export function placeShip() {
     player1Name = document.querySelector('.playerName').value;
     removeBoardContEle();
@@ -22,6 +22,8 @@ export function placeShip() {
     document.querySelector('#axis').addEventListener('click', addAxisBtnFunc);
     addSquareFunc();
     updatePlaceShipStatus(shipCount, player1Name);
+    placeComputerShips(computerBoard); // randomly place computer ships
+    console.log(computerBoard.position);
 }
 
 // creates axis button and adds it to board-cont
