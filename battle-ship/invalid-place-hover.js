@@ -44,6 +44,7 @@ export function showInvalidHover(hoverSquareId) {
     hoverSquare.addEventListener('mouseleave', removeInvalidHover);
 }
 
+// remove invalid hover styling
 export function removeInvalidHover() {
     this.style.backgroundColor = '';
     this.style.cursor = '';

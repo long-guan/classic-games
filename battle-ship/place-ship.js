@@ -6,6 +6,7 @@ import { createShip } from '/classic-games/battle-ship/ship.js';
 import { displayShipPlacement } from '/classic-games/battle-ship/display-new-move.js';
 import {updatePlaceShipStatus} from '/classic-games/battle-ship/place-ship-status.js';
 import { placeComputerShips } from '/classic-games/battle-ship/computer.js';
+import {attackPhaseLoop} from '/classic-games/battle-ship/attack-phase-loop.js';
 
 let boardCont = document.querySelector('.board-cont')
 let player1Name = '';
@@ -88,7 +89,9 @@ export function placeAllShips() {
             shipCount--;
         };
     } else if (shipCount == 1) { // place Destroyer (2)
-        player1Board.placeShip(this.id, destroyer, yAxisMode);
-        displayShipPlacement(player1Board);
+        if (player1Board.placeShip(this.id, destroyer, yAxisMode)) {
+            displayShipPlacement(player1Board);
+            attackPhaseLoop(); // starts the game
+        };
     }
 }
