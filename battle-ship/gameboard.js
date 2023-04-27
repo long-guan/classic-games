@@ -1,9 +1,8 @@
-import { minusShipCount } from '/classic-games/battle-ship/place-ship.js';
-
 export const player1Board = gameboard();
 player1Board.createGameboard(10); // create gameboard size
 export const computerBoard = gameboard();
 computerBoard.createGameboard(10); // create gameboard size
+
 
 export function gameboard() {
     return {
@@ -34,7 +33,6 @@ export function gameboard() {
                         xCoord = parseInt(xCoord) + 1;
                     }
                 }
-                minusShipCount();
                 console.log('ship was placed');
                 return true; // return true if ship placement is valid
             } else { // return false if ship placement is invalid
