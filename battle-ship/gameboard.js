@@ -30,7 +30,8 @@ export function gameboard() {
                         xCoord = parseInt(xCoord) + 1;
                     }
                 }
-            } else {
+                return true; // return true if ship placement is valid
+            } else { // return false if ship placement is invalid
                 console.log('ship was not placed');
                 return false;
             }

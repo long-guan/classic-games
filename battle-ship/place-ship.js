@@ -56,9 +56,7 @@ function addSquareFunc() {
 export function placeAllShips() {
     if (shipCount == 5) { // place Carrier (5)
         let carrier = createShip(5, 'Carrier');
-        player1Board.placeShip(this.id, carrier, yAxisMode);
-        displayShipPlacement(player1Board);
-        shipCount--;
+        recurPlaceShip(this.id, carrier, yAxisMode);
     } else if (shipCount == 4) { // place Battleship (4)
         let battleship = createShip(4, 'Battleship');
         player1Board.placeShip(this.id, battleship, yAxisMode);
@@ -79,5 +77,15 @@ export function placeAllShips() {
         player1Board.placeShip(this.id, destroyer, yAxisMode);
         displayShipPlacement(player1Board);
         shipCount--;
+    }
+}
+
+// recursively repeat the same ship placement if placement of ship is invalid
+function recurPlaceShip(id, ship, yAxisMode) {
+    if (player1Board.placeShip(id, ship, yAxisMode) === true) {
+        displayShipPlacement(player1Board);
+        shipCount--;
+    } else { // invalid ship placement
+        placeAllShips();
     }
 }
