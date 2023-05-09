@@ -2,12 +2,11 @@ import {createBoard} from '/classic-games/battle-ship/createBoard.js';
 import { removeBoardContEle } from '/classic-games/battle-ship/start-menu-select.js';
 import { displayShipPlacement } from '/classic-games/battle-ship/display-new-move.js';
 import { player1Board, computerBoard } from '/classic-games/battle-ship/gameboard.js';
-
-let enemySquares = document.querySelectorAll('.computer-square>div');
+import { returnLegalMove } from '/classic-games/battle-ship/computer.js';
 
 export function attackPhaseLoop() {
     setUpAttackPhase();
-}
+};
 
 // removes board for placing ships
 // creates board for player and computer
@@ -18,32 +17,67 @@ function setUpAttackPhase() {
     createBoard('player', 'Friendly Water');
     createBoard('computer', 'Enemy Water');
     document.querySelector('.board-cont').style.flexDirection = 'row';
-    removeFriendlyHover();
+    removeHover('.player');
     displayShipPlacement(player1Board);
     addClickForAttack();
+};
+
+// alternates the player and computer turn until someone wins
+function attackLoop() {
+    computerAttack();
 }
 
-// remove hover from friendly water board
-function removeFriendlyHover() {
-    let friendlySquares = document.querySelectorAll('.player-square>div');
-    Array.from(friendlySquares).forEach(square => {
-        square.classList.remove('hover');
-    });
-}
-
-// adds eventlisteners for player to choose a coordinate to attack on enemy's board
-function addClickForAttack() {
-    Array.from(enemySquares).forEach(square => {
-        square.addEventListener('click', playerAttack, {once: true});
-    });
+// updates color to be red if hit and gray if miss
+// updates playerBoard.position
+function computerAttack() {
+    let legalCoord = returnLegalMove(player1Board.position)
+    let computerSquare = document.getElementById(legalCoord);
+    if (player1Board.receiveAttack(legalCoord)) {
+        computerSquare.style.backgroundColor = 'red';
+    } else {
+        computerSquare.style.backgroundColor = 'gray';
+    }
 }
 
 // updates color to be red if hit and gray if miss
 // updates computerBoard.position
+// removes eventlisteners after each attack
 function playerAttack() {
     if (computerBoard.receiveAttack(this.id)) { // receiveAttack returns true when hit
         this.style.backgroundColor = 'red';
     } else {
         this.style.backgroundColor = 'gray';
     }
-}
+    removeClickForAttack(); // removes eventlisteners after each attack so it prevents clicking and waits for the computer's turn to attack
+};
+
+// adds eventlisteners for player to choose a coordinate to attack on enemy's board
+function addClickForAttack() {
+    let enemySquares = document.querySelectorAll('.computer-square>div');
+    Array.from(enemySquares).forEach(square => {
+        if (square.style.backgroundColor == "") { // only the non-attacked squares will be clickable
+            square.addEventListener('click', playerAttack, {once: true});
+        }
+    });
+};
+
+// removes eventlisteners for attacking from all squares for enemy board
+// removes hover from all squares
+function removeClickForAttack() {
+    let enemySquares = document.querySelectorAll('.computer-square>div');
+    Array.from(enemySquares).forEach(square => {
+        if (square.style.backgroundColor == "") { // only the non-attacked squares will be clickable
+            square.removeEventListener('click', playerAttack);
+            removeHover('.computer');
+        }
+    });
+};
+
+// remove hover from board
+// argument is the string of the board class name to be removed
+function removeHover(board) {
+    let squares = document.querySelectorAll(`${board}-square>div`);
+    Array.from(squares).forEach(square => {
+        square.classList.remove('hover');
+    });
+};
