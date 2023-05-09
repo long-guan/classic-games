@@ -48,13 +48,11 @@ export function gameboard() {
             let yCoord = coordinate[0];
             if (this.position[yCoord][xCoord] == null) {
                 this.position[yCoord][xCoord] = 'missed';
-                console.log('missed');
                 return false;
             } else {
                 this.position[yCoord][xCoord].hit(); // increases hitCount for ship object
                 this.position[yCoord][xCoord] = 'hit';
                 this.shipLeft--;
-                console.log('hit');
                 return true;
             }
         }

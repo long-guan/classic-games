@@ -3,6 +3,8 @@ import { removeBoardContEle } from '/classic-games/battle-ship/start-menu-select
 import { displayShipPlacement } from '/classic-games/battle-ship/display-new-move.js';
 import { player1Board, computerBoard } from '/classic-games/battle-ship/gameboard.js';
 
+let enemySquares = document.querySelectorAll('.computer-square>div');
+
 export function attackPhaseLoop() {
     setUpAttackPhase();
 }
@@ -29,8 +31,8 @@ function removeFriendlyHover() {
     });
 }
 
+// adds eventlisteners for player to choose a coordinate to attack on enemy's board
 function addClickForAttack() {
-    let enemySquares = document.querySelectorAll('.computer-square>div');
     Array.from(enemySquares).forEach(square => {
         square.addEventListener('click', playerAttack, {once: true});
     });
@@ -39,7 +41,7 @@ function addClickForAttack() {
 // updates color to be red if hit and gray if miss
 // updates computerBoard.position
 function playerAttack() {
-    if (computerBoard.receiveAttack(this.id)) {
+    if (computerBoard.receiveAttack(this.id)) { // receiveAttack returns true when hit
         this.style.backgroundColor = 'red';
     } else {
         this.style.backgroundColor = 'gray';
