@@ -6,6 +6,7 @@ import { returnLegalMove } from '/classic-games/battle-ship/computer.js';
 
 export function attackPhaseLoop() {
     setUpAttackPhase();
+    attackLoop();
 };
 
 // removes board for placing ships
@@ -19,38 +20,12 @@ function setUpAttackPhase() {
     document.querySelector('.board-cont').style.flexDirection = 'row';
     removeHover('.player');
     displayShipPlacement(player1Board);
-    addClickForAttack();
 };
 
 // alternates the player and computer turn until someone wins
 function attackLoop() {
-    computerAttack();
+    addClickForAttack();
 }
-
-// updates color to be red if hit and gray if miss on Friendly Water board
-// updates playerBoard.position
-function computerAttack() {
-    let legalCoord = returnLegalMove(player1Board.position)
-    let computerSquare = document.getElementById('' + legalCoord[0] + legalCoord[1]);
-    if (player1Board.receiveAttack(legalCoord)) {
-        computerSquare.style.backgroundColor = 'red';
-    } else {
-        computerSquare.style.backgroundColor = 'gray';
-    }
-}
-
-// updates color to be red if hit and gray if miss
-// updates computerBoard.position
-// removes eventlisteners after each attack
-function playerAttack() {
-    if (computerBoard.receiveAttack(this.id)) { // receiveAttack returns true when hit
-        this.style.backgroundColor = 'red';
-    } else {
-        this.style.backgroundColor = 'gray';
-    }
-    removeClickForAttack(); // removes eventlisteners after each attack so it prevents clicking and waits for the computer's turn to attack
-    computerAttack();
-};
 
 // adds eventlisteners for player to choose a coordinate to attack on enemy's board
 function addClickForAttack() {
@@ -74,6 +49,34 @@ function removeClickForAttack() {
     });
 };
 
+// updates color to be red if hit and gray if miss on Friendly Water board
+// updates playerBoard.position
+function computerAttack() {
+    let legalCoord = returnLegalMove(player1Board.position)
+    let computerSquare = document.getElementById('' + legalCoord[0] + legalCoord[1]);
+    if (player1Board.receiveAttack(legalCoord)) {
+        computerSquare.style.backgroundColor = 'red';
+    } else {
+        computerSquare.style.backgroundColor = 'gray';
+    }
+}
+
+// updates color to be red if hit and gray if miss
+// updates computerBoard.position
+// removes eventlisteners after each attack
+// computer attacks after player attacks
+function playerAttack() {
+    if (computerBoard.receiveAttack(this.id)) { // receiveAttack returns true when hit
+        this.style.backgroundColor = 'red';
+    } else {
+        this.style.backgroundColor = 'gray';
+    }
+    removeClickForAttack(); // removes eventlisteners after each attack so it prevents clicking and waits for the computer's turn to attack
+    computerAttack();
+    addHover();
+    attackLoop();
+};
+
 // remove hover from board
 // argument is the string of the board class name to be removed
 function removeHover(board) {
@@ -82,3 +85,13 @@ function removeHover(board) {
         square.classList.remove('hover');
     });
 };
+
+// add hover to board
+function addHover() {
+    let squares = document.querySelectorAll('.computer-square>div');
+    Array.from(squares).forEach(square => {
+        if (square.style.backgroundColor == "") { // only the non-attacked squares will be hoverable
+            square.classList.add('hover');
+        }
+    });
+}
