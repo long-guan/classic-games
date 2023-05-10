@@ -9,7 +9,7 @@ import { placeComputerShips } from '/classic-games/battle-ship/computer.js';
 import {attackPhaseLoop} from '/classic-games/battle-ship/attack-phase-loop.js';
 
 let boardCont = document.querySelector('.board-cont')
-let player1Name = '';
+export let player1Name = '';
 export let yAxisMode = true;
 export let shipCount = 5; // used to track which ship to place and how many squares of place-hover effect
 

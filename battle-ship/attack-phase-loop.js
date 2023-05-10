@@ -3,7 +3,8 @@ import { removeBoardContEle } from '/classic-games/battle-ship/start-menu-select
 import { displayShipPlacement } from '/classic-games/battle-ship/display-new-move.js';
 import { player1Board, computerBoard } from '/classic-games/battle-ship/gameboard.js';
 import { returnLegalMove } from '/classic-games/battle-ship/computer.js';
-import { statusPlayer1Hit, statusPlayer1Miss } from '/classic-games/battle-ship/attack-phase-loop-status.js';
+import { statusPlayer1Hit, statusPlayer1Miss, statusComputerHit, statusComputerMiss, statusComputerAim } from '/classic-games/battle-ship/attack-phase-loop-status.js';
+import { player1Name } from '/classic-games/battle-ship/place-ship.js';
 
 export function attackPhaseLoop() {
     setUpAttackPhase();
@@ -21,6 +22,7 @@ function setUpAttackPhase() {
     document.querySelector('.board-cont').style.flexDirection = 'row';
     removeHover('.player');
     displayShipPlacement(player1Board);
+    document.querySelector('.status').innerHTML = `Awaiting orders, Admiral ${player1Name}`;
 };
 
 // alternates the player and computer turn until someone wins
@@ -63,9 +65,9 @@ function playerAttack() {
         statusPlayer1Miss();
     }
     removeClickForAttack(); // removes eventlisteners after each attack so it prevents clicking and waits for the computer's turn to attack
-    computerAttack();
-    addHover();
-    addClickForAttack(); // restarts the loop
+    setTimeout(() => { // waits 1 second before computer attacks
+        computerAttack();
+    }, 1000);
 };
 
 // updates color to be red if hit and gray if miss on Friendly Water board
@@ -73,11 +75,18 @@ function playerAttack() {
 function computerAttack() {
     let legalCoord = returnLegalMove(player1Board.coordinatesHit)
     let computerSquare = document.getElementById('' + legalCoord[0] + legalCoord[1]);
-    if (player1Board.receiveAttack(legalCoord)) {
-        computerSquare.style.backgroundColor = 'red';
-    } else {
-        computerSquare.style.backgroundColor = 'gray';
-    }
+    statusComputerAim();
+    setTimeout(() => {
+        if (player1Board.receiveAttack(legalCoord)) {
+            computerSquare.style.backgroundColor = 'red';
+            statusComputerHit();
+        } else {
+            computerSquare.style.backgroundColor = 'gray';
+            statusComputerMiss();
+        }
+        addHover();
+        addClickForAttack(); // restarts the loop
+    }, 1000);
 }
 
 // remove hover from board
