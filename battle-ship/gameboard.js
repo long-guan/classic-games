@@ -43,6 +43,7 @@ export function gameboard() {
         // records 'hit' in board array if coordinate is object (not null)
         // subtracts 1 to shipLeft when hit
         receiveAttack: function(coordinate) {
+            console.log(coordinate);
             this.coordinatesHit.push(coordinate);
             let xCoord = coordinate[1];
             let yCoord = coordinate[0];
@@ -50,6 +51,7 @@ export function gameboard() {
                 this.position[yCoord][xCoord] = 'missed';
                 return false;
             } else {
+                console.log(this);
                 this.position[yCoord][xCoord].hit(); // increases hitCount for ship object
                 this.position[yCoord][xCoord] = 'hit';
                 this.shipLeft--;

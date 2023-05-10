@@ -1,10 +1,5 @@
 import {createShip} from '/classic-games/battle-ship/ship.js';
 
-// return random array ranging from [0,0] to [9,9]
-export function returnRandMove() {
-    return [Math.floor(Math.random() * 10), Math.floor(Math.random() * 10)];
-}
-
 // iterates through coordinatesHit array to check if the coordinates have already been hit
 export function returnLegalMove(coordinatesHit) {
     let randomCoord = returnRandMove();
@@ -14,6 +9,11 @@ export function returnLegalMove(coordinatesHit) {
         }
     }
     return randomCoord;
+}
+
+// return random array ranging from [0,0] to [9,9]
+export function returnRandMove() {
+    return [Math.floor(Math.random() * 10), Math.floor(Math.random() * 10)];
 }
 
 // randomly place computer ships
@@ -44,7 +44,7 @@ function recursivelyPlaceShip(ship, computerBoard) {
     let randomCoordString = randomCoordArray[0] + '' + randomCoordArray[1]; // convert to string
     if (computerBoard.placeShip(randomCoordString, ship, returnTrueOrFalse()) === false) {
         recursivelyPlaceShip(ship, computerBoard);
-    }
+    };
 }
 
 // used to randomize the vertical or horizontal orientation of ship

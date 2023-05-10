@@ -52,7 +52,7 @@ function removeClickForAttack() {
 // updates color to be red if hit and gray if miss on Friendly Water board
 // updates playerBoard.position
 function computerAttack() {
-    let legalCoord = returnLegalMove(player1Board.position)
+    let legalCoord = returnLegalMove(player1Board.coordinatesHit)
     let computerSquare = document.getElementById('' + legalCoord[0] + legalCoord[1]);
     if (player1Board.receiveAttack(legalCoord)) {
         computerSquare.style.backgroundColor = 'red';
@@ -74,7 +74,7 @@ function playerAttack() {
     removeClickForAttack(); // removes eventlisteners after each attack so it prevents clicking and waits for the computer's turn to attack
     computerAttack();
     addHover();
-    attackLoop();
+    addClickForAttack(); // restarts the loop
 };
 
 // remove hover from board
