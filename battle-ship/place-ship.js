@@ -67,26 +67,26 @@ export function placeAllShips() {
     if (shipCount == 5) { // place Carrier (5)
         if (player1Board.placeShip(this.id, carrier, yAxisMode)) {
             displayShipPlacement(player1Board);
-            updatePlaceShipStatus(shipCount, player1Name);
             shipCount--;
+            updatePlaceShipStatus(shipCount, player1Name);
         };
     } else if (shipCount == 4) { // place Battleship (4)
         if (player1Board.placeShip(this.id, battleship, yAxisMode)) {
             displayShipPlacement(player1Board);
-            updatePlaceShipStatus(shipCount, player1Name);
             shipCount--;
+            updatePlaceShipStatus(shipCount, player1Name);
         };
     } else if (shipCount == 3) { // place Cruiser (3)
         if (player1Board.placeShip(this.id, cruiser, yAxisMode)) {
             displayShipPlacement(player1Board);
-            updatePlaceShipStatus(shipCount, player1Name);
             shipCount--;
+            updatePlaceShipStatus(shipCount, player1Name);
         };
     } else if (shipCount == 2) { // place Submarine (3)
         if (player1Board.placeShip(this.id, submarine, yAxisMode)) {
             displayShipPlacement(player1Board);
-            updatePlaceShipStatus(shipCount, player1Name);
             shipCount--;
+            updatePlaceShipStatus(shipCount, player1Name);
         };
     } else if (shipCount == 1) { // place Destroyer (2)
         if (player1Board.placeShip(this.id, destroyer, yAxisMode)) {

@@ -3,6 +3,7 @@ import { removeBoardContEle } from '/classic-games/battle-ship/start-menu-select
 import { displayShipPlacement } from '/classic-games/battle-ship/display-new-move.js';
 import { player1Board, computerBoard } from '/classic-games/battle-ship/gameboard.js';
 import { returnLegalMove } from '/classic-games/battle-ship/computer.js';
+import { statusPlayer1Hit, statusPlayer1Miss } from '/classic-games/battle-ship/attack-phase-loop-status.js';
 
 export function attackPhaseLoop() {
     setUpAttackPhase();
@@ -49,6 +50,24 @@ function removeClickForAttack() {
     });
 };
 
+// updates color to be red if hit and gray if miss
+// updates computerBoard.position
+// removes eventlisteners after each attack
+// computer attacks after player attacks
+function playerAttack() {
+    if (computerBoard.receiveAttack(this.id)) { // receiveAttack returns true when hit
+        this.style.backgroundColor = 'red';
+        statusPlayer1Hit();
+    } else {
+        this.style.backgroundColor = 'gray';
+        statusPlayer1Miss();
+    }
+    removeClickForAttack(); // removes eventlisteners after each attack so it prevents clicking and waits for the computer's turn to attack
+    computerAttack();
+    addHover();
+    addClickForAttack(); // restarts the loop
+};
+
 // updates color to be red if hit and gray if miss on Friendly Water board
 // updates playerBoard.position
 function computerAttack() {
@@ -60,22 +79,6 @@ function computerAttack() {
         computerSquare.style.backgroundColor = 'gray';
     }
 }
-
-// updates color to be red if hit and gray if miss
-// updates computerBoard.position
-// removes eventlisteners after each attack
-// computer attacks after player attacks
-function playerAttack() {
-    if (computerBoard.receiveAttack(this.id)) { // receiveAttack returns true when hit
-        this.style.backgroundColor = 'red';
-    } else {
-        this.style.backgroundColor = 'gray';
-    }
-    removeClickForAttack(); // removes eventlisteners after each attack so it prevents clicking and waits for the computer's turn to attack
-    computerAttack();
-    addHover();
-    addClickForAttack(); // restarts the loop
-};
 
 // remove hover from board
 // argument is the string of the board class name to be removed
