@@ -27,11 +27,11 @@ function attackLoop() {
     computerAttack();
 }
 
-// updates color to be red if hit and gray if miss
+// updates color to be red if hit and gray if miss on Friendly Water board
 // updates playerBoard.position
 function computerAttack() {
     let legalCoord = returnLegalMove(player1Board.position)
-    let computerSquare = document.getElementById(legalCoord);
+    let computerSquare = document.getElementById('' + legalCoord[0] + legalCoord[1]);
     if (player1Board.receiveAttack(legalCoord)) {
         computerSquare.style.backgroundColor = 'red';
     } else {
@@ -49,6 +49,7 @@ function playerAttack() {
         this.style.backgroundColor = 'gray';
     }
     removeClickForAttack(); // removes eventlisteners after each attack so it prevents clicking and waits for the computer's turn to attack
+    computerAttack();
 };
 
 // adds eventlisteners for player to choose a coordinate to attack on enemy's board
