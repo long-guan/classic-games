@@ -3,7 +3,7 @@ import { removeBoardContEle } from '/classic-games/battle-ship/start-menu-select
 import { displayShipPlacement } from '/classic-games/battle-ship/display-new-move.js';
 import { player1Board, computerBoard } from '/classic-games/battle-ship/gameboard.js';
 import { returnLegalMove } from '/classic-games/battle-ship/computer.js';
-import { statusPlayer1Hit, statusPlayer1Miss, statusComputerHit, statusComputerMiss, statusComputerAim } from '/classic-games/battle-ship/attack-phase-loop-status.js';
+import { statusPlayer1Hit, statusPlayer1Miss, statusPlayer1Sunk, statusComputerHit, statusComputerMiss, statusComputerAim } from '/classic-games/battle-ship/attack-phase-loop-status.js';
 import { player1Name } from '/classic-games/battle-ship/place-ship.js';
 
 export function attackPhaseLoop() {
@@ -57,17 +57,20 @@ function removeClickForAttack() {
 // removes eventlisteners after each attack
 // computer attacks after player attacks
 function playerAttack() {
-    if (computerBoard.receiveAttack(this.id)) { // receiveAttack returns true when hit
+    let attack = computerBoard.receiveAttack(this.id);
+    if (attack === true) { // .receiveAttack returns true when hit
         this.style.backgroundColor = 'red';
         statusPlayer1Hit();
-    } else {
+    } else if (attack === false) { // .receiveAttack returns false when hit
         this.style.backgroundColor = 'gray';
         statusPlayer1Miss();
+    } else {
+        statusPlayer1Sunk(attack[1]); // .receiveAttack will return [true, shipName] if the ship is sunk
     }
     removeClickForAttack(); // removes eventlisteners after each attack so it prevents clicking and waits for the computer's turn to attack
     setTimeout(() => { // waits 1 second before computer attacks
         computerAttack();
-    }, 1000);
+    }, 1500);
 };
 
 // updates color to be red if hit and gray if miss on Friendly Water board
@@ -86,7 +89,7 @@ function computerAttack() {
         }
         addHover();
         addClickForAttack(); // restarts the loop
-    }, 1000);
+    }, 1500);
 }
 
 // remove hover from board

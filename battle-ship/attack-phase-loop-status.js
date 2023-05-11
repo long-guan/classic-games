@@ -8,8 +8,8 @@ export function statusPlayer1Miss() {
     status.innerHTML = "You fire a shot into the enemy waters... and miss!";
 }
 
-export function statusPlayer1Sunk() {
-
+export function statusPlayer1Sunk(shipName) {
+    status.innerHTML = `You fire a shot into the enemy waters... you sunk their ${shipName}`;
 }
 
 export function statusComputerAim() {
