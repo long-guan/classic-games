@@ -8,6 +8,7 @@ export function statusPlayer1Miss() {
     status.innerHTML = "You fire a shot into the enemy waters... and miss!";
 }
 
+// status for when the player hits and sinks one of the enemy's ships
 export function statusPlayer1Sunk(shipName) {
     status.innerHTML = `You fire a shot into the enemy waters... you sunk their ${shipName}`;
 }
@@ -21,5 +22,10 @@ export function statusComputerHit() {
 }
 
 export function statusComputerMiss() {
-    status.innerHTML = "The enemy fires a shot into your waters... and misses";
+    status.innerHTML = "The enemy fires a shot into your waters... and misses!";
+}
+
+// status for when the computer hits and sinks one of the player's ships
+export function statusComputerSunk(shipName) {
+    status.innerHTML = `The enemy fires a shot into your waters... It's a hit and your ${shipName} has sunk!`;
 }

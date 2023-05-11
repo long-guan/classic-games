@@ -3,7 +3,7 @@ import { removeBoardContEle } from '/classic-games/battle-ship/start-menu-select
 import { displayShipPlacement } from '/classic-games/battle-ship/display-new-move.js';
 import { player1Board, computerBoard } from '/classic-games/battle-ship/gameboard.js';
 import { returnLegalMove } from '/classic-games/battle-ship/computer.js';
-import { statusPlayer1Hit, statusPlayer1Miss, statusPlayer1Sunk, statusComputerHit, statusComputerMiss, statusComputerAim } from '/classic-games/battle-ship/attack-phase-loop-status.js';
+import { statusPlayer1Hit, statusPlayer1Miss, statusPlayer1Sunk, statusComputerHit, statusComputerMiss, statusComputerAim, statusComputerSunk } from '/classic-games/battle-ship/attack-phase-loop-status.js';
 import { player1Name } from '/classic-games/battle-ship/place-ship.js';
 
 export function attackPhaseLoop() {
@@ -65,10 +65,11 @@ function playerAttack() {
         this.style.backgroundColor = 'gray';
         statusPlayer1Miss();
     } else {
+        this.style.backgroundColor = 'red';
         statusPlayer1Sunk(attack[1]); // .receiveAttack will return [true, shipName] if the ship is sunk
     }
     removeClickForAttack(); // removes eventlisteners after each attack so it prevents clicking and waits for the computer's turn to attack
-    setTimeout(() => { // waits 1 second before computer attacks
+    setTimeout(() => { // waits 1.5 second before computer attacks
         computerAttack();
     }, 1500);
 };
@@ -80,16 +81,20 @@ function computerAttack() {
     let computerSquare = document.getElementById('' + legalCoord[0] + legalCoord[1]);
     statusComputerAim();
     setTimeout(() => {
-        if (player1Board.receiveAttack(legalCoord)) {
+        let attack = player1Board.receiveAttack(legalCoord);
+        if (attack === true) { // .receiveAttack returns true when hit
             computerSquare.style.backgroundColor = 'red';
             statusComputerHit();
-        } else {
+        } else if (attack === false) { // .receiveAttack returns false when hit
             computerSquare.style.backgroundColor = 'gray';
             statusComputerMiss();
+        } else { // .receiveAttack will return [true, shipName] if the ship is sunk
+            computerSquare.style.backgroundColor = 'red';
+            statusComputerSunk(attack[1])
         }
         addHover();
         addClickForAttack(); // restarts the loop
-    }, 1500);
+    }, 1000);
 }
 
 // remove hover from board
