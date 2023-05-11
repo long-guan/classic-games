@@ -3,7 +3,7 @@ import { removeBoardContEle } from '/classic-games/battle-ship/start-menu-select
 import { displayShipPlacement } from '/classic-games/battle-ship/display-new-move.js';
 import { player1Board, computerBoard } from '/classic-games/battle-ship/gameboard.js';
 import { returnLegalMove } from '/classic-games/battle-ship/computer.js';
-import { statusPlayer1Hit, statusPlayer1Miss, statusPlayer1Sunk, statusComputerHit, statusComputerMiss, statusComputerAim, statusComputerSunk } from '/classic-games/battle-ship/attack-phase-loop-status.js';
+import { statusPlayer1Hit, statusPlayer1Miss, statusPlayer1Sunk, statusPlayer1Lose, statusComputerHit, statusComputerMiss, statusComputerAim, statusComputerSunk, statusComputerLose } from '/classic-games/battle-ship/attack-phase-loop-status.js';
 import { player1Name } from '/classic-games/battle-ship/place-ship.js';
 
 export function attackPhaseLoop() {
@@ -61,17 +61,25 @@ function playerAttack() {
     if (attack === true) { // .receiveAttack returns true when hit
         this.style.backgroundColor = 'red';
         statusPlayer1Hit();
+        if (computerBoard.gameOver()) { // checks for win
+            statusComputerLose();
+            return;
+        };
     } else if (attack === false) { // .receiveAttack returns false when hit
         this.style.backgroundColor = 'gray';
         statusPlayer1Miss();
     } else {
         this.style.backgroundColor = 'red';
         statusPlayer1Sunk(attack[1]); // .receiveAttack will return [true, shipName] if the ship is sunk
-    }
+        if (computerBoard.gameOver()) { // checks for win
+            statusComputerLose();
+            return;
+        };
+    };
     removeClickForAttack(); // removes eventlisteners after each attack so it prevents clicking and waits for the computer's turn to attack
     setTimeout(() => { // waits 1.5 second before computer attacks
         computerAttack();
-    }, 1500);
+    }, 20);
 };
 
 // updates color to be red if hit and gray if miss on Friendly Water board
@@ -85,16 +93,24 @@ function computerAttack() {
         if (attack === true) { // .receiveAttack returns true when hit
             computerSquare.style.backgroundColor = 'red';
             statusComputerHit();
+            if (player1Board.gameOver()) { // checks for win
+                statusPlayer1Lose();
+                return;
+            };
         } else if (attack === false) { // .receiveAttack returns false when hit
             computerSquare.style.backgroundColor = 'gray';
             statusComputerMiss();
         } else { // .receiveAttack will return [true, shipName] if the ship is sunk
             computerSquare.style.backgroundColor = 'red';
             statusComputerSunk(attack[1])
-        }
+            if (player1Board.gameOver()) { // checks for win
+                statusPlayer1Lose();
+                return;
+            };
+        };
         addHover();
         addClickForAttack(); // restarts the loop
-    }, 1000);
+    }, 20);
 }
 
 // remove hover from board

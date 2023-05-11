@@ -13,6 +13,14 @@ export function statusPlayer1Sunk(shipName) {
     status.innerHTML = `You fire a shot into the enemy waters... you sunk their ${shipName}`;
 }
 
+export function statusPlayer1Lose() {
+    status.innerHTML = 'All friendly ships have sunk, you have lost the battle!';
+}
+
+export function statusComputerLose() {
+    status.innerHTML = 'All enemy ships have sunk, you have won the battle!';
+}
+
 export function statusComputerAim() {
     status.innerHTML = "The opponent is aiming...";
 }

@@ -47,20 +47,27 @@ export function gameboard() {
             this.coordinatesHit.push(coordinate);
             let xCoord = coordinate[1];
             let yCoord = coordinate[0];
-            if (this.position[yCoord][xCoord] == null) {
+            if (this.position[yCoord][xCoord] == null) { // miss
                 this.position[yCoord][xCoord] = 'missed';
                 return false;
-            } else {
+            } else { // hit
                 let shipHit = this.position[yCoord][xCoord];
                 shipHit.hit(); // increases hitCount for ship object
                 this.position[yCoord][xCoord] = 'hit';
+                this.shipLeft--;
                 if (shipHit.isSunk()) {
-                    console.log('shipsunk');
                     return [true, shipHit.name];ß
                 }
-                this.shipLeft--;
                 return true;
             }
+        },
+        // returns true if no more ships left
+        gameOver: function() {
+            console.log(this.shipLeft);
+            if (this.shipLeft == 0) {
+                return true;
+            }
+            return false;
         }
     }
 };
