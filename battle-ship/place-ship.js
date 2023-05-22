@@ -27,10 +27,11 @@ export function placeShip() {
     updateStatusBoxStyling();
 }
 
+// updates the styling for the status box
 function updateStatusBoxStyling() {
     let status = document.querySelector('.status');
     status.style.backgroundColor = "white";
-    status.style.width = "800px";
+    status.style.width = "600px";
     status.style.height = "100px";
     status.style.borderRadius = "20px";
     status.style.borderStyle = "solid";

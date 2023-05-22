@@ -1,15 +1,21 @@
-let status = document.querySelector('.status');
+import {clearAndTypeStatus} from "/classic-games/battle-ship/attack-phase-loop-status.js"
+
 
 export function updatePlaceShipStatus(shipCount, player1Name) {
     if (shipCount === 5) {
-        status.innerHTML = `${player1Name}, place your Carrier`;
+        let placeShipText = `${player1Name}, place your Carrier`;
+        clearAndTypeStatus(placeShipText)
     } else if (shipCount === 4) {
-        status.innerHTML = `${player1Name}, place your Battleship`;
+        let placeShipText = `${player1Name}, place your Battleship`;
+        clearAndTypeStatus(placeShipText)
     } else if (shipCount === 3) {
-        status.innerHTML = `${player1Name}, place your Cruiser`;
+        let placeShipText = `${player1Name}, place your Cruiser`;
+        clearAndTypeStatus(placeShipText)
     } else if (shipCount === 2) {
-        status.innerHTML = `${player1Name}, place your Submarine`;
+        let placeShipText = `${player1Name}, place your Submarine`;
+        clearAndTypeStatus(placeShipText)
     } else if (shipCount === 1) {
-        status.innerHTML = `${player1Name}, place your Destroyer`;
+        let placeShipText = `${player1Name}, place your Destroyer`;
+        clearAndTypeStatus(placeShipText)
     }
 }
