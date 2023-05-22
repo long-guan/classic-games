@@ -14,6 +14,7 @@ export let yAxisMode = true;
 export let shipCount = 5; // used to track which ship to place and how many squares of place-hover effect
 
 // creates board and add listeners to squares to place ships
+// updates the styling for the status box
 export function placeShip() {
     placeComputerShips(computerBoard); // randomly place computer ships
     player1Name = document.querySelector('.playerName').value;
@@ -23,6 +24,16 @@ export function placeShip() {
     document.querySelector('#axis').addEventListener('click', addAxisBtnFunc);
     addSquareFunc();
     updatePlaceShipStatus(shipCount, player1Name);
+    updateStatusBoxStyling();
+}
+
+function updateStatusBoxStyling() {
+    let status = document.querySelector('.status');
+    status.style.backgroundColor = "white";
+    status.style.width = "800px";
+    status.style.height = "100px";
+    status.style.borderRadius = "20px";
+    status.style.borderStyle = "solid";
 }
 
 // creates axis button and adds it to board-cont

@@ -79,7 +79,7 @@ function playerAttack() {
     removeClickForAttack(); // removes eventlisteners after each attack so it prevents clicking and waits for the computer's turn to attack
     setTimeout(() => { // waits 1.5 second before computer attacks
         computerAttack();
-    }, 20);
+    }, 1500);
 };
 
 // updates color to be red if hit and gray if miss on Friendly Water board
@@ -110,7 +110,7 @@ function computerAttack() {
         };
         addHover();
         addClickForAttack(); // restarts the loop
-    }, 20);
+    }, 1000);
 }
 
 // remove hover from board
