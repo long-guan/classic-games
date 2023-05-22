@@ -16,18 +16,20 @@ export let shipCount = 5; // used to track which ship to place and how many squa
 // creates board and add listeners to squares to place ships
 // updates the styling for the status box
 export function placeShip() {
-    placeComputerShips(computerBoard); // randomly place computer ships
     player1Name = document.querySelector('.playerName').value;
+    document.querySelector('.status').innerHTML = ""; // removes "Enter Player Name:" from status
+    updateStatusBoxStyling();
+    updatePlaceShipStatus(shipCount, player1Name);
+    placeComputerShips(computerBoard); // randomly place computer ships
     removeBoardContEle();
     addAxisBtn();
     createBoard('player1Board');
     document.querySelector('#axis').addEventListener('click', addAxisBtnFunc);
     addSquareFunc();
-    updatePlaceShipStatus(shipCount, player1Name);
-    updateStatusBoxStyling();
 }
 
 // updates the styling for the status box
+// adds 3 divs inside Status div
 function updateStatusBoxStyling() {
     let status = document.querySelector('.status');
     status.style.backgroundColor = "white";
@@ -35,6 +37,16 @@ function updateStatusBoxStyling() {
     status.style.height = "100px";
     status.style.borderRadius = "20px";
     status.style.borderStyle = "solid";
+    createSubStatusDivs(status); // creates 3 divs inside Status div
+}
+
+// creates 3 divs inside the Status div
+function createSubStatusDivs(status) {
+    for (let i = 3; i >= 1; i--) {
+        let newDiv = document.createElement("div");
+        newDiv.id = "status" + i;
+        status.appendChild(newDiv);
+    }
 }
 
 // creates axis button and adds it to board-cont

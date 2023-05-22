@@ -3,8 +3,8 @@ import { removeBoardContEle } from '/classic-games/battle-ship/start-menu-select
 import { displayShipPlacement } from '/classic-games/battle-ship/display-new-move.js';
 import { player1Board, computerBoard } from '/classic-games/battle-ship/gameboard.js';
 import { returnLegalMove } from '/classic-games/battle-ship/computer.js';
-import { statusPlayer1Hit, statusPlayer1Miss, statusPlayer1Sunk, statusPlayer1Lose, statusComputerHit, statusComputerMiss, statusComputerAim, statusComputerSunk, statusComputerLose } from '/classic-games/battle-ship/attack-phase-loop-status.js';
-import { player1Name } from '/classic-games/battle-ship/place-ship.js';
+import { statusAwaitingOrders, statusPlayer1Hit, statusPlayer1Miss, statusPlayer1Sunk, statusPlayer1Lose, statusComputerHit, statusComputerMiss, statusComputerAim, statusComputerSunk, statusComputerLose } from '/classic-games/battle-ship/attack-phase-loop-status.js';
+
 
 export function attackPhaseLoop() {
     setUpAttackPhase();
@@ -22,7 +22,7 @@ function setUpAttackPhase() {
     document.querySelector('.board-cont').style.flexDirection = 'row';
     removeHover('.player');
     displayShipPlacement(player1Board);
-    document.querySelector('.status').innerHTML = `Awaiting orders, Admiral ${player1Name}`;
+    statusAwaitingOrders();
 };
 
 // alternates the player and computer turn until someone wins
