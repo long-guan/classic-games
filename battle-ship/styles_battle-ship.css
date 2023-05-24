@@ -19,7 +19,7 @@
 
 .board-cont {
     display: flex;
-    gap: 10px;
+    gap: 20px;
     align-items: center;
 }
 
@@ -40,6 +40,7 @@
 .square {
     border-style: solid;
     margin: 1px;
+    background-color: rgb(18, 18, 119);
 }
 
 .hover:hover {
