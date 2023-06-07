@@ -7,6 +7,17 @@ export function createBoard(contName, titleName) {
     createSquares(contName)
 }
 
+
+export function createSvgBoard(contName, titleName) {
+    createBoard(contName, titleName);
+    let svgBoard = document.querySelector('.' + contName);
+    svgBoard.classList.add("absolute");
+    let svgSquares = document.querySelectorAll('.' + contName + "-square>div");
+    Array.from(svgSquares).forEach(square => {
+        square.remove();
+    });
+}
+
 // creates a sub-container for a player or computer
 function createSubBoardCont(contName) {
     let boardCont = document.querySelector('.board-cont');

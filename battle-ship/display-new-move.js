@@ -1,5 +1,5 @@
 import { removeListeners } from "/classic-games/battle-ship/remove-listeners.js";
-import { returnDestroyerSvg } from "/classic-games/battle-ship/add-ship-svg.js";
+import { addShipSvg } from "/classic-games/battle-ship/add-ship-svg.js";
 
 // takes in gameboard data and displays the new ship placement
 // uses the gameboard data to remove event listeners and hover class from square
@@ -12,5 +12,6 @@ export function displayShipPlacement(gameboard) {
             }
         }
     }
-    document.getElementById("36").appendChild(returnDestroyerSvg());
+    let svgBoard = document.querySelector(".player1SvgBoard-square");
+    svgBoard.appendChild(addShipSvg('carrier'));
 }

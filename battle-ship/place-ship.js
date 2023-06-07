@@ -1,4 +1,4 @@
-import {createBoard} from '/classic-games/battle-ship/createBoard.js';
+import {createBoard, createSvgBoard} from '/classic-games/battle-ship/createBoard.js';
 import { removeBoardContEle } from '/classic-games/battle-ship/start-menu-select.js';
 import { placeHover } from '/classic-games/battle-ship/place-hover.js';
 import { player1Board, computerBoard } from '/classic-games/battle-ship/gameboard.js';
@@ -23,6 +23,7 @@ export function placeShip() {
     placeComputerShips(computerBoard); // randomly place computer ships
     removeBoardContEle();
     addAxisBtn();
+    createSvgBoard('player1SvgBoard');
     createBoard('player1Board');
     document.querySelector('#axis').addEventListener('click', addAxisBtnFunc);
     addSquareFunc();
@@ -54,7 +55,8 @@ function addAxisBtn() {
     let newButton = document.createElement('button');
     newButton.innerHTML = 'Axis: Y';
     newButton.id = 'axis';
-    boardCont.appendChild(newButton);
+    let gameCont = document.querySelector('.game-sub-cont');
+    gameCont.insertBefore(newButton, boardCont)
 }
 
 // toggles true or false for yAxisMode and updates button axis text
