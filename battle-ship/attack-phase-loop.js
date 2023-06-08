@@ -1,6 +1,4 @@
 import {createBoard} from '/classic-games/battle-ship/createBoard.js';
-import { removeBoardContEle } from '/classic-games/battle-ship/start-menu-select.js';
-import { displayShipPlacement } from '/classic-games/battle-ship/display-new-move.js';
 import { player1Board, computerBoard } from '/classic-games/battle-ship/gameboard.js';
 import { returnLegalMove } from '/classic-games/battle-ship/computer.js';
 import { statusAwaitingOrders, statusPlayer1Hit, statusPlayer1Miss, statusPlayer1Sunk, statusPlayer1Lose, statusComputerHit, statusComputerMiss, statusComputerAim, statusComputerSunk, statusComputerLose } from '/classic-games/battle-ship/attack-phase-loop-status.js';
@@ -16,12 +14,12 @@ export function attackPhaseLoop() {
 // updates board-cont flex direction to be row
 // display friendly ship locations on Friendly Water board
 function setUpAttackPhase() {
-    removeBoardContEle();
-    createBoard('player', 'Friendly Water');
+    document.getElementById('axis').remove(); // remove axis btn
+    document.querySelector('.player1Board').remove() // remove player1Board
+    createBoard('player1', 'Friendly Water');
     createBoard('computer', 'Enemy Water');
+    document.querySelector('.player1SvgBoard').style.height = "509.438px";
     document.querySelector('.board-cont').style.flexDirection = 'row';
-    removeHover('.player');
-    displayShipPlacement(player1Board);
     statusAwaitingOrders();
 };
 

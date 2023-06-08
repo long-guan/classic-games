@@ -14,4 +14,5 @@ export function removeListeners(i, j) {
     square.removeEventListener('mouseleave', yRemoveHover);
     square.removeEventListener('mouseleave', removeInvalidHover);
     square.classList.remove('hover');
+    square.style.backgroundColor = "";
 }

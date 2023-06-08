@@ -7,6 +7,7 @@ import { displayShipPlacement } from '/classic-games/battle-ship/display-new-mov
 import {updatePlaceShipStatus} from '/classic-games/battle-ship/place-ship-status.js';
 import { placeComputerShips } from '/classic-games/battle-ship/computer.js';
 import {attackPhaseLoop} from '/classic-games/battle-ship/attack-phase-loop.js';
+import { displayShipSvg } from '/classic-games/battle-ship/add-ship-svg.js';
 
 let boardCont = document.querySelector('.board-cont')
 export let player1Name = '';
@@ -79,6 +80,16 @@ function addSquareFunc() {
     }
 }
 
+// select all the squares and remove placeAllShips function, hover effect, and hover effect
+function removeSquareFunc() {
+    let coordinates = document.querySelectorAll('.square');
+    for (let square of coordinates) {
+        square.removeEventListener('click', placeAllShips); // remove place ship
+        square.removeEventListener('mouseover', placeHover); // remove place-hover effect
+        square.classList.remove('hover');
+    }
+}
+
 // places ship for player1
 // uses ship count to track which ship has been placed
 // updates player1Board for the placed ships
@@ -91,32 +102,39 @@ export function placeAllShips() {
     let submarine = createShip(3, 'Submarine');
     let destroyer = createShip(2, 'Destroyer');
     if (shipCount == 5) { // place Carrier (5)
+        // player1Board returns true if placement of ship is valid
         if (player1Board.placeShip(this.id, carrier, yAxisMode)) {
-            displayShipPlacement(player1Board);
+            // displayShipPlacement(player1Board);
+            displayShipSvg(this.id, carrier, yAxisMode);
             shipCount--;
             updatePlaceShipStatus(shipCount, player1Name);
         };
     } else if (shipCount == 4) { // place Battleship (4)
         if (player1Board.placeShip(this.id, battleship, yAxisMode)) {
-            displayShipPlacement(player1Board);
+            // displayShipPlacement(player1Board);
+            displayShipSvg(this.id, battleship, yAxisMode);
             shipCount--;
             updatePlaceShipStatus(shipCount, player1Name);
         };
     } else if (shipCount == 3) { // place Cruiser (3)
         if (player1Board.placeShip(this.id, cruiser, yAxisMode)) {
-            displayShipPlacement(player1Board);
+            // displayShipPlacement(player1Board);
+            displayShipSvg(this.id, cruiser, yAxisMode);
             shipCount--;
             updatePlaceShipStatus(shipCount, player1Name);
         };
     } else if (shipCount == 2) { // place Submarine (3)
         if (player1Board.placeShip(this.id, submarine, yAxisMode)) {
-            displayShipPlacement(player1Board);
+            // displayShipPlacement(player1Board);
+            displayShipSvg(this.id, submarine, yAxisMode);
             shipCount--;
             updatePlaceShipStatus(shipCount, player1Name);
         };
     } else if (shipCount == 1) { // place Destroyer (2)
         if (player1Board.placeShip(this.id, destroyer, yAxisMode)) {
-            displayShipPlacement(player1Board);
+            // displayShipPlacement(player1Board);
+            displayShipSvg(this.id, destroyer, yAxisMode);
+            removeSquareFunc();
             attackPhaseLoop(); // starts the game
         };
     }
