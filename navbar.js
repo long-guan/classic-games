@@ -2,7 +2,6 @@
 document.querySelector('.home-btn').addEventListener('click', ()=> {
 
     window.location = "/index.html";
-    console.log(window.location);
 });
 
 // Logo and Title
