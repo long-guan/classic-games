@@ -8,7 +8,7 @@ class Header extends HTMLElement {
             <div class="nav-cont">
                 <div class="nav-items">
                     <div class="logo-title">
-                        <img src="./image/controller.svg" alt="" class="controller">
+                        <img src="/image/controller.svg" alt="" class="controller">
                         <div class="nav-title">Games From Long (Ago)</div>
                     </div>
                     <div class="home-btn nav-link">Home</div>
