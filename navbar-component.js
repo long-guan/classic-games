@@ -1,4 +1,4 @@
-class header extends HTMLElement {
+class Header extends HTMLElement {
     constructor() {
         super();
     }
@@ -8,7 +8,7 @@ class header extends HTMLElement {
             <div class="nav-cont">
                 <div class="nav-items">
                     <div class="logo-title">
-                        <img src="/classic-games/image/controller.svg" alt="" class="controller">
+                        <img src="./image/controller.svg" alt="" class="controller">
                         <div class="nav-title">Games From Long (Ago)</div>
                     </div>
                     <div class="home-btn nav-link">Home</div>
@@ -21,4 +21,8 @@ class header extends HTMLElement {
     }
 }
 
-customElements.define('header-component', header);
+function addCustomElement() {
+    customElements.define('header-component', Header);
+}
+
+addCustomElement();
