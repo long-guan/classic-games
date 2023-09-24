@@ -1,15 +1,26 @@
-// // Home button
-// document.querySelector('.home-btn').addEventListener('click', ()=> {
+// Home button
+document.querySelector('.home-btn').addEventListener('click', ()=> {
+    if (window.location.href.includes("long")) {
+        window.location = "https://long-guan.github.io/classic-games/index_about.html";
+    } else {
+        window.location = "/index.html";
+    }
+});
 
-//     window.location = "/index.html";
-// });
+// Logo and Title
+document.querySelector('.logo-title').addEventListener('click', ()=> {
+    if (window.location.href.includes("long")) {
+        window.location = "https://long-guan.github.io/classic-games/index_about.html";
+    } else {
+        window.location = "/index.html";
+    }
+});
 
-// // Logo and Title
-// document.querySelector('.logo-title').addEventListener('click', ()=> {
-//     window.location = "/index.html";
-// });
-
-// // About
-// document.querySelector('.about').addEventListener('click', () => {
-//     window.location = "/about-page/index_about.html";
-// })
+// About
+document.querySelector('.about').addEventListener('click', () => {
+    if (window.location.href.includes("long")) {
+        window.location = "https://long-guan.github.io/classic-games/index_about.html";
+    } else {
+        window.location = "/about-page/index_about.html";
+    }
+})
