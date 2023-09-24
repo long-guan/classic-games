@@ -13,8 +13,12 @@ class Header extends HTMLElement {
                             <div class="nav-title">Games From Long (Ago)</div>
                         </div>
                     </a>
-                    <div class="home-btn nav-link">Home</div>
-                    <div class="nav-link about">About</div>
+                    <a href="index.html">
+                        <div class="home-btn nav-link">Home</div>
+                    </a>
+                    <a href="/about-page/index_about.html">
+                        <div class="nav-link about">About</div>
+                    </a>
                     <div class="nav-link">Contact</div>
                 </div>
                 <hr class="separator">
