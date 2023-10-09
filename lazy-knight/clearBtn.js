@@ -1,4 +1,4 @@
-import {removeSelectStyling} from '/classic-games/lazy-knight/selectBtn.js';
+import {removeSelectStyling} from './selectBtn.js';
 
 let squares = document.querySelectorAll('.board-cont>div');
 

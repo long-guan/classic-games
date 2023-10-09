@@ -1,5 +1,5 @@
-import {checkOutOfBoundHover, showInvalidHover, checkAgainstBoardHover} from '/classic-games/battle-ship/invalid-place-hover.js';
-import {yAxisMode, shipCount} from '/classic-games/battle-ship/place-ship.js';
+import {checkOutOfBoundHover, showInvalidHover, checkAgainstBoardHover} from './invalid-place-hover.js';
+import {yAxisMode, shipCount} from './place-ship.js';
 
 // shows place-hover effect
 export function placeHover() {

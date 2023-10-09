@@ -1,4 +1,4 @@
-import {clearAndTypeStatus} from "/classic-games/battle-ship/attack-phase-loop-status.js"
+import {clearAndTypeStatus} from "./attack-phase-loop-status.js"
 
 export function updatePlaceShipStatus(shipCount, player1Name) {
     if (shipCount === 5) {

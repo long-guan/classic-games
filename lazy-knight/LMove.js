@@ -1,4 +1,4 @@
-import {createImg} from '/classic-games/lazy-knight/selectBtn.js';
+import {createImg} from './selectBtn.js';
 
 // animate the knight moving in 2 spaces in a given direction
 function calculateTwoSpaces(direction) {
@@ -61,7 +61,7 @@ export function move2V1H(vertical, horizontal, totalDuration) {
                 newId = '0' + newId;
             }
         }
-        document.getElementById(newId).appendChild(createImg('/classic-games/image/chess-knight.svg', 'knight'));
+        document.getElementById(newId).appendChild(createImg('../image/chess-knight.svg', 'knight'));
         knight = document.querySelector('.knight');
         knight.animate(calculateOneSpace(horizontal), duration);
         setTimeout(() => { // left or right movement
@@ -75,7 +75,7 @@ export function move2V1H(vertical, horizontal, totalDuration) {
             } else { // horizontal = 'right'
                 newId = String(parseInt(currentId) + 10)
             }
-            document.getElementById(newId).appendChild(createImg('/classic-games/image/chess-knight.svg', 'knight'));
+            document.getElementById(newId).appendChild(createImg('../image/chess-knight.svg', 'knight'));
         }, duration)
     }, duration * 2);
 }
@@ -107,7 +107,7 @@ export function move2H1V(horizontal, vertical, totalDuration) {
                 newId = '0' + newId;
             }
         }
-        document.getElementById(newId).appendChild(createImg('/classic-games/image/chess-knight.svg', 'knight')); // add knight to new location
+        document.getElementById(newId).appendChild(createImg('../image/chess-knight.svg', 'knight')); // add knight to new location
         knight = document.querySelector('.knight');
         knight.animate(calculateOneSpace(vertical), duration);
         setTimeout(() => { // up or down movement
@@ -124,7 +124,7 @@ export function move2H1V(horizontal, vertical, totalDuration) {
                     newId = '0' + newId;
                 }
             }
-            document.getElementById(newId).appendChild(createImg('/classic-games/image/chess-knight.svg', 'knight'));
+            document.getElementById(newId).appendChild(createImg('../image/chess-knight.svg', 'knight'));
         }, duration)
     }, duration * 2);
 }

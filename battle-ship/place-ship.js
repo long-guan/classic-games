@@ -1,13 +1,12 @@
-import {createBoard, createSvgBoard} from '/classic-games/battle-ship/createBoard.js';
-import { removeBoardContEle } from '/classic-games/battle-ship/start-menu-select.js';
-import { placeHover } from '/classic-games/battle-ship/place-hover.js';
-import { player1Board, computerBoard } from '/classic-games/battle-ship/gameboard.js';
-import { createShip } from '/classic-games/battle-ship/ship.js';
-import { displayShipPlacement } from '/classic-games/battle-ship/display-new-move.js';
-import {updatePlaceShipStatus} from '/classic-games/battle-ship/place-ship-status.js';
-import { placeComputerShips } from '/classic-games/battle-ship/computer.js';
-import {attackPhaseLoop} from '/classic-games/battle-ship/attack-phase-loop.js';
-import { displayShipSvg } from '/classic-games/battle-ship/add-ship-svg.js';
+import {createBoard, createSvgBoard} from './createBoard.js';
+import { removeBoardContEle } from './start-menu-select.js';
+import { placeHover } from './place-hover.js';
+import { player1Board, computerBoard } from './gameboard.js';
+import { createShip } from './ship.js';
+import {updatePlaceShipStatus} from './place-ship-status.js';
+import { placeComputerShips } from './computer.js';
+import {attackPhaseLoop} from './attack-phase-loop.js';
+import { displayShipSvg } from './add-ship-svg.js';
 
 let boardCont = document.querySelector('.board-cont')
 export let player1Name = '';

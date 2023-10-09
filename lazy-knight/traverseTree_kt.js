@@ -1,4 +1,4 @@
-import {getTree} from '/classic-games/lazy-knight/buildTree.js';
+import {getTree} from './buildTree.js';
 
 // builds tree
 // traverses tree BFS to find

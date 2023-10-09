@@ -1,7 +1,7 @@
-import {removeSelectStyling} from '/classic-games/lazy-knight/selectBtn.js';
-import {buildTree} from '/classic-games/lazy-knight/buildTree.js';
-import {getMoves} from '/classic-games/lazy-knight/traverseTree_kt.js';
-import {displaySteps} from '/classic-games/lazy-knight/displaySteps.js';
+import {removeSelectStyling} from './selectBtn.js';
+import {buildTree} from './buildTree.js';
+import {getMoves} from './traverseTree_kt.js';
+import {displaySteps} from './displaySteps.js';
 
 let squares = document.querySelectorAll('.board-cont>div');
 

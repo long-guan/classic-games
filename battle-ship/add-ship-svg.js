@@ -1,5 +1,5 @@
-import { player1Board } from '/classic-games/battle-ship/gameboard.js';
-import { removeListeners } from "/classic-games/battle-ship/remove-listeners.js";
+import { player1Board } from './gameboard.js';
+import { removeListeners } from "./remove-listeners.js";
 
 let shipAttributes = {
     'Carrier': {

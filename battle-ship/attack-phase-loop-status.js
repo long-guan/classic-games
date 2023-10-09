@@ -1,4 +1,4 @@
-import { player1Name } from '/classic-games/battle-ship/place-ship.js';
+import { player1Name } from './place-ship.js';
 
 export function statusAwaitingOrders() {
     let text = `Awaiting orders, Admiral ${player1Name}`;

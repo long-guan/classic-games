@@ -1,4 +1,4 @@
-import { move2V1H, move2H1V } from "/classic-games/lazy-knight/LMove.js";
+import { move2V1H, move2H1V } from "./LMove.js";
 
 // sets duration of adding the markers and the animation movement of knight, this ensures the timing of the knight movement, adding marker, and removing marker are relative to each other
 let duration = 500;

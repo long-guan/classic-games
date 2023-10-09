@@ -60,10 +60,10 @@ function addMarker() {
     if (this.hasChildNodes() === false) { // prevents markers being added to squares with markers already
         if (startBtnStatus === true) {
             removeExMarkers();
-            this.appendChild(createImg('/classic-games/image/chess-knight.svg', 'knight'));
+            this.appendChild(createImg('../image/chess-knight.svg', 'knight'));
         } else if (endBtnStatus === true) {
             removeExMarkers();
-            this.appendChild(createImg('/classic-games/image/map-marker.svg', 'end-marker'))
+            this.appendChild(createImg('../image/map-marker.svg', 'end-marker'))
         }
     }
 }

@@ -1,6 +1,6 @@
-import {selectStart, selectEnd} from '/classic-games/lazy-knight/selectBtn.js';
-import {begin} from '/classic-games/lazy-knight/beginBtn.js';
-import {clear} from '/classic-games/lazy-knight/clearBtn.js';
+import {selectStart, selectEnd} from './selectBtn.js';
+import {begin} from './beginBtn.js';
+import {clear} from './clearBtn.js';
 
 
 // add functionality for Select Start btn

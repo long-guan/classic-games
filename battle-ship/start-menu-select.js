@@ -1,4 +1,4 @@
-import {placeShip} from '/classic-games/battle-ship/place-ship.js';
+import {placeShip} from './place-ship.js';
 
 let status = document.querySelector('.status');
 let boardCont = document.querySelector('.board-cont')

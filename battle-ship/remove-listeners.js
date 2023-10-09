@@ -1,6 +1,6 @@
-import {placeAllShips} from '/classic-games/battle-ship/place-ship.js';
-import {placeHover, xRemoveHover, yRemoveHover} from '/classic-games/battle-ship/place-hover.js';
-import {removeInvalidHover} from '/classic-games/battle-ship/invalid-place-hover.js';
+import {placeAllShips} from './place-ship.js';
+import {placeHover, xRemoveHover, yRemoveHover} from './place-hover.js';
+import {removeInvalidHover} from './invalid-place-hover.js';
 
 // removes placeAllShips event listener
 // removes placeHover event listener

@@ -1,4 +1,4 @@
-import {player1Board} from '/classic-games/battle-ship/gameboard.js';
+import {player1Board} from './gameboard.js';
 
 // returns true if the length of the ship will fit on board
 export function checkOutOfBoundHover(coord, shipCount) {

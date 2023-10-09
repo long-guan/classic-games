@@ -1,7 +1,7 @@
-import {createBoard} from '/classic-games/battle-ship/createBoard.js';
-import { player1Board, computerBoard } from '/classic-games/battle-ship/gameboard.js';
-import { returnLegalMove } from '/classic-games/battle-ship/computer.js';
-import { statusAwaitingOrders, statusPlayer1Hit, statusPlayer1Miss, statusPlayer1Sunk, statusPlayer1Lose, statusComputerHit, statusComputerMiss, statusComputerAim, statusComputerSunk, statusComputerLose } from '/classic-games/battle-ship/attack-phase-loop-status.js';
+import {createBoard} from './createBoard.js';
+import { player1Board, computerBoard } from './gameboard.js';
+import { returnLegalMove } from './computer.js';
+import { statusAwaitingOrders, statusPlayer1Hit, statusPlayer1Miss, statusPlayer1Sunk, statusPlayer1Lose, statusComputerHit, statusComputerMiss, statusComputerAim, statusComputerSunk, statusComputerLose } from './attack-phase-loop-status.js';
 
 
 export function attackPhaseLoop() {

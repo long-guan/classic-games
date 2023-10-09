@@ -1,32 +1,42 @@
+const logo = document.querySelector('.logo-title');
+const homeBtn = document.querySelector('.home-btn');
+const about = document.querySelector('.about');
+
 // Home button
-document.querySelector('.home-btn').addEventListener('click', ()=> {
+homeBtn.addEventListener('click', ()=> {
     // used for GitHub pages
-    if (window.location.href.includes("long")) {
-        window.location = "https://long-guan.github.io/classic-games/index.html";
-    // used locally
-    } else {
-        window.location = "/index.html";
+    if (window.location.href.includes("index.html") === false) {
+        if (window.location.href.includes("long")) {
+            window.location = "https://long-guan.github.io/classic-games/index.html";
+        // used locally
+        } else {
+            window.location = "/index.html";
+        }
     }
 });
 
 // Logo and Title
-document.querySelector('.logo-title').addEventListener('click', ()=> {
+logo.addEventListener('click', ()=> {
     // used for GitHub pages
-    if (window.location.href.includes("long")) {
-        window.location = "https://long-guan.github.io/classic-games/index.html";
-    // used locally
-    } else {
-        window.location = "/index.html";
+    if (window.location.href.includes("index.html") === false) {
+        if (window.location.href.includes("long")) {
+            window.location = "https://long-guan.github.io/classic-games/index.html";
+        // used locally
+        } else {
+            window.location = "/index.html";
+        }
     }
 });
 
 // About
-document.querySelector('.about').addEventListener('click', () => {
+about.addEventListener('click', () => {
     // used for GitHub pages
-    if (window.location.href.includes("long")) {
-        window.location = "https://long-guan.github.io/classic-games/about-page/index_about.html";
-    // used locally
-    } else {
-        window.location = "/about-page/index_about.html";
+    if (window.location.href.includes("index_about.html") === false) {
+        if (window.location.href.includes("long")) {
+            window.location = "https://long-guan.github.io/classic-games/about-page/index_about.html";
+        // used locally
+        } else {
+            window.location = "/about-page/index_about.html";
+        }
     }
 })

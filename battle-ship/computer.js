@@ -1,4 +1,4 @@
-import {createShip} from '/classic-games/battle-ship/ship.js';
+import {createShip} from './ship.js';
 
 // iterates through coordinatesHit array to check if the coordinates have already been hit
 export function returnLegalMove(coordinatesHit) {
