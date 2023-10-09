@@ -13,7 +13,6 @@ class Header extends HTMLElement {
                     </div>
                     <div class="home-btn nav-link">Home</div>
                     <div class="nav-link about">About</div>
-                    <div class="nav-link">Contact</div>
                 </div>
                 <hr class="separator">
             </div>

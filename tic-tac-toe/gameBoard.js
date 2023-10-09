@@ -1,6 +1,6 @@
-import {placeMarker} from '/classic-games/tic-tac-toe/displayController.js';
-import {xOrO, addCount} from '/classic-games/tic-tac-toe/counter.js';
-import {checkWin} from '/classic-games/tic-tac-toe/checkWin.js';
+import {placeMarker} from './displayController.js';
+import {xOrO, addCount} from './counter.js';
+import {checkWin} from './checkWin.js';
 
 const square0 = document.querySelector('.square0');
 const square1 = document.querySelector('.square1');

@@ -1,6 +1,6 @@
-import {getEventArray, addClickEvents, getBoard} from '/classic-games/tic-tac-toe/gameBoard.js';
-import {placeMarker, resetDisplay} from '/classic-games/tic-tac-toe/displayController.js';
-import {resetMoveCount} from '/classic-games/tic-tac-toe/counter.js';
+import {getEventArray, addClickEvents, getBoard} from './gameBoard.js';
+import {placeMarker, resetDisplay} from './displayController.js';
+import {resetMoveCount} from './counter.js';
 
 const resetBtn = document.querySelector(".reset");
 

@@ -24,7 +24,7 @@ document.querySelector('.logo-title').addEventListener('click', ()=> {
 document.querySelector('.about').addEventListener('click', () => {
     // used for GitHub pages
     if (window.location.href.includes("long")) {
-        window.location = "https://long-guan.github.io/classic-games/about/index_about.html";
+        window.location = "https://long-guan.github.io/classic-games/about-page/index_about.html";
     // used locally
     } else {
         window.location = "/about-page/index_about.html";

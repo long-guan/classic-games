@@ -1,5 +1,5 @@
-import {tie} from '/classic-games/tic-tac-toe/counter.js';
-import {updateStatusTurn, removeGameOver} from '/classic-games/tic-tac-toe/displayController.js';
+import {tie} from './counter.js';
+import {updateStatusTurn, removeGameOver} from './displayController.js';
 
 const square0 = document.querySelector('.square0');
 const square1 = document.querySelector('.square1');

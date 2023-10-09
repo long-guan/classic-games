@@ -1,6 +1,6 @@
-import {xOrO, tie, turn, winner} from '/classic-games/tic-tac-toe/counter.js';
-import {getEventArray} from '/classic-games/tic-tac-toe/gameBoard.js';
-import {removeListener} from '/classic-games/tic-tac-toe/reset.js';
+import {xOrO, tie, turn, winner} from './counter.js';
+import {getEventArray} from './gameBoard.js';
+import {removeListener} from './reset.js';
 
 const status = document.querySelector(".status");
 const player1Input = document.querySelector(".player1");

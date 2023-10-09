@@ -1,5 +1,5 @@
-import { initializeBoard } from "/classic-games/tic-tac-toe/gameBoard.js";
-import {updateModeStatus} from '/classic-games/tic-tac-toe/mode.js';
+import { initializeBoard } from "./gameBoard.js";
+import {updateModeStatus} from './mode.js';
 
 // adds eventListeners to squares
 initializeBoard();
