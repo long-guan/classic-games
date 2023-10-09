@@ -135,3 +135,7 @@ footer {
         justify-content: center;
     }
 }
+
+.black-text {
+    color: black;
+}
