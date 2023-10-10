@@ -23,7 +23,7 @@ export function checkWin(board) {
     let botMid = board.botMid;
     let botRight = board.botRight;
     // horizontal wins
-    if (topLeft == board.topMid && topLeft == topRight) {
+    if (topLeft == topMid && topLeft == topRight) {
         square0.classList.add("blue-background");
         square1.classList.add("blue-background");
         square2.classList.add("blue-background");

@@ -32,7 +32,7 @@ export function getBoard() {
     return board;
 }
 
-// array used to track the 9 possible moves on the board
+// dict used to track the 9 possible moves on the board
 const board = {
     topLeft: "0", topMid: "1", topRight: "2",
     midLeft: "3", midMid: "4", midRight: "5",
@@ -42,6 +42,7 @@ const board = {
 // updates board array after a move
 function updateData(className) {
     board[returnKey(className)] = xOrO();
+    console.log(board);
 }
 
 // matches class name of UI to board and returns the key

@@ -89,3 +89,17 @@ function removeHover() {
         }
     };
 }
+
+// when in player vs computer mode, update the name input to computer and disable it
+// when in player vs player mode, allow for player 2 name input
+export function updateNameInput(computerModeStatus) {
+    if (computerModeStatus) {
+        player2Input.placeholder = "Computer";
+        player2Input.value = "Computer";
+        player2Input.disabled = true;
+    } else {
+        player2Input.placeholder = "Player 2";
+        player2Input.value = "";
+        player2Input.disabled = false;
+    }
+}

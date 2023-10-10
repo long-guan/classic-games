@@ -7,7 +7,7 @@ const resetBtn = document.querySelector(".reset");
 resetBtn.addEventListener("click", reset);
 
 // reset everything and readd eventListeners
-function reset() {
+export function reset() {
     resetBoard();
     resetDisplay();
     removeListener();
