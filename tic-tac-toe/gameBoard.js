@@ -1,6 +1,7 @@
-import {placeMarker} from './displayController.js';
+import {placeMarker, placeX} from './displayController.js';
 import {xOrO, addCount} from './counter.js';
 import {checkWin} from './checkWin.js';
+import { getNextMove } from './minimax-algo.js';
 
 const square0 = document.querySelector('.square0');
 const square1 = document.querySelector('.square1');
@@ -45,6 +46,11 @@ function updateData(className) {
     console.log(board);
 }
 
+function updateDataForComputer(className) {
+    board[returnKey(className)] = "X";
+    console.log(board);
+}
+
 // matches class name of UI to board and returns the key
 function returnKey(className) {
     for (let [key, value] of Object.entries(board)) {
@@ -60,4 +66,27 @@ export function addClickEvents() {
     updateData(this.className[6]); // updates board array
     addCount();
     checkWin(board);
+}
+
+function addComputerClickEvents() {
+    this.classList.remove('hover');
+    updateDataForComputer(this.className[6]); // updates board array
+}
+
+const testBoard = {
+    topLeft: "X", topMid: "O", topRight: "X",
+    midLeft: "3", midMid: "O", midRight: "X",
+    botLeft: "O", botMid: "X", botRight: "8"
+};
+
+export function initializeBoardForComputer() {
+    for (let event of eventArray) {
+        event.removeEventListener('click', addClickEvents);
+        event.removeEventListener('click', placeMarker);
+        event.addEventListener('click', addComputerClickEvents);
+        event.addEventListener('click', placeX, {once: true}); // adds "X" to display in UI
+        event.addEventListener('click', ()=> {
+            getNextMove(testBoard);
+        }, {once: true});
+    }
 }

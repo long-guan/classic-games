@@ -9,9 +9,14 @@ const player2Input = document.querySelector(".player2");
 player1Input.addEventListener("input", updateStatusTurn);
 player2Input.addEventListener("input", updateStatusTurn);
 
-// places X or O at selected square
+// places X or O at selected square for player vs player mode
 export function placeMarker() {
     this.innerHTML = xOrO();
+}
+
+// places X at selected square for player vs computer mode
+export function placeX() {
+    this.innerHTML = "X";
 }
 
 // reset square and status

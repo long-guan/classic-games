@@ -1,5 +1,6 @@
-import {reset} from './reset.js'
-import {updateNameInput} from './displayController.js'
+import {reset} from './reset.js';
+import {updateNameInput} from './displayController.js';
+import { initializeBoardForComputer } from './gameBoard.js';
 
 const playerMode = document.querySelector('.player');
 const computerMode = document.querySelector('.computer');
@@ -23,6 +24,7 @@ export function updateModeStatus() {
         playerMode.classList.remove('selected');
         playerModeStatus = false;
         changeModeSettings();
+        initializeBoardForComputer();
     }
 }
 
