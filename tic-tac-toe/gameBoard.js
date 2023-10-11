@@ -1,7 +1,7 @@
 import {placeMarker, placeX} from './displayController.js';
 import {xOrO, addCount} from './counter.js';
 import {checkWin} from './checkWin.js';
-import { getNextMove } from './minimax-algo.js';
+import { getNextMove } from './minmaxTree.js';
 
 const square0 = document.querySelector('.square0');
 const square1 = document.querySelector('.square1');
@@ -25,6 +25,25 @@ export function initializeBoard() {
     };
 }
 
+const testBoard = {
+    topLeft: "X", topMid: "X", topRight: "2",
+    midLeft: "3", midMid: "4", midRight: "5",
+    botLeft: "6", botMid: "O", botRight: "8"
+};
+
+// add eventListeners for player vs computer mode
+export function initializeBoardForComputer() {
+    for (let event of eventArray) {
+        event.removeEventListener('click', addClickEvents), {once: true};
+        event.removeEventListener('click', placeMarker), {once: true};
+        event.addEventListener('click', placeMarker, {once: true}); // adds "X" or "O" to display in UI
+        event.addEventListener('click', addComputerClickEvents), {once: true};
+        event.addEventListener('click', ()=> {
+            getNextMove(testBoard);
+        }, {once: true});
+    }
+}
+
 export function getEventArray() {
     return eventArray;
 }
@@ -46,10 +65,10 @@ function updateData(className) {
     console.log(board);
 }
 
-function updateDataForComputer(className) {
-    board[returnKey(className)] = "X";
-    console.log(board);
-}
+// function updateDataForComputer(className) {
+//     board[returnKey(className)] = "X";
+//     console.log(board);
+// }
 
 // matches class name of UI to board and returns the key
 function returnKey(className) {
@@ -70,23 +89,7 @@ export function addClickEvents() {
 
 function addComputerClickEvents() {
     this.classList.remove('hover');
-    updateDataForComputer(this.className[6]); // updates board array
-}
-
-const testBoard = {
-    topLeft: "X", topMid: "O", topRight: "X",
-    midLeft: "3", midMid: "O", midRight: "X",
-    botLeft: "O", botMid: "X", botRight: "8"
-};
-
-export function initializeBoardForComputer() {
-    for (let event of eventArray) {
-        event.removeEventListener('click', addClickEvents);
-        event.removeEventListener('click', placeMarker);
-        event.addEventListener('click', addComputerClickEvents);
-        event.addEventListener('click', placeX, {once: true}); // adds "X" to display in UI
-        event.addEventListener('click', ()=> {
-            getNextMove(testBoard);
-        }, {once: true});
-    }
+    updateData(this.className[6]); // updates board array
+    addCount();
+    checkWin(board);
 }
