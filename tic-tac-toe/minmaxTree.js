@@ -5,9 +5,95 @@ let tree = {
 };
 
 let highestScore = {
-    score: 0,
+    score: -100,
     node: {}
 };
+
+let lowestScore = {
+    score: -100,
+    node: {}
+}
+
+let moves = {
+    score: -100,
+    node: {}
+}
+
+// BFS
+// when it is the human's turn, we want to choose the lowest score. If it doesn't find a score
+
+// when it is the computer's turn, we want to choose the highest score (greater than or equal to 0). If it doesn't find a score with the available moves (all null), then it looks at the next available set of moves for human and chooses a move that is 0. If no 0, then it looks at the next set moves to find the highest score and returns the moves
+
+// positive points = computer
+// 0 = tie
+// null = game did not end
+
+let iterationCount = 0;
+
+let sumNodeScore = {
+
+}
+
+function traverseTree(tree, queue, pointer=tree.root) {
+    // start with root node
+    for (let i = 0; i <= 8; i++) {
+        let nextBoard = pointer['nextBoard' + i];
+        if (nextBoard !== null) { // if nextBoard is not null, then game has not ended
+            queue.push(nextBoard);
+        }
+    }
+    while (queue.length !== 0) {
+        let sumArr = [];
+        iterationCount++;
+        console.log("count: ", iterationCount);
+        let dequeue = queue.shift();
+        getNodeScore(dequeue, sumArr);
+        sumNodeScore[dequeue.stats.nextMoves[0]["O"]] = sumArr;
+        // if (dequeue.stats.moveCount % 2 === 0) { // computer's turn (max score)
+        //     console.log('computer turn');
+        //     console.log(dequeue);
+        //     // if (moves.score >= 0) { // empty queue to stop the loop since score >= 0 means computer won or tied
+        //     //     queue = [];
+        //     // }
+        //     if (dequeue.stats.points > highestScore.score && dequeue.stats.points !== null) {
+        //         highestScore.score = dequeue.stats.points;
+        //         highestScore.node = dequeue;
+        //         moves.node = dequeue;
+        //         moves.score = dequeue.stats.points;
+        //     } else {
+        //         return traverseTree(tree, queue, dequeue);
+        //     }
+        // }
+        // else { // human's turn (min score)
+        //     console.log('human turn');
+        //     console.log(dequeue);
+        //     // if (moves.score >= 0) { // empty queue to stop the loop since score >= 0 means computer won or tied
+        //     //     queue = [];
+        //     // }
+        //     if (dequeue.stats.points > lowestScore.score && dequeue.stats.points !== null) {
+        //         highestScore.score = 0;
+        //         lowestScore.score = dequeue.stats.points;
+        //         lowestScore.node = dequeue;
+        //         moves.node = dequeue;
+        //         moves.score = dequeue.stats.points;
+        //     } else {
+        //         return traverseTree(tree, queue, dequeue);
+        //     }
+        // }
+    }
+}
+
+function getNodeScore(node, arr) {
+    if (node.stats.points !== null) { // base case
+        return arr.push(node.stats.points);
+    }
+    for (let i = 0; i <= 8; i++) { // add the children of the current node
+        let nextBoard = node['nextBoard' + i];
+        if (nextBoard !== null) { // check if this position is a valid move (already taken)
+            getNodeScore(nextBoard, arr);
+        }
+    }
+}
 
 export function getNextMove(dictBoard) {
     let result = convertDict2Arr(dictBoard);
@@ -21,8 +107,37 @@ export function getNextMove(dictBoard) {
     buildMinmaxTree(arrBoard, [], moveCount);
     console.log(tree);
     let nextMove = traverseTree(tree, []);
+    console.log("sumNodeScore", sumNodeScore);
+    console.log(getLargestNode(sumNodeScore));
     // console.log(nextMove.stats.nextMoves[0]);
-    console.log(highestScore);
+    // console.log('highestScore');
+    // console.log(highestScore);
+    // console.log('lowestScore');
+    // console.log(lowestScore);
+    // console.log('moves');
+    // console.log(moves);
+    // console.log(moves.node.stats.nextMoves[0]);
+}
+
+function getLargestNode(sumNodeScore) {
+    let largestNode = {
+        average: -100,
+        move: null
+    }
+    for (const [key, value] of Object.entries(sumNodeScore)) {
+        console.log("key", key);
+        let sum = 0;
+        for (let i = 0; i < value.length; i++) {
+            sum += value[i];
+        }
+        console.log("sum", sum);
+        let average = sum/value.length
+        if (average > largestNode.average) {
+            largestNode.average = average;
+            largestNode.move = key;
+        }
+    }
+    return largestNode;
 }
 
 function Position(board, points, nextMoves, moveCount) {
@@ -76,28 +191,6 @@ function buildMinmaxTree(board, nextMoves, moveCount, pointer=tree.root) {
                     buildMinmaxTree(copyBoard, copyNextMoves, unrefMoveCount, nextPointer);
                 }
             }
-        }
-    }
-}
-
-// BFS
-// when it is the human's turn, we want to choose the lowest score
-// when it is the computer's turn, we want to choose the highest score
-function traverseTree(tree, queue, pointer=tree.root) {
-    // start with root node
-    for (let i = 0; i <= 8; i++) {
-        let nextBoard = pointer['nextBoard' + i];
-        if (nextBoard !== null) { // if nextBoard is not null, then game has not ended
-            queue.push(nextBoard);
-        }
-    }
-    while (queue.length !== 0) {
-        let dequeue = queue.shift();
-        if (dequeue.stats.points >= highestScore.score && dequeue.stats.points !== null) {
-            highestScore.score = dequeue.stats.points;
-            highestScore.node = dequeue;
-        } else {
-            return traverseTree(tree, queue, dequeue);
         }
     }
 }
@@ -158,3 +251,39 @@ function returnScore(xOrO, moveCount) {
         return -10 + moveCount;
     }
 }
+
+
+// while (queue.length !== 0) {
+//     let dequeue = queue.shift();
+//     if (dequeue.stats.moveCount % 2 === 0) { // computer's turn (max score)
+//         console.log('computer turn');
+//         console.log(dequeue);
+//         // if (moves.score >= 0) { // empty queue to stop the loop since score >= 0 means computer won or tied
+//         //     queue = [];
+//         // }
+//         if (dequeue.stats.points > highestScore.score && dequeue.stats.points !== null) {
+//             highestScore.score = dequeue.stats.points;
+//             highestScore.node = dequeue;
+//             moves.node = dequeue;
+//             moves.score = dequeue.stats.points;
+//         } else {
+//             return traverseTree(tree, queue, dequeue);
+//         }
+//     }
+//     else { // human's turn (min score)
+//         console.log('human turn');
+//         console.log(dequeue);
+//         // if (moves.score >= 0) { // empty queue to stop the loop since score >= 0 means computer won or tied
+//         //     queue = [];
+//         // }
+//         if (dequeue.stats.points > lowestScore.score && dequeue.stats.points !== null) {
+//             highestScore.score = 0;
+//             lowestScore.score = dequeue.stats.points;
+//             lowestScore.node = dequeue;
+//             moves.node = dequeue;
+//             moves.score = dequeue.stats.points;
+//         } else {
+//             return traverseTree(tree, queue, dequeue);
+//         }
+//     }
+// }

@@ -26,9 +26,9 @@ export function initializeBoard() {
 }
 
 const testBoard = {
-    topLeft: "X", topMid: "X", topRight: "2",
-    midLeft: "3", midMid: "4", midRight: "5",
-    botLeft: "6", botMid: "O", botRight: "8"
+    topLeft: "O", topMid: "1", topRight: "O",
+    midLeft: "3", midMid: "X", midRight: "5",
+    botLeft: "6", botMid: "X", botRight: "X"
 };
 
 // add eventListeners for player vs computer mode
