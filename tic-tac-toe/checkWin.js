@@ -45,9 +45,9 @@ export function checkWin(board) {
         square7.classList.add("blue-background");
         removeGameOver();
     } else if (topRight == midRight && topRight == botRight) {
-        square1.classList.add("blue-background");
-        square4.classList.add("blue-background");
-        square7.classList.add("blue-background");
+        square2.classList.add("blue-background");
+        square5.classList.add("blue-background");
+        square8.classList.add("blue-background");
         removeGameOver();
     }  else if (topLeft == midLeft && topLeft == botLeft) {
         square0.classList.add("blue-background");
