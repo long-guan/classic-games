@@ -4,22 +4,8 @@ let tree = {
     }
 };
 
-// BFS
-// when it is the human's turn, we want to choose the lowest score. If it doesn't find a score
-
-// when it is the computer's turn, we want to choose the highest score (greater than or equal to 0). If it doesn't find a score with the available moves (all null), then it looks at the next available set of moves for human and chooses a move that is 0. If no 0, then it looks at the next set moves to find the highest score and returns the moves
-
-// positive points = computer
-// 0 = tie
-// null = game did not end
-
 let sumNodeScore = {
 
-}
-
-let minimaxTracker = {
-    min: null,
-    max: null
 }
 
 export function getNextMove(dictBoard) {
@@ -35,7 +21,13 @@ export function getNextMove(dictBoard) {
     console.log(tree);
     traverseTree(tree);
     console.log("sumNodeScore", sumNodeScore);
-    let nextMove = getLargestNode(sumNodeScore)
+    let nextMove = null;
+    console.log(tree.root.stats.moveCount)
+    // if (tree.root.stats.moveCount < 3) {
+    //     nextMove = getLargestSumNode(sumNodeScore)
+    // } else {
+        nextMove = getLargestAvgNode(sumNodeScore);
+    // }
     console.log(nextMove);
     sumNodeScore = {}; // resets sumNodeScore for next computation
     return nextMove;
@@ -46,21 +38,12 @@ function traverseTree(tree, pointer=tree.root) {
     // start with root node
     for (let i = 0; i <= 8; i++) {
         let nextBoard = pointer['nextBoard' + i];
+        let miniMaxScore = [];
         if (nextBoard !== null) { // if nextBoard is not null, then game has not ended so calculate score
+            console.log("NEW NODE--------------------------------")
             console.log("i: ", i);
             console.log(nextBoard);
-            let miniMaxScore = [];
-            if (nextBoard.stats.moveCount < 4) {
-                console.log('true');
-                let queue = [];
-                queue.push(nextBoard);
-                while (queue.length !== 0) {
-                    let dequeueNode = queue.shift();
-                    getAllNodeScore(dequeueNode, miniMaxScore);
-                }
-            } else {
-                getNodeScore(nextBoard, miniMaxScore);
-            }
+            getNodeScore(nextBoard, miniMaxScore);
             sumNodeScore[nextBoard.stats.nextMoves[0]["O"]] = miniMaxScore;
         }
     }
@@ -69,6 +52,10 @@ function traverseTree(tree, pointer=tree.root) {
 // calculates score for that square (node)
 function getNodeScore(node, minimaxScore) {
     // console.log(node);
+    let minimaxTracker = {
+        min: null,
+        max: null
+    }
     if (node.stats.points === null) {
         for (let i = 0; i <= 8; i++) {
             let currentMove = node['nextBoard' + i];
@@ -135,9 +122,9 @@ function getAllNodeScore(node, minimaxScore) {
 }
 
 // calculates the highest score node and returns it as the next best move
-function getLargestNode(sumNodeScore) {
+function getLargestSumNode(sumNodeScore) {
     let largestNode = {
-        average: -100,
+        average: -1000,
         move: null
     }
     for (const [key, value] of Object.entries(sumNodeScore)) {
@@ -147,7 +134,28 @@ function getLargestNode(sumNodeScore) {
             sum += value[i];
         }
         console.log("sum", sum);
-        let average = sum/value.length
+        let average = sum;
+        if (average > largestNode.average) {
+            largestNode.average = average;
+            largestNode.move = key;
+        }
+    }
+    return largestNode;
+}
+
+function getLargestAvgNode(sumNodeScore) {
+    let largestNode = {
+        average: -1000,
+        move: null
+    }
+    for (const [key, value] of Object.entries(sumNodeScore)) {
+        console.log("key", key);
+        let sum = 0;
+        for (let i = 0; i < value.length; i++) {
+            sum += value[i];
+        }
+        console.log("sum", sum);
+        let average = sum / value.length;
         if (average > largestNode.average) {
             largestNode.average = average;
             largestNode.move = key;
