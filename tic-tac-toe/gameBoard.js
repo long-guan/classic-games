@@ -1,4 +1,4 @@
-import {placeMarker, placeX} from './displayController.js';
+import {placeMarker} from './displayController.js';
 import {xOrO, addCount} from './counter.js';
 import {checkWin} from './checkWin.js';
 import { getNextMove } from './minmaxTree.js';
@@ -25,10 +25,11 @@ export function initializeBoard() {
     };
 }
 
+// board used for testing minimax
 const testBoard = {
-    topLeft: "O", topMid: "1", topRight: "O",
+    topLeft: "O", topMid: "X", topRight: "O",
     midLeft: "3", midMid: "X", midRight: "5",
-    botLeft: "6", botMid: "X", botRight: "X"
+    botLeft: "6", botMid: "7", botRight: "X"
 };
 
 // add eventListeners for player vs computer mode
@@ -38,9 +39,6 @@ export function initializeBoardForComputer() {
         event.removeEventListener('click', placeMarker), {once: true};
         event.addEventListener('click', placeMarker, {once: true}); // adds "X" or "O" to display in UI
         event.addEventListener('click', addComputerClickEvents), {once: true};
-        event.addEventListener('click', ()=> {
-            getNextMove(testBoard);
-        }, {once: true});
     }
 }
 
@@ -65,11 +63,6 @@ function updateData(className) {
     console.log(board);
 }
 
-// function updateDataForComputer(className) {
-//     board[returnKey(className)] = "X";
-//     console.log(board);
-// }
-
 // matches class name of UI to board and returns the key
 function returnKey(className) {
     for (let [key, value] of Object.entries(board)) {
@@ -92,4 +85,17 @@ function addComputerClickEvents() {
     updateData(this.className[6]); // updates board array
     addCount();
     checkWin(board);
+    computerMove();
+    checkWin(board);
+}
+
+function computerMove() {
+    let nextMove = getNextMove(board); // use minimax to calculate computer's next move
+    updateData(nextMove.move); // updates board data with the new move
+    let computerSquare = document.querySelector(".square" + nextMove.move);
+    computerSquare.innerHTML = xOrO(); // places "O" on the UI
+    addCount();
+    computerSquare.classList.remove('hover');
+    computerSquare.removeEventListener('click', placeMarker, {once: true});
+    computerSquare.removeEventListener('click', addComputerClickEvents), {once: true};
 }

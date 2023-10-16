@@ -4,21 +4,6 @@ let tree = {
     }
 };
 
-let highestScore = {
-    score: -100,
-    node: {}
-};
-
-let lowestScore = {
-    score: -100,
-    node: {}
-}
-
-let moves = {
-    score: -100,
-    node: {}
-}
-
 // BFS
 // when it is the human's turn, we want to choose the lowest score. If it doesn't find a score
 
@@ -28,97 +13,128 @@ let moves = {
 // 0 = tie
 // null = game did not end
 
-let iterationCount = 0;
-
 let sumNodeScore = {
 
 }
 
-function traverseTree(tree, queue, pointer=tree.root) {
-    // start with root node
-    for (let i = 0; i <= 8; i++) {
-        let nextBoard = pointer['nextBoard' + i];
-        if (nextBoard !== null) { // if nextBoard is not null, then game has not ended
-            queue.push(nextBoard);
-        }
-    }
-    while (queue.length !== 0) {
-        let sumArr = [];
-        iterationCount++;
-        console.log("count: ", iterationCount);
-        let dequeue = queue.shift();
-        getNodeScore(dequeue, sumArr);
-        sumNodeScore[dequeue.stats.nextMoves[0]["O"]] = sumArr;
-        // if (dequeue.stats.moveCount % 2 === 0) { // computer's turn (max score)
-        //     console.log('computer turn');
-        //     console.log(dequeue);
-        //     // if (moves.score >= 0) { // empty queue to stop the loop since score >= 0 means computer won or tied
-        //     //     queue = [];
-        //     // }
-        //     if (dequeue.stats.points > highestScore.score && dequeue.stats.points !== null) {
-        //         highestScore.score = dequeue.stats.points;
-        //         highestScore.node = dequeue;
-        //         moves.node = dequeue;
-        //         moves.score = dequeue.stats.points;
-        //     } else {
-        //         return traverseTree(tree, queue, dequeue);
-        //     }
-        // }
-        // else { // human's turn (min score)
-        //     console.log('human turn');
-        //     console.log(dequeue);
-        //     // if (moves.score >= 0) { // empty queue to stop the loop since score >= 0 means computer won or tied
-        //     //     queue = [];
-        //     // }
-        //     if (dequeue.stats.points > lowestScore.score && dequeue.stats.points !== null) {
-        //         highestScore.score = 0;
-        //         lowestScore.score = dequeue.stats.points;
-        //         lowestScore.node = dequeue;
-        //         moves.node = dequeue;
-        //         moves.score = dequeue.stats.points;
-        //     } else {
-        //         return traverseTree(tree, queue, dequeue);
-        //     }
-        // }
-    }
-}
-
-function getNodeScore(node, arr) {
-    if (node.stats.points !== null) { // base case
-        return arr.push(node.stats.points);
-    }
-    for (let i = 0; i <= 8; i++) { // add the children of the current node
-        let nextBoard = node['nextBoard' + i];
-        if (nextBoard !== null) { // check if this position is a valid move (already taken)
-            getNodeScore(nextBoard, arr);
-        }
-    }
+let minimaxTracker = {
+    min: null,
+    max: null
 }
 
 export function getNextMove(dictBoard) {
+    console.log("sumNodeScore");
+    console.log(sumNodeScore);
     let result = convertDict2Arr(dictBoard);
     let arrBoard = result[0];
     let points = checkArrWin(arrBoard);
     console.log("arrBoard: ", arrBoard);
-    // moveCount is used to determine if it is a tie
-    let moveCount = result[1];
-    // sets the root of tree
-    tree.root = new Position(arrBoard, points, {}, moveCount);
-    buildMinmaxTree(arrBoard, [], moveCount);
+    let moveCount = result[1];     // moveCount is used to determine if it is a tie
+    tree.root = new Position(arrBoard, points, {}, moveCount);     // sets the root of tree
+    buildMinmaxTree(arrBoard, [], moveCount); // build the tree and set the points of each node
     console.log(tree);
-    let nextMove = traverseTree(tree, []);
+    traverseTree(tree);
     console.log("sumNodeScore", sumNodeScore);
-    console.log(getLargestNode(sumNodeScore));
-    // console.log(nextMove.stats.nextMoves[0]);
-    // console.log('highestScore');
-    // console.log(highestScore);
-    // console.log('lowestScore');
-    // console.log(lowestScore);
-    // console.log('moves');
-    // console.log(moves);
-    // console.log(moves.node.stats.nextMoves[0]);
+    let nextMove = getLargestNode(sumNodeScore)
+    console.log(nextMove);
+    sumNodeScore = {}; // resets sumNodeScore for next computation
+    return nextMove;
 }
 
+// traverses the nodes and finds the min and max score for each node
+function traverseTree(tree, pointer=tree.root) {
+    // start with root node
+    for (let i = 0; i <= 8; i++) {
+        let nextBoard = pointer['nextBoard' + i];
+        if (nextBoard !== null) { // if nextBoard is not null, then game has not ended so calculate score
+            console.log("i: ", i);
+            console.log(nextBoard);
+            let miniMaxScore = [];
+            if (nextBoard.stats.moveCount < 4) {
+                console.log('true');
+                let queue = [];
+                queue.push(nextBoard);
+                while (queue.length !== 0) {
+                    let dequeueNode = queue.shift();
+                    getAllNodeScore(dequeueNode, miniMaxScore);
+                }
+            } else {
+                getNodeScore(nextBoard, miniMaxScore);
+            }
+            sumNodeScore[nextBoard.stats.nextMoves[0]["O"]] = miniMaxScore;
+        }
+    }
+}
+
+// calculates score for that square (node)
+function getNodeScore(node, minimaxScore) {
+    // console.log(node);
+    if (node.stats.points === null) {
+        for (let i = 0; i <= 8; i++) {
+            let currentMove = node['nextBoard' + i];
+            // console.log("inner i: ", i);
+            // console.log(currentMove);
+            if (currentMove !== null) { // if move is not takened
+                if (currentMove.stats.points !== null) { // if that board has points
+                    if (currentMove.stats.moveCount % 2 === 0) { // return max for computer's turn
+                        // initialize the max score
+                        if (minimaxTracker.max === null && currentMove.stats.points >= 0) {
+                            minimaxTracker.max = currentMove.stats.points;
+                            // console.log(minimaxTracker);
+                        } else if (currentMove.stats.points > minimaxTracker.max) {
+                            minimaxTracker.max = currentMove.stats.points;
+                            // console.log(minimaxTracker);
+                        }
+                    } else { // return min for player's turn
+                        // initialize the min score
+                        if (minimaxTracker.min === null && currentMove.stats.points <= 0) {
+                            minimaxTracker.min = currentMove.stats.points;
+                            // console.log(minimaxTracker);
+                        }
+                        if (currentMove.stats.points < minimaxTracker.min) {
+                            minimaxTracker.min = currentMove.stats.points;
+                            // console.log(minimaxTracker);
+                        }
+                    }
+                }
+            }
+        }
+        // if there is score, return the score
+        if (minimaxTracker.max !== null) {
+            let score = minimaxTracker.max;
+            minimaxTracker.max = null; // reset the tracker
+            return minimaxScore.push(score);
+        } else if (minimaxTracker.min !== null) {
+            let score = minimaxTracker.min;
+            minimaxTracker.min = null; // reset the tracker
+            return minimaxScore.push(score);
+        } else { // recursively repeat if there is no score. No score means the game has not ended
+            for (let i = 0; i <= 8; i++) {
+                let nextBoard = node['nextBoard' + i];
+                if (nextBoard !== null) { // if nextBoard is not null, then game has not ended so calculate score
+                    getNodeScore(nextBoard, minimaxScore);
+                }
+            }
+        }
+    } else { // if node has points, then it doesn't have to look at the next possible moves and can return the points
+        return minimaxScore.push(node.stats.points);
+    }
+}
+
+// calculates score for that square (node)
+function getAllNodeScore(node, minimaxScore) {
+    if (node.stats.points !== null) { // base case
+        return minimaxScore.push(node.stats.points);
+    }
+    for (let i = 0; i <= 8; i++) { // add the children of the current node
+        let nextBoard = node['nextBoard' + i];
+        if (nextBoard !== null) { // check if this position is a valid move (already taken)
+            getAllNodeScore(nextBoard, minimaxScore);
+        }
+    }
+}
+
+// calculates the highest score node and returns it as the next best move
 function getLargestNode(sumNodeScore) {
     let largestNode = {
         average: -100,
@@ -221,18 +237,21 @@ function checkArrWin(board, moveCount) {
     let botLeft = board[6];
     let botMid = board[7];
     let botRight = board[8];
+    // horizontal wins
     if (topLeft == topMid && topLeft == topRight && topLeft !== null) {
         return returnScore(topLeft, moveCount);
     } else if (midLeft == midMid && midLeft == midRight && midLeft !== null) {
         return returnScore(midLeft, moveCount);
     } else if (botLeft == botMid && botLeft == botRight && botLeft !== null) {
         return returnScore(botLeft, moveCount);
+    // vertical wins
     } else if (topMid == midMid && topMid == botMid && topMid !== null) {
         return returnScore(topMid, moveCount);
     } else if (topRight == midRight && topRight == botRight && topRight !== null) {
         return returnScore(topRight, moveCount);
     } else if (topLeft == midLeft && topLeft == botLeft && topLeft !== null) {
         return returnScore(topLeft, moveCount);
+    // diagnoal wins
     } else if (topLeft == midMid && topLeft == botRight && topLeft !== null) {
         return returnScore(topLeft, moveCount);
     } else if (topRight == midMid && topRight == botLeft && topRight !== null) {
@@ -244,6 +263,7 @@ function checkArrWin(board, moveCount) {
     }
 }
 
+// 10 means computer won and -10 means player won
 function returnScore(xOrO, moveCount) {
     if (xOrO === "O") {
         return 10 - moveCount;

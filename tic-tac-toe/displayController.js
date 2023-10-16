@@ -14,11 +14,6 @@ export function placeMarker() {
     this.innerHTML = xOrO();
 }
 
-// places X at selected square for player vs computer mode
-export function placeX() {
-    this.innerHTML = "X";
-}
-
 // reset square and status
 export function resetDisplay() {
     resetSquareDisplay();

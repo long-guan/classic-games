@@ -40,9 +40,9 @@ export function checkWin(board) {
         removeGameOver();
     // vertical wins
     } else if (topMid == midMid && topMid == botMid) {
-        square0.classList.add("blue-background");
-        square3.classList.add("blue-background");
-        square6.classList.add("blue-background");
+        square1.classList.add("blue-background");
+        square4.classList.add("blue-background");
+        square7.classList.add("blue-background");
         removeGameOver();
     } else if (topRight == midRight && topRight == botRight) {
         square1.classList.add("blue-background");
@@ -50,9 +50,9 @@ export function checkWin(board) {
         square7.classList.add("blue-background");
         removeGameOver();
     }  else if (topLeft == midLeft && topLeft == botLeft) {
-        square2.classList.add("blue-background");
-        square5.classList.add("blue-background");
-        square8.classList.add("blue-background");
+        square0.classList.add("blue-background");
+        square3.classList.add("blue-background");
+        square6.classList.add("blue-background");
         removeGameOver();
     // diagonal wins
     } else if (topLeft == midMid && topLeft == botRight) {
