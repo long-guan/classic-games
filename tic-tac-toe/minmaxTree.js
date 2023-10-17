@@ -4,13 +4,7 @@ let tree = {
     }
 };
 
-let sumNodeScore = {
-
-}
-
 export function getNextMove(dictBoard) {
-    console.log("sumNodeScore");
-    console.log(sumNodeScore);
     let result = convertDict2Arr(dictBoard);
     let arrBoard = result[0];
     let points = checkArrWin(arrBoard);
@@ -19,32 +13,290 @@ export function getNextMove(dictBoard) {
     tree.root = new Position(arrBoard, points, {}, moveCount);     // sets the root of tree
     buildMinmaxTree(arrBoard, [], moveCount); // build the tree and set the points of each node
     console.log(tree);
-    traverseTree(tree);
-    console.log("sumNodeScore", sumNodeScore);
-    let nextMove = null;
-    console.log(tree.root.stats.moveCount)
-    // if (tree.root.stats.moveCount < 3) {
-    //     nextMove = getLargestSumNode(sumNodeScore)
-    // } else {
-        nextMove = getLargestAvgNode(sumNodeScore);
+    let nextMove = traverseTreeLoop();
+    console.log("next move: ", nextMove);
+    // nextMove = getLargestAvgNode(sumNodeScore);
+    return nextMove;
+}
+
+function traverseTreeLoop2(startBoard=tree.root) {
+    let scoreArr1 = [];
+    for (let i = 0; i <= 8; i++) { // grab scores for next "O"
+        let nextBoard1 = startBoard['nextBoard' + i];
+        if (nextBoard1 !== null) { // "O"
+            if (nextBoard1.stats.points !== null) {
+                scoreArr1.push([i, nextBoard1.stats.points]);
+            } else {
+                let scoreArr2 = [];
+                for (let j = 0; j <= 8; j++) { // "O", "X"
+                    let nextBoard2 = nextBoard1['nextBoard' + j]
+                    if (nextBoard2 !== null) {
+                        if (nextBoard2.stats.points !== null) {
+                            scoreArr2.push([j, nextBoard2.stats.points]);
+                        } else {
+
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+function traverseTreeLoop(startBoard=tree.root) {
+    let scoreArr1 = [];
+    if (startBoard.stats.moveCount === 7) {
+        console.log("O, X")
+        for (let loop1 = 0; loop1 <= 8; loop1++) { // next O
+            let nextBoard1 = startBoard['nextBoard' + loop1];
+            let scoreArr2 = [];
+            if (nextBoard1 !== null) {
+                console.log("loop1:", loop1);
+                if (nextBoard1.stats.points !== null) {
+                    scoreArr1.push([loop1, nextBoard1.stats.points]);
+                } else {
+                    for (let loop2 = 0; loop2 <= 8; loop2++) { // next X
+                        let nextBoard2 = nextBoard1['nextBoard' + loop2];
+                        if (nextBoard2 !== null) {
+                            console.log("loop2:", loop2);
+                            if (nextBoard2.stats.points !== null) {
+                                scoreArr2.push([loop1, nextBoard2.stats.points]);
+                            }
+                        }
+                    }
+                }
+            }
+            if (scoreArr2.length > 0) {
+                scoreArr1.push([loop1, checkLow(scoreArr2)]);
+            }
+        }
+    } else if (startBoard.stats.moveCount === 5) {
+        console.log("O, X, O, X");
+        for (let loop1 = 0; loop1 <= 8; loop1++) { // next O
+            let nextBoard1 = startBoard['nextBoard' + loop1];
+            let scoreArr2 = [];
+            if (nextBoard1 !== null) {
+                console.log("loop1:", loop1);
+                if (nextBoard1.stats.points !== null) {
+                    scoreArr1.push([loop1, nextBoard1.stats.points]);
+                } else {
+                    for (let loop2 = 0; loop2 <= 8; loop2++) { // next X
+                        let nextBoard2 = nextBoard1['nextBoard' + loop2];
+                        let scoreArr3 = [];
+                        if (nextBoard2 !== null) {
+                            console.log("loop2:", loop2);
+                            if (nextBoard2.stats.points !== null) {
+                                scoreArr2.push([loop1, nextBoard2.stats.points]);
+                            } else {
+                                for (let loop3 = 0; loop3 <= 8; loop3++) { // next O
+                                    let nextBoard3 = nextBoard2['nextBoard' + loop3];
+                                    let scoreArr4 = [];
+                                    if (nextBoard3 !== null) {
+                                        console.log("loop3:", loop3);
+                                        if (nextBoard3.stats.points !== null) {
+                                            scoreArr3.push([loop2, nextBoard3.stats.points])
+                                        } else {
+                                            for (let loop4 = 0; loop4 <= 8; loop4++) { // next X
+                                                let nextBoard4 = nextBoard3['nextBoard' + loop4];
+                                                if (nextBoard4 !== null) {
+                                                    console.log("loop4:", loop4);
+                                                    if (nextBoard4.stats.points !== null) {
+                                                        scoreArr4.push([loop3, nextBoard4.stats.points])
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                    if (scoreArr4.length > 0) {
+                                        scoreArr3.push([loop3, checkLow(scoreArr4)])
+                                    }
+                                }
+                            }
+                        }
+                        if (scoreArr3.length > 0) {
+                            scoreArr2.push([loop2], checkHigh(scoreArr3));
+                        }
+                    }
+                }
+            }
+            if (scoreArr2.length > 0) {
+                scoreArr1.push([loop1, checkLow(scoreArr2)]);
+            }
+        }
+
+    }
+    console.log(scoreArr1);
+    return returnNextMove(scoreArr1);
+        // for (let i = 0; i <= 8; i++) { // grab scores for next "O"
+    //     let nextBoard1 = startBoard['nextBoard' + i];
+    //     if (nextBoard1 !== null) {
+    //         if (nextBoard1.stats.points !== null) {
+    //             scoreArr1.push([i, nextBoard1.stats.points]);
+    //         }
+    //     }
     // }
-    console.log(nextMove);
-    sumNodeScore = {}; // resets sumNodeScore for next computation
+    // console.log("ScoreArr1: ", scoreArr1);
+    // if (scoreArr1.length === 9 - startBoard.stats.moveCount) { // cannot make a decision unless all spots have points
+    //     return returnNextMove(scoreArr1);
+    // } else { // grabs scores for next "O", "X"
+    // }
+    // if (scoreArr1.length === 9 - startBoard.stats.moveCount) { // cannot make a decision unless all spots have points
+    //     return returnNextMove(scoreArr1);
+    // } else { // grabs scores for next "O", "X", "O"
+    //     console.log("O, X, O");
+    //     scoreArr1 = [];
+    //     for (let i = 0; i <= 8; i++) { // next O
+    //         console.log("i:", i);
+    //         let nextBoard1 = startBoard['nextBoard' + i];
+    //         let scoreArr2 = [];
+    //         if (nextBoard1 !== null) {
+    //             if (nextBoard1.stats.points !== null) {
+    //                 scoreArr1.push([i, nextBoard1.stats.points]);
+    //             } else {
+    //                 for (let j = 0; j <= 8; j++) { // next X
+    //                     console.log("j:", j);
+    //                     let nextBoard2 = nextBoard1['nextBoard' + j];
+    //                     let scoreArr3 = [];
+    //                     if (nextBoard2 !== null) {
+    //                         if (nextBoard2.stats.points !== null) {
+    //                             scoreArr2.push([i, nextBoard2.stats.points]);
+    //                         } else {
+    //                             for (let k = 0; k <= 8; k++) { // next O
+    //                                 let nextBoard3 = nextBoard2['nextBoard' + k];
+    //                                 if (nextBoard3 !== null) {
+    //                                     if (nextBoard3.stats.points !== null) {
+    //                                         scoreArr3.push([j, nextBoard3.stats.points]);
+    //                                     }
+    //                                 }
+    //                             }
+    //                             if (scoreArr3.length > 0) {
+    //                                 scoreArr2.push([j, checkHigh(scoreArr3)]);
+    //                             }
+    //                         }
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //         if (scoreArr2.length > 0) {
+    //             scoreArr1.push([i, checkLow(scoreArr2)]);
+    //         }
+    //     }
+    // }
+    // console.log(scoreArr1);
+    // if (scoreArr1.length === 9 - startBoard.stats.moveCount) { // cannot make a decision unless all spots have points
+    //     return returnNextMove(scoreArr1);
+    // } else { // grabs scores for next "O", "X", "O", "X"
+
+    // }
+
+    // if (scoreArr1.length === 9 - startBoard.stats.moveCount) { // cannot make a decision unless all spots have points
+    //     return returnNextMove(scoreArr1);
+    // }
+}
+
+function checkHigh(scoreArr) { // look for highest score for computer
+    console.log("checkHigh:", scoreArr);
+    let nextMove = null;
+    let highestScore = 0;
+    for (let i = 1; i < scoreArr.length; i++) {
+        if (scoreArr[i][1] >= highestScore) {
+            nextMove = scoreArr[i][0];
+            highestScore = scoreArr[i][1];
+        }
+    }
+    console.log("checkHigh return: ", highestScore);
+    return highestScore;
+}
+
+function checkLow(scoreArr) { // look for lowest score for human
+    console.log("checkLow:", scoreArr);
+    let nextMove = null;
+    let lowestScore = 0;
+    for (let i = 0; i < scoreArr.length; i++) {
+        if (scoreArr[i][1] <= lowestScore) {
+            nextMove = scoreArr[i][0];
+            lowestScore = scoreArr[i][1];
+        }
+    }
+    console.log("checkLow return: ", lowestScore);
+    return lowestScore;
+}
+
+function returnNextMove(scoreArr) {
+    let nextMove = null;
+    let highestScore = 0;
+    for (let i = 0; i < scoreArr.length; i++) {
+        if (scoreArr[i][1] >= highestScore) {
+            nextMove = scoreArr[i][0];
+            highestScore = scoreArr[i][1];
+        }
+    }
     return nextMove;
 }
 
 // traverses the nodes and finds the min and max score for each node
-function traverseTree(tree, pointer=tree.root) {
+function traverseTree(currentBoard=tree.root) {
     // start with root node
+    let scoreArr = [];
     for (let i = 0; i <= 8; i++) {
-        let nextBoard = pointer['nextBoard' + i];
-        let miniMaxScore = [];
+        let nextBoard = currentBoard['nextBoard' + i];
         if (nextBoard !== null) { // if nextBoard is not null, then game has not ended so calculate score
-            console.log("NEW NODE--------------------------------")
-            console.log("i: ", i);
-            console.log(nextBoard);
-            getNodeScore(nextBoard, miniMaxScore);
-            sumNodeScore[nextBoard.stats.nextMoves[0]["O"]] = miniMaxScore;
+            // console.log("NEW NODE--------------------------------")
+            // console.log("i: ", i);
+            // console.log(nextBoard);
+            if (nextBoard.stats.points !== null) {
+                scoreArr.push([i, nextBoard.stats.points]);
+                console.log(nextBoard);
+            }
+            // getNodeScore(nextBoard, miniMaxScoreArr);
+            // sumNodeScore[nextBoard.stats.nextMoves[0]["O"]] = miniMaxScoreArr;
+        }
+    }
+    console.log("SCORE ARR");
+    console.log(scoreArr);
+    if (scoreArr.length > 0) {
+        if (currentBoard.stats.moveCount % 2 === 1) {
+            let nextMove = scoreArr[0][0];
+            let highestScore = scoreArr[0][1];
+            for (let i = 1; i < scoreArr.length; i++) {
+                if (scoreArr[i][1] > highestScore) {
+                    nextMove = scoreArr[i][0];
+                    highestScore = scoreArr[i][1];
+                }
+            }
+            console.log("highestScore: ", highestScore);
+            let lastMove = currentBoard.stats.nextMoves.length - 1;
+            if (sumNodeScore[currentBoard.stats.nextMoves[0]["X"]] !== undefined) {
+                // sumNodeScore[currentBoard.stats.nextMoves[0]["X"]].push([currentBoard.stats.moveCount + 1, highestScore]);
+                sumNodeScore[currentBoard.stats.nextMoves[0]["X"]].push([nextMove, highestScore]);
+            } else {
+                sumNodeScore[currentBoard.stats.nextMoves[0]["O"]].push([nextMove, highestScore]);
+            }
+            return nextMove;
+        } else {
+            let nextMove = scoreArr[0][0];
+            let lowestScore = scoreArr[0][1];
+            for (let i = 1; i < scoreArr.length; i++) {
+                if (scoreArr[i].points > lowestScore) {
+                    nextMove = scoreArr[i][0];
+                    lowestScore = scoreArr[i][1];
+                }
+            }
+            console.log("lowestScore: ", lowestScore);
+            let lastMove = currentBoard.stats.nextMoves.length - 1;
+            if (sumNodeScore[currentBoard.stats.nextMoves[0]["X"]] !== undefined) {
+                sumNodeScore[currentBoard.stats.nextMoves[0]["X"]].push([nextMove, lowestScore]);
+            } else {
+                sumNodeScore[currentBoard.stats.nextMoves[0]["O"]].push([nextMove, lowestScore]);
+            }
+            return nextMove;
+        }
+    } else {
+        for (let i = 0; i <= 8; i++) {
+            let nextBoard = currentBoard['nextBoard' + i];
+            if (nextBoard !== null) {
+                traverseTree(nextBoard);
+            }
         }
     }
 }
@@ -108,17 +360,24 @@ function getNodeScore(node, minimaxScore) {
     }
 }
 
-// calculates score for that square (node)
-function getAllNodeScore(node, minimaxScore) {
-    if (node.stats.points !== null) { // base case
-        return minimaxScore.push(node.stats.points);
+function returnBestMove(sumNodeScore) {
+    let largest = {
+        largest: -1000,
+        move: null
     }
-    for (let i = 0; i <= 8; i++) { // add the children of the current node
-        let nextBoard = node['nextBoard' + i];
-        if (nextBoard !== null) { // check if this position is a valid move (already taken)
-            getAllNodeScore(nextBoard, minimaxScore);
+    for (const [key, value] of Object.entries(sumNodeScore)) {
+        console.log("key", key);
+        let count = {};
+        for (let i = 0; i < value.length; i++) {
+            if (count[value[i]] === undefined) {
+                count[value[i]] = 1;
+            } else {
+                count[value[i]] = count[value[i]] + 1;
+            }
         }
+        console.log("count", count);
     }
+    return largest.move;
 }
 
 // calculates the highest score node and returns it as the next best move
@@ -162,6 +421,27 @@ function getLargestAvgNode(sumNodeScore) {
         }
     }
     return largestNode;
+}
+
+function getSmallestAvgNode(sumNodeScore) {
+    let smallestNode = {
+        average: 1000,
+        move: null
+    }
+    for (const [key, value] of Object.entries(sumNodeScore)) {
+        console.log("key", key);
+        let sum = 0;
+        for (let i = 0; i < value.length; i++) {
+            sum += value[i];
+        }
+        console.log("sum", sum);
+        let average = sum / value.length;
+        if (average < smallestNode.average) {
+            smallestNode.average = average;
+            smallestNode.move = key;
+        }
+    }
+    return smallestNode;
 }
 
 function Position(board, points, nextMoves, moveCount) {

@@ -25,13 +25,6 @@ export function initializeBoard() {
     };
 }
 
-// board used for testing minimax
-const testBoard = {
-    topLeft: "O", topMid: "X", topRight: "X",
-    midLeft: "3", midMid: "X", midRight: "5",
-    botLeft: "6", botMid: "O", botRight: "8"
-};
-
 // add eventListeners for player vs computer mode
 export function initializeBoardForComputer() {
     for (let event of eventArray) {
@@ -89,8 +82,21 @@ function addComputerClickEvents() {
     checkWin(board);
 }
 
+// board used for testing minimax
+const testBoard1 = {
+    topLeft: "O", topMid: "1", topRight: "2",
+    midLeft: "3", midMid: "X", midRight: "5",
+    botLeft: "6", botMid: "7", botRight: "X"
+};
+
+const testBoard2 = {
+    topLeft: "X", topMid: "1", topRight: "2",
+    midLeft: "X", midMid: "O", midRight: "5",
+    botLeft: "6", botMid: "X", botRight: "O"
+};
+
 function computerMove() {
-    let nextMove = getNextMove(testBoard); // use minimax to calculate computer's next move
+    let nextMove = getNextMove(testBoard2); // use minimax to calculate computer's next move
     updateData(nextMove.move); // updates board data with the new move
     let computerSquare = document.querySelector(".square" + nextMove.move);
     computerSquare.innerHTML = xOrO(); // places "O" on the UI
