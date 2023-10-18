@@ -16,7 +16,7 @@ export function xOrO() {
 
 // after checkWin will check all possible winning combinations and the board is full, return true
 export function tie() {
-    if (_moveCount == 9) {
+    if (_moveCount === 9) {
         return true;
     } else {
         return false;

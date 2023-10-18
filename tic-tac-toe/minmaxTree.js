@@ -8,13 +8,13 @@ export function getNextMove(dictBoard) {
     let result = convertDict2Arr(dictBoard); // convert dict board to arr
     let arrBoard = result[0];
     let points = checkArrWin(arrBoard);
-    console.log("arrBoard: ", arrBoard);
+    // console.log("arrBoard: ", arrBoard);
     let moveCount = result[1];     // moveCount is used to determine if it is a tie
     tree.root = new Position(arrBoard, points, {}, moveCount);     // sets the root of tree
     buildMinmaxTree(arrBoard, [], moveCount); // build the tree and set the points of each node
-    console.log(tree);
     let nextMove = traverseTreeLoop();
-    console.log("next move: ", nextMove);
+    // console.log(tree);
+    // console.log("next move: ", nextMove);
     return nextMove;
 }
 
@@ -274,7 +274,7 @@ function traverseTreeLoop(startBoard=tree.root) {
             }
         }
     }
-    console.log(scoreArr1);
+    // console.log(scoreArr1);
     return returnNextMove(scoreArr1);
 }
 

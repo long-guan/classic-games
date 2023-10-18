@@ -1,4 +1,4 @@
-import {getEventArray, addClickEvents, getBoard, initializeBoard, initializeBoardForComputer, addComputerClickEvents} from './gameBoard.js';
+import {getEventArray, addClickEvents, getBoard, initializeBoard, initializeBoardForComputer, addHumanClickEvents, computerMove} from './gameBoard.js';
 import {placeMarker, resetDisplay} from './displayController.js';
 import {resetMoveCount} from './counter.js';
 import { getMode } from './mode.js';
@@ -32,10 +32,11 @@ function resetBoard() {
     }
 }
 
-// removes blue background for winning squares
+// removes blue background for winning squares and colors
 function resetBackground() {
     for (let square of getEventArray()) {
         square.classList.remove("blue-background");
+        square.style.color = "white";
     }
 }
 
@@ -44,7 +45,8 @@ export function removeListener() {
     for (let square of getEventArray()) {
         square.removeEventListener("click", addClickEvents);
         square.removeEventListener("click", placeMarker);
-        square.removeEventListener('click', addComputerClickEvents);
+        square.removeEventListener('click', addHumanClickEvents);
+        square.removeEventListener('click', computerMove);
     }
 }
 

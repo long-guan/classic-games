@@ -2,6 +2,7 @@ import {xOrO, tie, turn, winner} from './counter.js';
 import {getEventArray} from './gameBoard.js';
 import {removeListener} from './reset.js';
 
+
 const status = document.querySelector(".status");
 const player1Input = document.querySelector(".player1");
 const player2Input = document.querySelector(".player2");
@@ -12,6 +13,12 @@ player2Input.addEventListener("input", updateStatusTurn);
 // places X or O at selected square for player vs player mode
 export function placeMarker() {
     this.innerHTML = xOrO();
+    this.style.color = "black";
+}
+
+export function addMarker(square) {
+    square.innerHTML = xOrO();
+    square.style.color = "black";
 }
 
 // reset square and status
@@ -102,4 +109,11 @@ export function updateNameInput(computerModeStatus) {
         player2Input.value = "";
         player2Input.disabled = false;
     }
+}
+
+// creates the spinning loader
+export function createLoader() {
+    let loader = document.createElement("div");
+    loader.classList.add("loader");
+    return loader;
 }
