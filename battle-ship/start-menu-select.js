@@ -24,6 +24,7 @@ function addNameInput() {
     newInput.type = 'text';
     newInput.classList.add('playerName');
     newInput.placeholder = 'Captain Jack Sparrow';
+    newInput.required = true;
     boardCont.appendChild(newInput);
 }
 

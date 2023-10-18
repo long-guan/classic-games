@@ -17,10 +17,23 @@
     font-size: 20px;
 }
 
+.playerName {
+    margin-bottom: 5px;
+}
+
 .board-cont {
     display: flex;
     gap: 20px;
     align-items: center;
+}
+
+.mode-btns {
+    display: flex;
+    gap: 10px;
+}
+
+.mode-btns>button {
+    width: 50%;
 }
 
 .board-cont>div {
