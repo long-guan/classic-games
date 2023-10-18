@@ -14,8 +14,45 @@
     <div class="main-cont">
         <header-component>
         </header-component>
-
         <div class="game-cont">
+            <div class="lazy-knight">
+                <h1>Tic Tac Toe</h1>
+                <div>
+                    <h3>Description</h3>
+                    <div>App that allows two human players to play the classic game of Tic Tac Toe. This app also features the option to play against an unbeatable computer.</div>
+                </div>
+                <div>
+                    <h3>Features</h3>
+                    <ul>
+                        <li><a href="https://blogs.cornell.edu/info2040/2022/09/13/56590/#:~:text=The%20Minimax%20Tic%2DTac%2DToe,100%25%20chance%20of%20a%20draw.">Minimax Algorithm</a> to create an unbeatable computer. The game will always result in a tie or computer win</li>
+                        <li>A tree to represent all the possible outcomes. Each node on the tree has score (Minimax), moves it took to get to that node, and what the board looks like at that node.  </li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Built With</h3>
+                    <ul>
+                        <li>HTML5</li>
+                        <li>CSS3</li>
+                        <li>Vanilla JS</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Difficulties Encountered</h3>
+                    <ul>
+                        <li>I struggled to implement a recursion solution to get the score for the next moves so I used nested for loops to get the scores. The nested for loops will make it difficult to debug and add future updates</li>
+                    </ul>
+                </div>
+                <div class="margin-bot">
+                    <h3>Future Improvements</h3>
+                    <ul>
+                        <li>Use recursion instead of for loops to return the score of the next moves</li>
+                        <li>Refactor the nested for loops into nested functions for better debugging and cleaner code</li>
+                        <li>Create an option to allow the computer to go first instead of human going first</li>
+                        <li>Add a score board</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="footer-separator">
             <div class="lazy-knight">
                 <h1>Lazy Knight</h1>
                 <div>
@@ -29,6 +66,7 @@
                         <li>Breadth First Search Traversal of a tree to find the least number of moves needed to move from start location to end location</li>
                         <li>Animation of the knight moving on the board by using vanilla JS (combination of setTimeout, transform, and updating the location of the knight on the board with each transform)</li>
                         <li>Separation of logic and user interface</li>
+                        <li>Dynamic visual of the knight's movement</li>
                     </ul>
                 </div>
                 <div>
@@ -42,30 +80,33 @@
                 <div>
                     <h3>Difficulties Encountered</h3>
                     <ul>
-                        <li>Problem: When traversing the tree to find the end location, I needed a way to save all the nodes that were traversed to reach the end location.</li>
-                        <li>Solution: Instead of adding only the next node into the queue for BFS, add all the previously traversed nodes with the next node as the last index in an array before adding it in the queue. Then return the entire array of nodes when the last index of the array of nodes matches the end location.</li>
+                        <li>When traversing the tree to find the end location, I needed a way to save all the nodes that were traversed to reach the end location. To solve this, instead of adding only the next node into the queue for BFS, add all the previously traversed nodes with the next node as the last index in an array before adding it in the queue. Then return the entire array of nodes when the last index of the array of nodes matches the end location.</li>
+                        <li>I wanted the knight to be able to move from spot to spot. So I combined setTimeout with transform CSS property to visually show the knight jumping from location to location</li>
                     </ul>
                 </div>
-                <div>
+                <div class="margin-bot">
                     <h3>Future Improvements</h3>
                     <ul>
                         <li>Add feature to change the size of the board</li>
                         <li>Use recursion instead of for loops to refactor the algorithm for constructing the tree</li>
                         <li>Revise traverse algorithm to be more efficient by only traversing the nodes that will result in being closer to the end location. It is currently traversing all the possible moves.</li>
                         <li>Add a sister game that asks the player to input the least number of moves needed to move from start to end with the given start and end location</li>
+                        <li>Make the app mobile friendly</li>
                     </ul>
                 </div>
             </div>
+            <hr class="footer-separator">
             <div class="lazy-knight">
-                <h1>Tic Tac Toe</h1>
+                <h1>Battleship</h1>
                 <div>
                     <h3>Description</h3>
-                    <div>App that allows two human players to play the classic game of Tic Tac Toe. This app also features the option to play against an unbeatable computer.</div>
+                    <div>App to play the game of Battleship against a computer.</div>
                 </div>
                 <div>
                     <h3>Features</h3>
                     <ul>
-                        <li><a href="https://blogs.cornell.edu/info2040/2022/09/13/56590/#:~:text=The%20Minimax%20Tic%2DTac%2DToe,100%25%20chance%20of%20a%20draw.">Minimax Algorithm</a></li>
+                        <li>Utilized object-oriented programming principles to encapsulate game data</li>
+                        <li>Uses a type writer effect to display the game actions/statuses</li>
                     </ul>
                 </div>
                 <div>
@@ -79,18 +120,20 @@
                 <div>
                     <h3>Difficulties Encountered</h3>
                     <ul>
-
+                        <li>I needed a way to put the SVG of the ships on the board while also displaying the hit markers. So I used two divs layed on top of each other and z-index to create two displays, one to display ships and one to display hit markers</li>
+                        <li>I wanted a type writer effect to show the game actions/statuses. So I combined a for loop with setTimeout to change the content of the HTML element letter by letter</li>
                     </ul>
                 </div>
-                <div>
+                <div class="margin-bot">
                     <h3>Future Improvements</h3>
                     <ul>
-
+                        <li>Implement a smarter computer where if it hits a ship, it will hit the adjacent spots until it sinks the entire ship. Currently, all the computer's moves are random</li>
+                        <li>Make the app mobile friendly</li>
+                        <li>Implement 2 player mode</li>
                     </ul>
                 </div>
             </div>
         </div>
-
         <footer-component>
         </footer-component>
     </div>
