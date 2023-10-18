@@ -84,15 +84,15 @@ function addComputerClickEvents() {
 
 // board used for testing minimax
 const testBoard1 = {
-    topLeft: "O", topMid: "1", topRight: "2",
+    topLeft: "O", topMid: "1", topRight: "X",
     midLeft: "3", midMid: "X", midRight: "5",
-    botLeft: "6", botMid: "7", botRight: "X"
+    botLeft: "6", botMid: "O", botRight: "X"
 };
 
 const testBoard2 = {
     topLeft: "X", topMid: "1", topRight: "2",
-    midLeft: "X", midMid: "O", midRight: "5",
-    botLeft: "6", botMid: "X", botRight: "O"
+    midLeft: "3", midMid: "X", midRight: "5",
+    botLeft: "6", botMid: "7", botRight: "O"
 };
 
 function computerMove() {

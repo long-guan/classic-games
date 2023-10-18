@@ -43,6 +43,32 @@ function traverseTreeLoop2(startBoard=tree.root) {
     }
 }
 
+function twoMoves(loop, paramBoard, paramScoreArr, nextBoard, nextScoreArr) {
+    for (loop; loop <= 8; loop++) { // next O
+        let nextBoard = paramBoard['nextBoard' + loop];
+        let nextScoreArr = [];
+        if (nextBoard !== null) {
+            console.log("loop:", loop);
+            if (nextBoard3.stats.points !== null) {
+                scoreArr3.push([loop2, nextBoard3.stats.points])
+            } else {
+                for (let loop4 = 0; loop4 <= 8; loop4++) { // next X
+                    let nextBoard4 = nextBoard3['nextBoard' + loop4];
+                    if (nextBoard4 !== null) {
+                        console.log("loop4:", loop4);
+                        if (nextBoard4.stats.points !== null) {
+                            scoreArr4.push([loop3, nextBoard4.stats.points])
+                        }
+                    }
+                }
+            }
+        }
+        if (scoreArr4.length > 0) {
+            scoreArr3.push([loop3, checkLow(scoreArr4)])
+        }
+    }
+}
+
 function traverseTreeLoop(startBoard=tree.root) {
     let scoreArr1 = [];
     if (startBoard.stats.moveCount === 7) {
@@ -114,7 +140,7 @@ function traverseTreeLoop(startBoard=tree.root) {
                             }
                         }
                         if (scoreArr3.length > 0) {
-                            scoreArr2.push([loop2], checkHigh(scoreArr3));
+                            scoreArr2.push([loop2, checkHigh(scoreArr3)]);
                         }
                     }
                 }
@@ -123,7 +149,87 @@ function traverseTreeLoop(startBoard=tree.root) {
                 scoreArr1.push([loop1, checkLow(scoreArr2)]);
             }
         }
-
+    } else if (startBoard.stats.moveCount === 3) {
+        console.log("O, X, O, X, O, X");
+        for (let loop1 = 0; loop1 <= 8; loop1++) { // next O
+            let nextBoard1 = startBoard['nextBoard' + loop1];
+            let scoreArr2 = [];
+            if (nextBoard1 !== null) {
+                console.log("loop1:", loop1);
+                if (nextBoard1.stats.points !== null) {
+                    scoreArr1.push([loop1, nextBoard1.stats.points]);
+                } else {
+                    for (let loop2 = 0; loop2 <= 8; loop2++) { // next X
+                        let nextBoard2 = nextBoard1['nextBoard' + loop2];
+                        let scoreArr3 = [];
+                        if (nextBoard2 !== null) {
+                            console.log("loop2:", loop2);
+                            if (nextBoard2.stats.points !== null) {
+                                scoreArr2.push([loop1, nextBoard2.stats.points]);
+                            } else {
+                                for (let loop3 = 0; loop3 <= 8; loop3++) { // next O
+                                    let nextBoard3 = nextBoard2['nextBoard' + loop3];
+                                    let scoreArr4 = [];
+                                    if (nextBoard3 !== null) {
+                                        console.log("loop3:", loop3);
+                                        if (nextBoard3.stats.points !== null) {
+                                            scoreArr3.push([loop2, nextBoard3.stats.points])
+                                        } else {
+                                            for (let loop4 = 0; loop4 <= 8; loop4++) { // next X
+                                                let nextBoard4 = nextBoard3['nextBoard' + loop4];
+                                                let scoreArr5 = [];
+                                                if (nextBoard4 !== null) {
+                                                    console.log("loop4:", loop4);
+                                                    if (nextBoard4.stats.points !== null) {
+                                                        scoreArr4.push([loop3, nextBoard4.stats.points])
+                                                    } else {
+                                                        for (let loop5 = 0; loop5 <= 8; loop5++) { // next O
+                                                            let nextBoard5 = nextBoard4['nextBoard' + loop5];
+                                                            let scoreArr6 = [];
+                                                            if (nextBoard5 !== null) {
+                                                                console.log("loop5:", loop5);
+                                                                if (nextBoard5.stats.points !== null) {
+                                                                    scoreArr5.push([loop4, nextBoard5.stats.points])
+                                                                } else {
+                                                                    for (let loop6 = 0; loop6 <= 8; loop6++) { // next X
+                                                                        let nextBoard6 = nextBoard5['nextBoard' + loop6];
+                                                                        if (nextBoard6 !== null) {
+                                                                            console.log("loop6:", loop6);
+                                                                            if (nextBoard6.stats.points !== null) {
+                                                                                scoreArr6.push([loop5, nextBoard6.stats.points])
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                            if (scoreArr6.length > 0) {
+                                                                scoreArr5.push([loop5, checkLow(scoreArr6)]);
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                                if (scoreArr5.length > 0) {
+                                                    scoreArr4.push([loop4, checkHigh(scoreArr5)]);
+                                                }
+                                            }
+                                        }
+                                    }
+                                    if (scoreArr4.length > 0) {
+                                        scoreArr3.push([loop3, checkLow(scoreArr4)]);
+                                    }
+                                }
+                            }
+                        }
+                        if (scoreArr3.length > 0) {
+                            scoreArr2.push([loop2, checkHigh(scoreArr3)]);
+                        }
+                    }
+                }
+            }
+            if (scoreArr2.length > 0) {
+                scoreArr1.push([loop1, checkLow(scoreArr2)]);
+            }
+        }
     }
     console.log(scoreArr1);
     return returnNextMove(scoreArr1);
@@ -196,11 +302,9 @@ function traverseTreeLoop(startBoard=tree.root) {
 
 function checkHigh(scoreArr) { // look for highest score for computer
     console.log("checkHigh:", scoreArr);
-    let nextMove = null;
-    let highestScore = 0;
-    for (let i = 1; i < scoreArr.length; i++) {
+    let highestScore = -1000;
+    for (let i = 0; i < scoreArr.length; i++) {
         if (scoreArr[i][1] >= highestScore) {
-            nextMove = scoreArr[i][0];
             highestScore = scoreArr[i][1];
         }
     }
@@ -210,11 +314,9 @@ function checkHigh(scoreArr) { // look for highest score for computer
 
 function checkLow(scoreArr) { // look for lowest score for human
     console.log("checkLow:", scoreArr);
-    let nextMove = null;
-    let lowestScore = 0;
+    let lowestScore = 1000;
     for (let i = 0; i < scoreArr.length; i++) {
         if (scoreArr[i][1] <= lowestScore) {
-            nextMove = scoreArr[i][0];
             lowestScore = scoreArr[i][1];
         }
     }
