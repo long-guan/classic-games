@@ -28,10 +28,10 @@ export function initializeBoard() {
 // add eventListeners for player vs computer mode
 export function initializeBoardForComputer() {
     for (let event of eventArray) {
-        event.removeEventListener('click', addClickEvents), {once: true};
-        event.removeEventListener('click', placeMarker), {once: true};
+        event.removeEventListener('click', addClickEvents, {once: true});
+        event.removeEventListener('click', placeMarker, {once: true});
         event.addEventListener('click', placeMarker, {once: true}); // adds "X" or "O" to display in UI
-        event.addEventListener('click', addComputerClickEvents), {once: true};
+        event.addEventListener('click', addComputerClickEvents, {once: true});
     }
 }
 
@@ -73,7 +73,7 @@ export function addClickEvents() {
     checkWin(board);
 }
 
-function addComputerClickEvents() {
+export function addComputerClickEvents() {
     this.classList.remove('hover');
     updateData(this.className[6]); // updates board array
     addCount();
@@ -89,19 +89,15 @@ const testBoard1 = {
     botLeft: "6", botMid: "O", botRight: "X"
 };
 
-const testBoard2 = {
-    topLeft: "X", topMid: "1", topRight: "2",
-    midLeft: "3", midMid: "X", midRight: "5",
-    botLeft: "6", botMid: "7", botRight: "O"
-};
-
 function computerMove() {
-    let nextMove = getNextMove(testBoard2); // use minimax to calculate computer's next move
-    updateData(nextMove.move); // updates board data with the new move
-    let computerSquare = document.querySelector(".square" + nextMove.move);
-    computerSquare.innerHTML = xOrO(); // places "O" on the UI
-    addCount();
-    computerSquare.classList.remove('hover');
-    computerSquare.removeEventListener('click', placeMarker, {once: true});
-    computerSquare.removeEventListener('click', addComputerClickEvents), {once: true};
+    let nextMove = getNextMove(board); // use minimax to calculate computer's next move
+    if (nextMove !== null && nextMove !== undefined) { // getNextMove returns null when it is a tie
+        updateData(nextMove); // updates board data with the new move
+        let computerSquare = document.querySelector(".square" + nextMove);
+        computerSquare.innerHTML = xOrO(); // places "O" on the UI
+        addCount();
+        computerSquare.classList.remove('hover');
+        computerSquare.removeEventListener('click', placeMarker, {once: true});
+        computerSquare.removeEventListener('click', addComputerClickEvents, {once: true});
+    }
 }

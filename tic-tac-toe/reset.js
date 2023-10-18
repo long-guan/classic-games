@@ -1,6 +1,7 @@
-import {getEventArray, addClickEvents, getBoard} from './gameBoard.js';
+import {getEventArray, addClickEvents, getBoard, initializeBoard, initializeBoardForComputer, addComputerClickEvents} from './gameBoard.js';
 import {placeMarker, resetDisplay} from './displayController.js';
 import {resetMoveCount} from './counter.js';
+import { getMode } from './mode.js';
 
 const resetBtn = document.querySelector(".reset");
 
@@ -11,10 +12,14 @@ export function reset() {
     resetBoard();
     resetDisplay();
     removeListener();
-    addListeners();
     addHover();
     resetMoveCount();
     resetBackground();
+    if (getMode() === false) {
+        initializeBoard();
+    } else {
+        initializeBoardForComputer();
+    }
 }
 
 // resets board array to correspond to index (0, 1, 2, ...)
@@ -39,15 +44,8 @@ export function removeListener() {
     for (let square of getEventArray()) {
         square.removeEventListener("click", addClickEvents);
         square.removeEventListener("click", placeMarker);
+        square.removeEventListener('click', addComputerClickEvents);
     }
-}
-
-// add eventListeners for adding marker and click events
-function addListeners() {
-    for (let event of getEventArray()) {
-        event.addEventListener('click', placeMarker, {once: true});
-        event.addEventListener('click', addClickEvents, {once:true});
-    };
 }
 
 // add hover if square doesn't have hover class

@@ -28,6 +28,10 @@ export function updateModeStatus() {
     }
 }
 
+export function getMode() {
+    return computerModeStatus;
+}
+
 function changeModeSettings() {
     reset();
     updateNameInput(computerModeStatus);
