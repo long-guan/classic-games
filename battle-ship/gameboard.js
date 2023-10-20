@@ -99,7 +99,7 @@ function checkExistShipPlacement(startingCoord, shipObject, yAxis, position) {
                 arrayId = '0' + arrayId; // add the first 0 back (00, 01, 02...)
             }
             if (position[arrayId[0]][arrayId[1]] !== null) {
-                console.log('false');
+                // console.log('false');
                 return false;
             }
         }
