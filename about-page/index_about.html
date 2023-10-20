@@ -24,16 +24,16 @@
                 <div>
                     <h3>Features</h3>
                     <ul>
-                        <li><a href="https://blogs.cornell.edu/info2040/2022/09/13/56590/#:~:text=The%20Minimax%20Tic%2DTac%2DToe,100%25%20chance%20of%20a%20draw.">Minimax Algorithm</a> to create an unbeatable computer. The game will always result in a tie or computer win</li>
+                        <li>Implemented <a href="https://blogs.cornell.edu/info2040/2022/09/13/56590/#:~:text=The%20Minimax%20Tic%2DTac%2DToe,100%25%20chance%20of%20a%20draw.">Minimax Algorithm</a> to create an unbeatable computer. The game will always result in a tie or computer win</li>
                         <li>A tree to represent all the possible outcomes. Each node on the tree has score (Minimax), moves it took to get to that node, and what the board looks like at that node.  </li>
                     </ul>
                 </div>
                 <div>
                     <h3>Built With</h3>
                     <ul>
-                        <li>HTML5</li>
-                        <li>CSS3</li>
-                        <li>Vanilla JS</li>
+                        <li>HTML</li>
+                        <li>CSS</li>
+                        <li>JS</li>
                     </ul>
                 </div>
                 <div>
@@ -72,9 +72,9 @@
                 <div>
                     <h3>Built With</h3>
                     <ul>
-                        <li>HTML5</li>
-                        <li>CSS3</li>
-                        <li>Vanilla JS</li>
+                        <li>HTML</li>
+                        <li>CSS</li>
+                        <li>JS</li>
                     </ul>
                 </div>
                 <div>
@@ -105,6 +105,7 @@
                 <div>
                     <h3>Features</h3>
                     <ul>
+                        <li>Utilized a set of boolean variables to ensure that if the computer lands a hit, it will continue attacking the adjacent coordinates until the ship is sunken to imitate human player logic </li>
                         <li>Utilized object-oriented programming principles to encapsulate game data</li>
                         <li>Uses a type writer effect to display the game actions/statuses</li>
                     </ul>
@@ -112,9 +113,9 @@
                 <div>
                     <h3>Built With</h3>
                     <ul>
-                        <li>HTML5</li>
-                        <li>CSS3</li>
-                        <li>Vanilla JS</li>
+                        <li>HTML</li>
+                        <li>CSS</li>
+                        <li>JS</li>
                     </ul>
                 </div>
                 <div>
@@ -122,14 +123,15 @@
                     <ul>
                         <li>I needed a way to put the SVG of the ships on the board while also displaying the hit markers. So I used two divs layed on top of each other and z-index to create two displays, one to display ships and one to display hit markers</li>
                         <li>I wanted a type writer effect to show the game actions/statuses. So I combined a for loop with setTimeout to change the content of the HTML element letter by letter</li>
+                        <li>While implementing the feature where if the computer lands a hit, it will continue attacking adjacent coordinates until the ship is sunken, I realized it would have been easier to just check the placement of the ship and randomize the next attack to up, left, right, down while knowing which moves will actually result in a hit. Instead, I implemented a feedback loop, resulting in much more lines of code</li>
                     </ul>
                 </div>
                 <div class="margin-bot">
                     <h3>Future Improvements</h3>
                     <ul>
-                        <li>Implement a smarter computer where if it hits a ship, it will hit the adjacent spots until it sinks the entire ship. Currently, all the computer's moves are random</li>
                         <li>Make the app mobile friendly</li>
                         <li>Implement 2 player mode</li>
+                        <li>Implement a smarter computer where it will not choose coordinates that the remaining ships would not fit in</li>
                     </ul>
                 </div>
             </div>

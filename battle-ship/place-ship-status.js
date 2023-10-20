@@ -3,7 +3,6 @@ import {clearAndTypeStatus} from "./attack-phase-loop-status.js"
 export function updatePlaceShipStatus(shipCount, player1Name) {
     if (shipCount === 5) {
         let placeShipText = `${player1Name}, place your Carrier`;
-        console.log('ran')
         clearAndTypeStatus(placeShipText);
     } else if (shipCount === 4) {
         let placeShipText = `${player1Name}, place your Battleship`;

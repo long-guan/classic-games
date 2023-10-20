@@ -23,7 +23,7 @@
 
 .board-cont {
     display: flex;
-    gap: 20px;
+    /* gap: 20px; */
     align-items: center;
 }
 
@@ -54,6 +54,7 @@
     border-style: solid;
     margin: 1px;
     /* background-color: rgb(18, 18, 119); */
+    transition: background-color 1.5s;
 }
 
 .hover:hover {
@@ -101,4 +102,8 @@ button:hover {
     height: 100%;
     width: 100%;
     transform-origin: center;
+}
+
+h3 {
+    margin-bottom: 0;
 }

@@ -32,10 +32,10 @@ export function gameboard() {
                         xCoord = parseInt(xCoord) + 1;
                     }
                 }
-                console.log('ship was placed');
+                // console.log('ship was placed');
                 return true; // return true if ship placement is valid
             } else { // return false if ship placement is invalid
-                console.log('ship was not placed');
+                // console.log('ship was not placed');
                 return false;
             }
         },
@@ -43,7 +43,7 @@ export function gameboard() {
         // records 'hit' in board array if coordinate is object (not null)
         // subtracts 1 to shipLeft when hit
         receiveAttack: function(coordinate) {
-            console.log(`coordinates are ${coordinate}`);
+            // console.log(`coordinates are ${coordinate}`);
             this.coordinatesHit.push(coordinate);
             let xCoord = coordinate[1];
             let yCoord = coordinate[0];
@@ -63,7 +63,7 @@ export function gameboard() {
         },
         // returns true if no more ships left
         gameOver: function() {
-            console.log(this.shipLeft);
+            // console.log(this.shipLeft);
             if (this.shipLeft == 0) {
                 return true;
             }
@@ -91,7 +91,7 @@ function checkOutOfBounds(xCoord, yCoord, shipObject, yAxis) {
 
 // returns true if the placement of ship does not intersect already placed ships
 function checkExistShipPlacement(startingCoord, shipObject, yAxis, position) {
-    console.log(startingCoord);
+    // console.log(startingCoord);
     if (yAxis === true) {
         for (let i = 0; i <= shipObject.length - 1; i++) {
             let arrayId = String(parseInt(startingCoord) + (i * 10));
@@ -110,7 +110,7 @@ function checkExistShipPlacement(startingCoord, shipObject, yAxis, position) {
                 arrayId = '0' + arrayId; // add the first 0 back (00, 01, 02...)
             }
             if (position[arrayId[0]][arrayId[1]] !== null) {
-                console.log('false');
+                // console.log('false');
                 return false;
             }
         }

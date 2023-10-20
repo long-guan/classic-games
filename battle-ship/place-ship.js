@@ -34,7 +34,7 @@ export function placeShip() {
 function updateStatusBoxStyling() {
     let status = document.querySelector('.status');
     status.style.backgroundColor = "white";
-    status.style.width = "600px";
+    status.style.width = "850px";
     status.style.height = "100px";
     status.style.borderRadius = "20px";
     status.style.borderStyle = "solid";

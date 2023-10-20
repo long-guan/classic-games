@@ -1,8 +1,9 @@
 import {createBoard} from './createBoard.js';
 import { player1Board, computerBoard } from './gameboard.js';
-import { returnLegalMove } from './computer.js';
+import { returnLegalMove, hitFeedback } from './computer.js';
 import { statusAwaitingOrders, statusPlayer1Hit, statusPlayer1Miss, statusPlayer1Sunk, statusPlayer1Lose, statusComputerHit, statusComputerMiss, statusComputerAim, statusComputerSunk, statusComputerLose } from './attack-phase-loop-status.js';
 
+let gameOver = false;
 
 export function attackPhaseLoop() {
     setUpAttackPhase();
@@ -18,8 +19,9 @@ function setUpAttackPhase() {
     document.querySelector('.player1Board').remove() // remove player1Board
     createBoard('player1', 'Friendly Water');
     createBoard('computer', 'Enemy Water');
-    document.querySelector('.player1SvgBoard').style.height = "509.438px";
+    document.querySelector('.player1SvgBoard').style.height = "490.719px";
     document.querySelector('.board-cont').style.flexDirection = 'row';
+    document.querySelector('.board-cont').style.gap = '20px';
     statusAwaitingOrders();
 };
 
@@ -59,10 +61,6 @@ function playerAttack() {
     if (attack === true) { // .receiveAttack returns true when hit
         this.style.backgroundColor = 'red';
         statusPlayer1Hit();
-        if (computerBoard.gameOver()) { // checks for win
-            statusComputerLose();
-            return;
-        };
     } else if (attack === false) { // .receiveAttack returns false when hit
         this.style.backgroundColor = 'gray';
         statusPlayer1Miss();
@@ -70,14 +68,18 @@ function playerAttack() {
         this.style.backgroundColor = 'red';
         statusPlayer1Sunk(attack[1]); // .receiveAttack will return [true, shipName] if the ship is sunk
         if (computerBoard.gameOver()) { // checks for win
-            statusComputerLose();
-            return;
+            gameOver = true;
+            setTimeout(() => {
+                statusComputerLose();
+            }, 1000)
         };
     };
     removeClickForAttack(); // removes eventlisteners after each attack so it prevents clicking and waits for the computer's turn to attack
-    setTimeout(() => { // waits 1.5 second before computer attacks
-        computerAttack();
-    }, 1500);
+    if (gameOver === false) {
+        setTimeout(() => { // waits 1 second before computer attacks
+            computerAttack();
+        }, 1000);
+    }
 };
 
 // updates color to be red if hit and gray if miss on Friendly Water board
@@ -89,25 +91,28 @@ function computerAttack() {
     setTimeout(() => {
         let attack = player1Board.receiveAttack(legalCoord);
         if (attack === true) { // .receiveAttack returns true when hit
+            hitFeedback(legalCoord, true);
             computerSquare.style.backgroundColor = 'red';
             statusComputerHit();
-            if (player1Board.gameOver()) { // checks for win
-                statusPlayer1Lose();
-                return;
-            };
         } else if (attack === false) { // .receiveAttack returns false when hit
             computerSquare.style.backgroundColor = 'gray';
+            hitFeedback(legalCoord, false);
             statusComputerMiss();
         } else { // .receiveAttack will return [true, shipName] if the ship is sunk
             computerSquare.style.backgroundColor = 'red';
             statusComputerSunk(attack[1])
+            hitFeedback(legalCoord, true, true);
             if (player1Board.gameOver()) { // checks for win
-                statusPlayer1Lose();
-                return;
+                gameOver = true;
+                setTimeout(() => {
+                    statusPlayer1Lose();
+                }, 1000)
             };
         };
-        addHover();
-        addClickForAttack(); // restarts the loop
+        if (gameOver === false) {
+            addHover();
+            addClickForAttack(); // restarts the loop
+        }
     }, 1000);
 }
 

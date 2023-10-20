@@ -68,7 +68,7 @@ function typeWriter(text, status1, i = 0) {
     if (i < text.length) {
         status1.innerHTML += text[i];
         i++;
-        setTimeout(() => {typeWriter(text, status1, i)}, 10); // update the time to make the typing text effect faster or slower
+        setTimeout(() => {typeWriter(text, status1, i)}, 5); // update the time to make the typing text effect faster or slower
     }
 }
 

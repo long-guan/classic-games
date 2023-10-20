@@ -5,10 +5,21 @@ let boardCont = document.querySelector('.board-cont')
 
 export function onePlayerMode() {
     removeBoardContEle();
-    status.innerHTML = 'Enter Player Name:';
+    status.innerHTML = 'Enter player name:';
     addNameInput();
     addStartBtn();
-    document.querySelector('#startGame').addEventListener('click', placeShip);
+    // document.querySelector('#startGame').addEventListener('click', placeShip);
+    document.querySelector('#startGame').addEventListener('click', validateName);
+}
+
+function validateName() {
+    let nameInput = document.querySelector(".playerName");
+    if (nameInput.value === "") {
+        nameInput.style.borderColor = "red";
+        status.innerHTML = 'Please enter player name to proceed'
+    } else {
+        placeShip();
+    }
 }
 
 // remove all child elements from board-cont
