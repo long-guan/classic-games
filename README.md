@@ -9,6 +9,7 @@ App that allows two human players to play the classic game of Tic Tac Toe and al
 ### Features
 
 * Implemented Minimax Algorithm to create an unbeatable computer. The game will always result in a tie or computer win
+* Created variance in the computer's next move by collecting all the moves with the same minimax score (where the same minimax score indicates the same outcome) and returning the next move randomly
 * A tree to represent all the possible outcomes. Each node on the tree has score (Minimax), moves it took to get to that node, and what the board looks like at that node.
 
 ### Built With

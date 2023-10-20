@@ -55,7 +55,7 @@ export function hitFeedback(lastMoveOnBoard, hitBool, sunkBool=false) {
     } else if (hitBool === true) {
         if (firstHit === null) {
             firstHit = lastMoveOnBoard;
-            console.log(upOne, downOne, leftOne, rightOne);
+            // console.log(upOne, downOne, leftOne, rightOne);
         } else if (downOne.attempt === true && downOne.hit === null) { // true and null when first attempting that direction
             downOne.hit = true;
             lastMove = lastMoveOnBoard;

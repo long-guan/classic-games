@@ -59,19 +59,31 @@ function removeClickForAttack() {
 function playerAttack() {
     let attack = computerBoard.receiveAttack(this.id);
     if (attack === true) { // .receiveAttack returns true when hit
+        this.style.transition = 'background-color 1s';
         this.style.backgroundColor = 'red';
         statusPlayer1Hit();
+        setTimeout(() => {
+            this.style.transition = '';
+        }, 1000);
     } else if (attack === false) { // .receiveAttack returns false when hit
+        this.style.transition = 'background-color 1s';
         this.style.backgroundColor = 'gray';
         statusPlayer1Miss();
+        setTimeout(() => {
+            this.style.transition = '';
+        }, 1000)
     } else {
+        this.style.transition = 'background-color 1s';
         this.style.backgroundColor = 'red';
         statusPlayer1Sunk(attack[1]); // .receiveAttack will return [true, shipName] if the ship is sunk
+        setTimeout(() => {
+            this.style.transition = '';
+        }, 1000);
         if (computerBoard.gameOver()) { // checks for win
             gameOver = true;
             setTimeout(() => {
                 statusComputerLose();
-            }, 1000)
+            }, 1000);
         };
     };
     removeClickForAttack(); // removes eventlisteners after each attack so it prevents clicking and waits for the computer's turn to attack
@@ -92,16 +104,28 @@ function computerAttack() {
         let attack = player1Board.receiveAttack(legalCoord);
         if (attack === true) { // .receiveAttack returns true when hit
             hitFeedback(legalCoord, true);
+            computerSquare.style.transition = 'background-color 1s';
             computerSquare.style.backgroundColor = 'red';
             statusComputerHit();
+            setTimeout(() => {
+                computerSquare.style.transition = '';
+            }, 1000);
         } else if (attack === false) { // .receiveAttack returns false when hit
+            computerSquare.style.transition = 'background-color 1s';
             computerSquare.style.backgroundColor = 'gray';
             hitFeedback(legalCoord, false);
             statusComputerMiss();
+            setTimeout(() => {
+                computerSquare.style.transition = '';
+            }, 1000);
         } else { // .receiveAttack will return [true, shipName] if the ship is sunk
+            computerSquare.style.transition = 'background-color 1s';
             computerSquare.style.backgroundColor = 'red';
             statusComputerSunk(attack[1])
             hitFeedback(legalCoord, true, true);
+            setTimeout(() => {
+                computerSquare.style.transition = '';
+            }, 1000);
             if (player1Board.gameOver()) { // checks for win
                 gameOver = true;
                 setTimeout(() => {
