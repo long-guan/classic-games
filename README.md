@@ -52,6 +52,7 @@ App that calculates and animates the least number of moves needed for a knight t
 
 ### Future Improvements
 
+* Revise the app to be a game where the player has to enter the number of moves for the knight to travel from a random start location to a random end location within a certain time limit
 * Add feature to change the size of the board
 * Use recursion instead of for loops to refactor the algorithm for constructing the tree
 * Revise traverse algorithm to be more efficient by only traversing the nodes that will result in being closer to the end location. It is currently traversing all the possible moves.
